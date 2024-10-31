@@ -1,0 +1,20 @@
+# Fichier de journalisation des script. (N'est pas un livrable). Ce fichier retrace les activités des scripts (navigation dans les menus, actions et demande d'information) sous forme d'éléments factuels. 
+# Ce fichier doit se situer :
+# Pour Windows : dans C:\Windows\System32\LogFiles
+# Pour Linux : dans /var/log
+#
+# Les enregistrements des événements sont sous la forme : <Date>-<Heure>-<Utilisateur>-<Evenement>
+# <Date> : Date de l’evenement au format yyyymmdd
+# <Heure> : Heure de l’evenement au format hhmmss
+# <Utilisateur> : Nom de l’utilisateur courant exécutant le script
+# <Evenement> : Action effectuée (à définir par le groupe)
+#
+# La 1ère entrée de journal (lancement du script) et la dernière (sortie du script) sont indiquées par des lignes spéciales :
+# <Date>-<Heure>-<Utilisateur>-********StartScript********
+# et
+# <Date>-<Heure>-<Utilisateur>-*********EndScript*********
+#
+# Idées d'implémentation :
+# EX : A l'utilisation d'une fonction/commande : 
+# echo "$(date)" [nom_commande ou variable utilisé] >> fichier_journalisation.txt 
+#
