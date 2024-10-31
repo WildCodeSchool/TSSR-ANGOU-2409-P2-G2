@@ -3,8 +3,15 @@
 ## Présentation du projet, objectifs finaux
 L'objectif de ce projet en équipe est de mettre en place une architecture réseau client-server et de créer des scripts Bash et PowerShell fonctionnel. Ces script doivent permettre de réaliser des actions système et des requêtes depuis un server vers des postes clients sur le même réseau. Ces script devront être présenter, et leur leur installation ainsi que leur usages devront être documentés.
 
+Objectifs Semaine 1 : 
+ - Réaliser le squelette du script
+ - Connecter en Réseaux les postes Server/Client Linux et Windows
+Objectifs accomplis au terme de la semaie.
+
 ## Introduction : mise en contexte
-Dans un monde relié en réseaux informatique et ou la réduction des coûts est une prioritée pour l'entreprise, le service informatique n'a plus le temps de jouer au carte. Celui-ci doit veiller à la maintenance et à la gestion du réseau, à accueillir (informatiquement parlant) les nouveaux arrivants dans l'entreprise et à "raccompagner" les partants. Afin de faciliter l'intégration et la désentégration des utilisateurs, gagner en rapidité, en souplesse et pouvoir (enfin !) finir sa partie de solitaire, le technicien informatique peut faire l'usage de script, depuis sa machine, à destination des nouveaux équipements.
+En 2022 un raport de Cisco évaluait le nombre d'équipement numérique connectés à 28.5 milliards et 4.8 millards d'utilisateurs connéctés au réseaux Internet.
+Avec l'augmentation des objets et des services connéctés, les techniciens et services informatiques en charge de l'administration des équipements et réseaux sont donc de plus en plus solistés et ils n'ont plus le temps de jouer au carte. 
+Afin de faciliter l'intégration et la désentégration des utilisateurs et leurs équipements, gagner en rapidité, en souplesse le technicien informatique peut, en s'appuyant sur les maillages réseaux, faire l'usage de script, automatiser ses tâches et enfin finir sa partie de solitaire.
 
 ## Membres du groupe de projet (rôles par sprint)
 
