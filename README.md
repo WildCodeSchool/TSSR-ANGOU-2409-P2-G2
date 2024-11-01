@@ -22,8 +22,7 @@ Product Owner : Thomas
 Scrum Manager : Mathieu
  
 Techniciens : 
-Frederic
-Tristan 
+Frederic, Tristan 
 
 ## Choix techniques : quel OS, quelle version, etc.
 
