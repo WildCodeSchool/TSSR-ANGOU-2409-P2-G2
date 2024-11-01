@@ -17,15 +17,13 @@ Afin de faciliter l'intégration et la désentégration des utilisateurs et leur
 
 ### Sprint 1
 
-Product Owner : 
- - Thomas
+Product Owner : Thomas
  
-Scrum Manager : 
- - Mathieu
+Scrum Manager : Mathieu
  
 Techniciens : 
- - Frederic
- - Tristan 
+Frederic
+Tristan 
 
 ## Choix techniques : quel OS, quelle version, etc.
 
