@@ -6,7 +6,6 @@ L'objectif de ce projet en équipe est de mettre en place une architecture rése
 Objectifs Semaine 1 : 
  - Réaliser le squelette du script
  - Connecter en Réseaux les postes Server/Client Linux et Windows
-Objectifs accomplis au terme de la semaie.
 
 ## Introduction : mise en contexte
 En 2022 un raport de Cisco évaluait le nombre d'équipement numérique connectés à 28.5 milliards et 4.8 millards d'utilisateurs connéctés au réseaux Internet.
