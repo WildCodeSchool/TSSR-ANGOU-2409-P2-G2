@@ -5,8 +5,52 @@
 adresse_ip=""
 nom_utilisateur=""
 
-# Fonctions 
+réseaux(){
 
+echo "Menu Réseaux"
+
+echo "1) Affichage addresse mac"
+echo "2) Nombre d'interface réseaux"
+echo "3) Affichage adresse IP"
+echo "4) Affichage liste ports ouvert"
+echo "r) Retour au menu précédent"
+echo "x) retour au menu principal"
+read -p "faites votre choix :" choix
+case $choix in
+
+        1)
+                ip a | grep link/ether | cut -d\  -f 6
+                réseaux;;
+
+        2)
+                ;;
+
+        3)
+                ip a | grep inet | cut -d\  -f 6
+
+                réseaux;;
+
+        4)
+                ss -tulpn
+
+                réseaux;;
+
+        r)
+                echo "retour au menu précédent"
+                menuprécédent;;
+
+        x)
+                echo "retour au menu principal"
+                menu_principal;;
+
+        *)
+                echo "mauvaise commande veuillez réesayer"
+                réseaux;;
+esac
+}
+
+
+# Fonctions
 
 function creation_compte_utilisateur() {
 
