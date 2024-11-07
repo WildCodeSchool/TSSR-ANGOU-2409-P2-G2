@@ -17,26 +17,26 @@ case $choix_journalisation in
 		1)
 			read -p "Entré le nom d'utilisateur :" utilisateur
 			cat log_evt.log | grep "$utilisateur"
-			echo "$USER $(date) à Rechercher des événements éffectuer par $utilisateur" >> log_evt.log 
+			echo "$USER $(date) à Rechercher des événements éffectuer par $utilisateur" >> /var/log/log_evt.log 
 			menu_journalisation;;
 		2) 
 			cat log_evt.log
-			echo "$USER $(date) à éffectuer l'action Affichage des événement de l'Ordinateur" >> log_evt.log 
+			echo "$USER $(date) à éffectuer l'action Affichage des événement de l'Ordinateur" >> /var/log/log_evt.log 
 			menu_journalisation;;
 		r) 
 			echo "Retour au Menu Précédent"
-			echo "$USER $(date) est Retourner au Menu Précédent" >> log_evt.log
+			echo "$USER $(date) est Retourner au Menu Précédent" >> /var/log/log_evt.log 
 			menu_information;;
 		x)
 			echo "Retour au Menu Principal"
-			echo "$USER $(date) est Retourner au Menu Principal" >> log_evt.log
+			echo "$USER $(date) est Retourner au Menu Principal" >> /var/loglog_evt.log
 			menu_principal;;
 
 esac
 }
 menu_réseaux(){
 
-echo "Menu Réseaux"
+echo "Menu Information Réseaux"
 
 echo "1) Affichage adresse mac"
 echo "2) Nombre d'interface réseaux"
@@ -49,37 +49,37 @@ case $choix_reseaux in
 
 	1)
 		ip a | grep link/ether | cut -d\  -f 6
-		echo "$USER $(date) à effectuer l'action Affichage de l'adresse mac" >> log_evt.log
+		echo "$USER $(date) à effectuer l'action Affichage de l'adresse mac" >> /var/log/log_evt.log
 		menu_réseaux;;
 
 	2)
 		ls /sys/class/net/ | wc -l
-		echo "$USER $(date) à effectuer l'action Affichage du nombre d'interface réseaux" >> log_evt.log
+		echo "$USER $(date) à effectuer l'action Affichage du nombre d'interface réseaux" >> /var/log/log_evt.log
 		menu_réseaux;;
 
 	3)
 		ip a | grep inet | cut -d\  -f 6
-		echo "$USER $(date) à effectuer l'action Affichage adresse IP" >> log_evt.log
+		echo "$USER $(date) à effectuer l'action Affichage adresse IP" >> /var/log/log_evt.log
 		menu_réseaux;;
 
 	4)
 		ss -tulpn
-		echo "$USER $(date) à effectuer l'action Affichage liste ports ouvert" >> log_evt.log
+		echo "$USER $(date) à effectuer l'action Affichage liste ports ouvert" >> /var/log/log_evt.log
 		menu_réseaux;;
 
 	r)
 		echo "retour au menu précédent"
-		echo "$USER $(date) est Retourner au Menu Précédent" >> log_evt.log
+		echo "$USER $(date) est Retourner au Menu Précédent" >> /var/log/log_evt.log
 		menu_information;;
 
 	x)
 		echo "Retour au Menu Principal"
-		echo "$USER $(date) est Retourner au Menu Principal" >> log_evt.log
+		echo "$USER $(date) est Retourner au Menu Principal" >> /var/log/log_evt.log
 		menu_principal;;
 
 	*)
 		echo "mauvaise commande veuillez réesayer"
-		echo "$USER $(date) à Utiliser une mauvaise commande" >> log_evt.log 
+		echo "$USER $(date) à Utiliser une mauvaise commande" >> /var/log/log_evt.log 
 		menu_réseaux;;
 esac
 }
@@ -98,28 +98,28 @@ case $choix_menu in
 
 		1)
 			echo "Ouverture Menu Information Compte / Utilisateurs"
-			echo "$USER $(date) à Sélectionner le Menu Information Compte / Utilisateur" >> log_evt.log
+			echo "$USER $(date) à Sélectionner le Menu Information Compte / Utilisateur" >> /var/log/log_evt.log
 			menu_compte;;
 		2) 
 			echo "Ouverture Menu Réseaux"
-			echo "$USER $(date) à Sélectionner le Menu Réseaux" >> log_evt.log
+			echo "$USER $(date) à Sélectionner le Menu Réseaux" >> /var/log/log_evt.log
 			menu_réseaux;;
 		3)
 			echo "Ouverture Menu système"
-			echo "$USER $(date) à Sélectionner le Menu Système" >> log_evt.log
+			echo "$USER $(date) à Sélectionner le Menu Système" >> /var/log/log_evt.log
 			menu_système;;
 		4)
 			echo "Ouverture Menu sécurité"
-			echo "$USER $(date) à Sélectionner le Menu Sécurité" >> log_evt.log
+			echo "$USER $(date) à Sélectionner le Menu Sécurité" >> /var/log/log_evt.log
 			menu_sécurité;;
 
 		5)
 			echo "Ouverture Menu Journalisation"
-			echo "$USER $(date) à choisi de Conulter le journal des évenements" >> log_evt.log
+			echo "$USER $(date) à choisi de Conulter le journal des évenements" >> /var/log/log_evt.log
 			menu_journalisation;;
 		x)
 			echo "Retour au Menu Principal"
-			echo "$USER $(date) est Retourner au Menu Principal" >> log_evt.log
+			echo "$USER $(date) est Retourner au Menu Principal" >> /var/log/log_evt.log
 			menu_principale;;
 esac
 }
@@ -129,7 +129,7 @@ esac
 function creation_compte_utilisateur() {
 
 read -p "Nom de l'utilisateur dont le compte doit être créer ? " user_account
-echo "$date - Création du mot de passe pour l'utilisateur $user_account" >> log_evt.log 
+echo "$date - Création du mot de passe pour l'utilisateur $user_account" >> /var/log/log_evt.log 
 
 ssh $nom_utilisateur@$adresse_ip "sudo -S useradd -m $user_account"
 echo "mot de passe créer pour l'utilisateur $user_account
