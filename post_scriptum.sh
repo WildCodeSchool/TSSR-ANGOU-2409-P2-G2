@@ -102,7 +102,7 @@ case $choix_menu in
 			menu_compte;;
 		2) 
 			echo "Ouverture Menu Réseaux"
-			echo "$USER $(date) à Sélectionner le Menu Réseaux" >> /var/log/log_evt.log
+			echo "$USER $(date) à Sélectionner le Menu Information Réseaux" >> /var/log/log_evt.log
 			menu_réseaux;;
 		3)
 			echo "Ouverture Menu système"
