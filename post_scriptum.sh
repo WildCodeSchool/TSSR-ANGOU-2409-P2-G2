@@ -5,50 +5,124 @@
 adresse_ip=""
 nom_utilisateur=""
 
-réseaux(){
+menu_journalisation(){
+echo "Menu Journalisation"
+echo "1) Recherche des événements dans le fichier log_evt.log par utilisateur"
+echo "2) Affichage des événements éffectuer sur l'Ordinateur"
+echo "r) Retour au Menu Précédent"
+echo "x) Retour au Menu Principal"
+read -p "faites votre choix :" choix_journalisation
+case $choix_journalisation in
+
+		1)
+			read -p "Entré le nom d'utilisateur :" utilisateur
+			cat log_evt.log | grep "$utilisateur"
+			echo "$USER $(date) à Rechercher des événements éffectuer par $utilisateur" >> log_evt.log 
+			menu_journalisation;;
+		2) 
+			cat log_evt.log
+			echo "$USER $(date) à éffectuer l'action Affichage des événement de l'Ordinateur" >> log_evt.log 
+			menu_journalisation;;
+		r) 
+			echo "Retour au Menu Précédent"
+			echo "$USER $(date) est Retourner au Menu Précédent" >> log_evt.log
+			menu_information;;
+		x)
+			echo "Retour au Menu Principal"
+			echo "$USER $(date) est Retourner au Menu Principal" >> log_evt.log
+			menu_principal;;
+
+esac
+}
+menu_réseaux(){
 
 echo "Menu Réseaux"
 
-echo "1) Affichage addresse mac"
+echo "1) Affichage adresse mac"
 echo "2) Nombre d'interface réseaux"
 echo "3) Affichage adresse IP"
 echo "4) Affichage liste ports ouvert"
-echo "r) Retour au menu précédent"
-echo "x) retour au menu principal"
-read -p "faites votre choix :" choix
-case $choix in
+echo "r) Retour au Menu Précédent"
+echo "x) Retour au Menu Principal"
+read -p "faites votre choix :" choix_reseaux
+case $choix_reseaux in
 
-        1)
-                ip a | grep link/ether | cut -d\  -f 6
-                réseaux;;
+	1)
+		ip a | grep link/ether | cut -d\  -f 6
+		echo "$USER $(date) à effectuer l'action Affichage de l'adresse mac" >> log_evt.log
+		menu_réseaux;;
 
-        2)
-                ;;
+	2)
+		ls /sys/class/net/ | wc -l
+		echo "$USER $(date) à effectuer l'action Affichage du nombre d'interface réseaux" >> log_evt.log
+		menu_réseaux;;
 
-        3)
-                ip a | grep inet | cut -d\  -f 6
+	3)
+		ip a | grep inet | cut -d\  -f 6
+		echo "$USER $(date) à effectuer l'action Affichage adresse IP" >> log_evt.log
+		menu_réseaux;;
 
-                réseaux;;
+	4)
+		ss -tulpn
+		echo "$USER $(date) à effectuer l'action Affichage liste ports ouvert" >> log_evt.log
+		menu_réseaux;;
 
-        4)
-                ss -tulpn
+	r)
+		echo "retour au menu précédent"
+		echo "$USER $(date) est Retourner au Menu Précédent" >> log_evt.log
+		menu_information;;
 
-                réseaux;;
+	x)
+		echo "Retour au Menu Principal"
+		echo "$USER $(date) est Retourner au Menu Principal" >> log_evt.log
+		menu_principal;;
 
-        r)
-                echo "retour au menu précédent"
-                menuprécédent;;
-
-        x)
-                echo "retour au menu principal"
-                menu_principal;;
-
-        *)
-                echo "mauvaise commande veuillez réesayer"
-                réseaux;;
+	*)
+		echo "mauvaise commande veuillez réesayer"
+		echo "$USER $(date) à Utiliser une mauvaise commande" >> log_evt.log 
+		menu_réseaux;;
 esac
 }
 
+menu_information(){
+
+echo "Menu Information"
+echo "1) Menu Information Compte / Utilisateurs"
+echo "2) Menu Information Réseaux"
+echo "3) Menu système"
+echo "4) Menu sécurité"
+echo "5) Consulter le journal des événements"
+echo "x) Retour au Menu principal"
+read -p "A qu'elle menu voulez vous accéder :" choix_menu
+case $choix_menu in 
+
+		1)
+			echo "Ouverture Menu Information Compte / Utilisateurs"
+			echo "$USER $(date) à Sélectionner le Menu Information Compte / Utilisateur" >> log_evt.log
+			menu_compte;;
+		2) 
+			echo "Ouverture Menu Réseaux"
+			echo "$USER $(date) à Sélectionner le Menu Réseaux" >> log_evt.log
+			menu_réseaux;;
+		3)
+			echo "Ouverture Menu système"
+			echo "$USER $(date) à Sélectionner le Menu Système" >> log_evt.log
+			menu_système;;
+		4)
+			echo "Ouverture Menu sécurité"
+			echo "$USER $(date) à Sélectionner le Menu Sécurité" >> log_evt.log
+			menu_sécurité;;
+
+		5)
+			echo "Ouverture Menu Journalisation"
+			echo "$USER $(date) à choisi de Conulter le journal des évenements" >> log_evt.log
+			menu_journalisation;;
+		x)
+			echo "Retour au Menu Principal"
+			echo "$USER $(date) est Retourner au Menu Principal" >> log_evt.log
+			menu_principale;;
+esac
+}
 
 # Fonctions
 
