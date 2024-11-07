@@ -94,3 +94,60 @@ case $rep1 in
 esac
 done
 
+#menu information système 
+
+menu_information_systeme() 
+{
+
+echo "Menu Information Système"
+
+echo "1) Informations du processeur :"
+echo "2) Mémoire RAM Totale"
+echo "3) Utilisation de la RAM"
+echo "4) Utilisation du processeur"
+echo "5) Utilisation du disque"
+echo "6) La version du système d'exploitation"
+echo "7) Liste des applications installées"
+echo "r) Retour au Menu Précédent"
+echo "x) Retour au Menu Principal"
+read -p  "Quel est votre choix ?" choix_information_system
+case $choix_information_system in 
+
+        1)      echo "Informations du CPU ( type de processeur)"
+                lscpu;;
+
+        2)      echo "Mémoire RAM totale"
+                cat /proc/meminfo;;
+
+        3)      echo "Utilisation de la RAM" 
+                free;;
+
+        4)      echo "Utilisation du processeur"
+                top;;
+
+        5)      echo "Utilisation du disque"
+                lsblk -f;;
+
+        6)      echo "Version de l'OS :"
+                lsb_release -a ;; 
+
+        7)      echo "Liste des applications installées :"
+                sudo dpkg -l;;
+
+        r)      echo "Retour au Menu Précédent"
+                menu_information;;
+
+        x)      echo "Retour au Menu Principal" 
+                menu_principal;;
+
+
+
+esac
+}
+
+menu_information_systeme
+
+
+
+
+
