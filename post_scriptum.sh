@@ -28,7 +28,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
         getfacl $directory | grep user;;
 
         2) echo "Droits/Permissions de l'utilisateur sur un fichier"
-        echo"Quel fichier voulez vous sélectionner ?" read -p  $file
+        read -p "Quel fichier voulez vous sélectionner ?" $file
         getfacl $file | grep user;;
 
         3) echo "Date de dernière connexion d'un utilisateur"
