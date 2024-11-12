@@ -66,5 +66,5 @@ Installation et configuration de debian server ?
 
 ## Améliorations possibles : suggestions d’améliorations futures
 
-- Utiliser le script autrement qu'en SSH
+- Utiliser le script autrement qu'en connexion SSH
 
