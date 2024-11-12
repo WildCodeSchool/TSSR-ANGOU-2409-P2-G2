@@ -24,7 +24,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
         case $choix_information_utilisateur in 
 
         1) echo "Droits/Permissions de l'utilisateur sur un dossier" 
-        echo "Quel dossier vous séléctionner ?" read -p $directory      
+        read -p "Quel dossier vous séléctionner ?" $directory      
         getfacl $directory | grep user;;
 
         2) echo "Droits/Permissions de l'utilisateur sur un fichier"
