@@ -23,6 +23,33 @@ Scrum Manager : Mathieu
 Techniciens : 
 Frederic, Tristan 
 
+### Sprint 2
+
+Product Owner : Fred
+ 
+Scrum Manager : Thomas
+ 
+Techniciens : 
+Mathieu, Tristan 
+
+### Sprint 3
+
+Product Owner : Tristan
+ 
+Scrum Manager : Fred
+ 
+Techniciens : 
+Thomas, Mathieu
+
+### Sprint 4
+
+Product Owner : 
+ 
+Scrum Manager : 
+ 
+Techniciens : 
+
+
 ## Choix techniques : quel OS, quelle version, etc.
 
 Server Debian 12
