@@ -4,7 +4,7 @@
 ## Prérequis techniques
 
 
-### lancer le serveur SSH
+### Lancer le serveur SSH
 
 - sudo ifdown "nom_interface"
 - sudo ifup "nom_interface"
