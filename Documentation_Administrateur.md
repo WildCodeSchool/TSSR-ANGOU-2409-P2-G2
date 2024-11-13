@@ -4,6 +4,15 @@
 ## Prérequis techniques
 
 
+### lancer le serveur SSH
+
+- sudo ifdown "nom_interface"
+- sudo ifup "nom_interface"
+- sudo systemctl restart ssh
+
+
+
+
 ## Étapes d'installation et de conf. : instruction étape par étape
 
 
