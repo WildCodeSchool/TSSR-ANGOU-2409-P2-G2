@@ -28,7 +28,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
 
         2) clear
         echo "Droits/Permissions de l'utilisateur sur un fichier"
-        read -p "Quel fichier voulez vous sélectionner ?" $file
+        read -p "Quel fichier voulez vous sélectionner avec son emplacement ( ./path/nom_fichier ) ?" $file
         ssh $nom_utilisateur@$adresse_ip "sudo getfacl $file | grep user"
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
