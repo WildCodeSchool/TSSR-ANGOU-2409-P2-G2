@@ -572,12 +572,12 @@ case $choix_reseaux in
 
 		r)
 			echo "retour au menu précédent"
-			echo "$(date +%F-%X) - $USER - est Retourner au Menu Précédent" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est Retourné au Menu Précédent" >> /var/log/log_evt.log
 			menu_information;;
 
 		x)
 			echo "Retour au Menu Principal"
-			echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est Retourné au Menu Principal" >> /var/log/log_evt.log
 			sleep 3
 			menu_principal;;
 		q)
@@ -590,13 +590,13 @@ case $choix_reseaux in
 			
 		*)
 			echo "mauvaise commande veuillez réesayer"
-			echo "$(date +%F-%X) - $USER - à Utiliser une mauvaise commande" >> /var/log/log_evt.log 
+			echo "$(date +%F-%X) - $USER - à Utilisé une mauvaise commande" >> /var/log/log_evt.log 
 			sleep 3
 			menu_information_reseaux;;
 
 esac
 }
-
+# Permet d'établir de nouvelles règles sur le pare-feu
 menu_regle_parefeu () {
 
 	read -p "Vous désirez : 
@@ -615,7 +615,6 @@ menu_regle_parefeu () {
 			echo "Autorisation/Ouverture : "
 			read -p "De quel port ? (entrez le numéro du port ou laissez vide et appuyez sur entrée) " port
 			read -p "De quel protocole ? (entrez le nom du protocole ou laissez vide et appuyez sur entrée) " protocole
-			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
 			;;
 		I)
 			clear
@@ -623,17 +622,16 @@ menu_regle_parefeu () {
 			echo "Interdiction/Fermeture : "
 			read -p "De quel port ? (entrez le numéro du port ou laissez vide et appuyez sur entrée) " port
 			read -p "De quel protocole ? (entrez le nom du protocole ou laissez vide et appuyez sur entrée) " protocole
-			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
 			;;
 
 		r)
 			echo "Retour au menu Action sur les Pare-Feux"
-			echo "$(date +%F-%X) - $USER - est Retourner au Menu Précédent" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est Retourné au Menu Précédent" >> /var/log/log_evt.log
 			menu_gestion_parefeu;;
 			
 		x)
 			echo "Retour au menu Principal"
-			echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est Retourné au Menu Principal" >> /var/log/log_evt.log
 			menu_principal;;
 		
 		q)
@@ -647,19 +645,23 @@ menu_regle_parefeu () {
 			echo "Mauvaise commande veuillez réessayer"
 			menu_regle_parefeu;;
 	esac
-	
+	# Vérifie que l'utilisateur a bien séléctionné un port ou un protocole à modifier pour établir une nouvelle règle sur le pare-feu
 	if [ $protocole -z ] && [ $port -z ]
 	then	
 		echo "Aucun port où protocole n'a été séléctionné "
 		clear
+  		echo "$(date +%F-%X) - $USER - n'a défini aucune nouvelle règle de pare-feu" >> /var/log/log_evt.log
 		menu_gestion_parefeu
+
+	# Applique la nouvelle règle de pare-feu
 	else
 		echo "Nouvelle règle de pare feu établie : $port $protocole $action"
 		sudo ufw $action $port $protocole
-		echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+		echo "$(date +%F-%X) - $USER - a défini $action $protocole $port comme nouvelle règle de pare-feu" >> /var/log/log_evt.log
 		menu_regle_parefeu
 	fi
-}	
+}
+# Menu de gestion basic du pare-feu. Permet d'accéder à la gestion avancé du parefeu (établir de nouvelles règles)
 menu_gestion_parefeu () {
 
 	echo "Menu Gestion du Pare-feu
@@ -675,28 +677,28 @@ menu_gestion_parefeu () {
 
 	case $choix in
 		1)
-			echo "Le pare-feu est désactivé"
+			echo "Le pare-feu est Activé"
 			sudo ufw enable
-			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a Activé le pare-feu" >> /var/log/log_evt.log
 			menu_gestion_parefeu;;
 		2)
-			echo "Le pare-feu est activé"
+			echo "Le pare-feu est désactivé"
 			sudo ufw disable
-			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a désactivé le pare-feu" >> /var/log/log_evt.log
 			menu_gestion_parefeu;;
 		3)
 			echo "Définition d'une nouvelle règle de pare-feu"
-			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a choisi de définir une nouvelle règle de pare-feu" >> /var/log/log_evt.log
 			sleep 1
 			menu_regle_parefeu;;
 		r)
 			echo "Retour au menu Action"
-			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est Retourné au Menu Action" >> /var/log/log_evt.log
 			menu_action;;
 			
 		x)
 			echo "Retour au Menu Principal"
-			echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est Retourné au Menu Principal" >> /var/log/log_evt.log
 			menu_principal;;
 			
 		q)
@@ -728,42 +730,42 @@ case $choix_menu in
 
 		1)
 			echo "Ouverture Menu Information Compte / Utilisateurs"
-			echo "$(date +%F-%X) - $USER - à Sélectionner le Menu Information Compte / Utilisateur" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a Sélectionné le Menu Information Compte / Utilisateur" >> /var/log/log_evt.log
 			sleep 2
 			clear
 			menu_information_utilisateur;;
 
 		2)
 			echo "Ouverture Menu Réseaux"
-			echo "$(date +%F-%X) - $USER - à Sélectionner le Menu Réseaux" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a Sélectionné le Menu Réseaux" >> /var/log/log_evt.log
 			sleep 2
 			clear
 			menu_information_reseaux;;
 
 		3)
 			echo "Ouverture Menu système"
-			echo "$(date +%F-%X) - $USER - à Sélectionner le Menu Système" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a Sélectionné le Menu Système" >> /var/log/log_evt.log
 			sleep 2
 			clear
 			menu_information_systeme;;
 
 		4)
 			echo "Ouverture Menu sécurité"
-			echo "$(date +%F-%X) - $USER - à Sélectionner le Menu Sécurité" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a Sélectionné le Menu Sécurité" >> /var/log/log_evt.log
 			sleep 2
 			clear
 			menu_information_pare_feu;;
 
 		5)
 			echo "Ouverture Menu Journalisation"
-			echo "$(date +%F-%X) - $USER - à choisi de Consulter le journal des évenements" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a choisi de Conulter le journal des évenements" >> /var/log/log_evt.log
 			sleep 2
 			clear
 			menu_journalisation;;
 
 		x)
 			echo "Retour au Menu Principal"
-			echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est Retourné au Menu Principal" >> /var/log/log_evt.log
 			menu_principal;;
 			
 		q)
@@ -776,7 +778,7 @@ case $choix_menu in
 			
 		*)
 			echo "mauvaise commande veuillez réesayer"
-			echo "$(date +%F-%X) - $USER - à Utiliser une mauvaise commande" >> /var/log/log_evt.log 
+			echo "$(date +%F-%X) - $USER - a Utilisé une mauvaise commande" >> /var/log/log_evt.log 
 			menu_information;;
 
 esac
@@ -795,19 +797,19 @@ clear
 	case $choix in
 		1)	
 			clear
-			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a Sélectionné le Menu Compte et Utilisateur" >> /var/log/log_evt.log
 			action_comptes_utilisateurs;;
 		2)
 			clear
-			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a Sélectionné le Menu Action sur le Système" >> /var/log/log_evt.log
 			action_systeme;;
 		3)
 			clear
-			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a Sélectionné le Menu Sécurité" >> /var/log/log_evt.log
 			menu_gestion_parefeu;;
 		x)
 			echo "Retour au menu principal "
-			echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est Retourné au Menu Principal" >> /var/log/log_evt.log
 			menu_principal;;
 			
 		q)
@@ -824,6 +826,7 @@ clear
 			
 	esac	
 }
+# Fcontion du Menu principal. Envoie l'utilisateur vers les sous-menus/fonctions Information et action
 menu_principal () {
 clear
 	echo "__________________________________________________"
@@ -843,10 +846,10 @@ clear
 	
 	case $choix in
 		1)
-			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a Sélectionné le Menu Effectuer des actions" >> /var/log/log_evt.log
 			menu_action;;
 		2)
-			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a Sélectionné le Menu Rechercher des Informations" >> /var/log/log_evt.log
 			menu_information;;
 		x)
 			echo "Vous quittez le script"
@@ -861,7 +864,7 @@ clear
 
 		esac
 }
-
+# Donne les droits d'accès en écriture au fichier de journalisation et Début de la Journalisation dans le fichier log_evt.log
 chmod 777 /var/log/log_evt.log
 chmod 777 /var/log
 chmod 777 /var
