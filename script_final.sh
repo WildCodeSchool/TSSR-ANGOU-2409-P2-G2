@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #Menu information utilitsateur 
 menu_information_utilisateur()
 { 
@@ -487,7 +488,7 @@ case $choix_journalisation in
 
 		1)
 			clear
-			read -p "Entré le nom d'utilisateur :" utilisateur
+			read -p "Entrer le nom d'utilisateur :" utilisateur
 			cat /var/log/log_evt.log | grep "$utilisateur"
 			echo "$(date +%F-%X) - $USER - à Rechercher des événements éffectuer par $utilisateur" >> /var/log/log_evt.log 
 			read -p "appuyer sur entrée pour continuer :"
@@ -651,9 +652,10 @@ menu_regle_parefeu () {
 		clear
   		echo "$(date +%F-%X) - $USER - n'a défini aucune nouvelle règle de pare-feu" >> /var/log/log_evt.log
 		menu_gestion_parefeu
+
 	# Applique la nouvelle règle de pare-feu
- 	else
-		echo "Nouvelle regle de pare feu établie : $port $protocole $action "
+	else
+		echo "Nouvelle règle de pare feu établie : $port $protocole $action"
 		sudo ufw $action $port $protocole
 		echo "$(date +%F-%X) - $USER - a défini $action $protocole $port comme nouvelle règle de pare-feu" >> /var/log/log_evt.log
 		menu_regle_parefeu
@@ -666,7 +668,7 @@ menu_gestion_parefeu () {
 
 	1) Activation du Pare-feu
 	2) Désactivation du Pare-feu
-	3) Définire une nouvelle règle de pare-feu
+	3) Définir une nouvelle règle de pare-feu
 	r) Retour au menu Action
 	x) Retour au menu Principal
 	q) Sortie Script
@@ -827,11 +829,17 @@ clear
 # Fcontion du Menu principal. Envoie l'utilisateur vers les sous-menus/fonctions Information et action
 menu_principal () {
 clear
-	echo "Menu Principal
+	echo "__________________________________________________"
+	echo "|:						:|"
+	echo "|:						:|"
+	echo "|:	    	  MENU PRINCIPAL 		:|"
+	echo "|:						:|"
+	echo "|:______________________________________________:|
 	
 	1) Effectuer des actions (exemple : créer un dossier, activer un par-feu...)
 	2) Rechercher des informations (exemple : liste des utilisateurs, utilisation de la RAM....)	
 	x) Quitter le script"
+	
 
 	
 	read -p "Que souhaitez-vous réaliser ? " choix
