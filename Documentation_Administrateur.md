@@ -24,7 +24,7 @@ Après avoir saisi vos identifiants de connexion au server Debian, pour prendre 
   - `sudo systemctl restart ssh`
 
 #### Installation et Configuration
-- Avant tout execution du script, assurez vous que le fichier __log_evt.log__ soit présent à l'emplacement ̀/var/log/̀ de l'ordinateur sur lequel vous allez l'exécuter.
+- Avant tout execution du script, assurez vous que le fichier `log_evt.log` soit présent à l'emplacement `/var/log/` de l'ordinateur sur lequel vous allez l'exécuter.
 - S'il n'existe pas, creez le fichier :
   - `log_evt.log`
 
