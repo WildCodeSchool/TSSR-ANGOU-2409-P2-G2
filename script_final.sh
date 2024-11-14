@@ -21,7 +21,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
 
         1) clear 
         echo "Droits/Permissions de l'utilisateur sur un dossier" 
-        read -p "Quel dossier vous séléctionner ?" $directory      
+        read -p "Quel dossier vous séléctionner ( ./path/nom_dossier ) ?" $directory      
         ssh $nom_utilisateur@$adresse_ip "sudo getfacl $directory | grep user"
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
