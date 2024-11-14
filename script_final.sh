@@ -1,5 +1,5 @@
 #!/bin/bash
-echo $() >> $nom_fichier_texte.txt
+#echo $() >> $nom_fichier_texte.txt
 #Menu information utilitsateur 
 
 menu_information_utilisateur()
@@ -23,6 +23,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
         echo "Droits/Permissions de l'utilisateur sur un dossier" 
         read -p "Quel dossier vous séléctionner ( ./path/nom_dossier ) ?" $directory      
         ssh $nom_utilisateur@$adresse_ip "sudo getfacl $directory | grep user"
+	echo $(sudo getfacl $directory | grep user) >> $nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
@@ -30,35 +31,40 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
         echo "Droits/Permissions de l'utilisateur sur un fichier"
         read -p "Quel fichier voulez vous sélectionner avec son emplacement ( ./path/nom_fichier ) ?" $file
         ssh $nom_utilisateur@$adresse_ip "sudo getfacl $file | grep user"
+	echo $(sudo getfacl $file | grep user) >> $nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
         3) clear
         echo "Date de dernière connexion d'un utilisateur"
         ssh $nom_utilisateur@$adresse_ip "last $nom_utilisateur"
+	echo $(last $nom_utilisateur) >> $nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
         4) clear
         echo "Date de dernière modification du mot de passe de l'utilisateur"
         ssh $nom_utilisateur@$adresse_ip "passwd $nom_utilisateur -S"
+	echo $(passwd $nom_utilisateur -S) >> $nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
         5) clear
         echo "Liste des sessions ouvertes par l'utilisateur"
         ssh $nom_utilisateur@$adresse_ip "w"
+	echo $(w) >> $nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
         6) clear
         echo "Liste des utilisateurs locaux"
         ssh $nom_utilisateur@$adresse_ip "cut -d: -f1 /etc/passwd"
+	echo $(cut -d: -f1 /etc/passwd) >> $nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
         r) clear
-           echo "Retour au Menu Précédent" 
+           echo "Retour au Menu Précédent"
            echo "$(date +%F-%X) - $USER - est Retourner au Menu Précédent" >> /var/log/log_evt.log
            menu_information;;
         
@@ -104,42 +110,49 @@ case $choix_information_system in
         1)      clear
         	echo "Informations du CPU ( type de processeur)"
                 ssh $nom_utilisateur@$adresse_ip "lscpu"
+		echo $(lscpu) >> $nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
         2)      clear
         	echo "Mémoire RAM totale"
                 ssh $nom_utilisateur@$adresse_ip "cat /proc/meminfo"
+		echo $(cat /proc/meminfo) >> $nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
         3)      clear
         	echo "Utilisation de la RAM" 
                 ssh $nom_utilisateur@$adresse_ip "free"
+		echo $(free) >> $nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
         4)      clear
         	echo "Utilisation du processeur"
                 ssh $nom_utilisateur@$adresse_ip "top"
+		echo $(top) >> $nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
         5)      clear
         	echo "Utilisation du disque"
                 ssh $nom_utilisateur@$adresse_ip "lsblk -f"
+		echo $(lsblk -f) >> $nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
         6)      clear
         	echo "Version de l'OS :"
                 ssh $nom_utilisateur@$adresse_ip "lsb_release -a" 
+		echo $(lsb_release -a) >> $nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;; 
 
         7)      clear
         	echo "Liste des applications installées :"
                 ssh $nom_utilisateur@$adresse_ip "sudo dpkg -l"
+		echo $(sudo dpkg -l) >> $nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
