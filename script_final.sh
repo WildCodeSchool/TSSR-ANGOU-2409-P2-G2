@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #Menu information utilitsateur 
+
 menu_information_utilisateur()
 { 
 
@@ -87,7 +88,7 @@ menu_information_systeme()
 echo "Menu Information Système"
 
 echo "1) Informations du processeur :"
-echo "2) Mémoire RAM Totale"
+echo "2) Mémoire RAM totale"
 echo "3) Utilisation de la RAM"
 echo "4) Utilisation du processeur"
 echo "5) Utilisation du disque"
@@ -287,7 +288,7 @@ action_systeme() {
 
 
 
- # Fonctions pour le menu Action - Système
+ # Déclaration des Fonctions pour le menu Action - Système
 
 
 creation_repertoire () {
@@ -323,7 +324,7 @@ installation_logiciel () {
 
 desinstallation_logiciel () {
 
-        read -p "Nom du package à installer ? " desinstall_soft
+        read -p "Nom du package a installer ? " desinstall_soft
         echo "$(date +%F-%X) - $USER - Desinstallation du package $desinstall_soft" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -S apt remove $desinstall_soft -y"
         echo "Package $desinstall_soft desinstallé "
@@ -333,7 +334,7 @@ desinstallation_logiciel () {
 
 execution_script () {
 
-        read -p "Nom du script à lancer ? " exec_script
+        read -p "Nom du script a lancer ? " exec_script
         echo "$(date +%F-%X) - $USER - Execution du script $exec_script" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -yes | ./$exec_script -y"
         echo "Script $exec_script lancé "
@@ -378,7 +379,7 @@ update_machine () {
 
 
 
-    # Menu système
+    # Menu Action Système
 
     while true; do
     clear
@@ -416,10 +417,7 @@ update_machine () {
 	       echo "--------------" >> /var/log/log_evt.log
 	       exit;;
             *) echo "Erreur choix non valide merci de modifier votre choix" ;; 
-	   
-	       
-			
-            
+	           
             
         esac
 
@@ -441,22 +439,22 @@ case $choix_securite in
 
 		1)
 			sudo ufw status
-			echo "$(date +%F-%X) - $USER - à Afficher le status du Pare-feu" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a affiché le status du Pare-feu" >> /var/log/log_evt.log
 			menu_information_pare_feu;;
 			
 		2)
 			ss -tulpn
-                	echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage liste ports ouvert" >> /var/log/log_evt.log
+                	echo "$(date +%F-%X) - $USER - a effectué l'action "Affichage liste ports ouvert"" >> /var/log/log_evt.log
 			menu_information_pare_feu;;
 
 		r)
 			echo "retour au menu précédent"
-			echo "$(date +%F-%X) - $USER - est Retourner au Menu Précédent" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est retourné au Menu Précédent" >> /var/log/log_evt.log
 			menu_information;;
 
 		x)
 			echo "Retour au Menu Principal"
-			echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est retourné au Menu Principal" >> /var/log/log_evt.log
 			menu_principal;;
 
 		q)
@@ -470,11 +468,13 @@ case $choix_securite in
 
 		*)
 			echo "mauvaise commande veuillez réesayer"
-			echo "$(date +%F-%X) - $USER - à Utiliser une mauvaise commande" >> /var/log/log_evt.log 
+			echo "$(date +%F-%X) - $USER - a utilisé une mauvaise commande, menu relancé" >> /var/log/log_evt.log 
 			menu_information_pare_feu;;
 
 esac
 } 
+
+
 menu_journalisation(){
 
 echo "Menu Journalisation"
@@ -522,24 +522,32 @@ case $choix_journalisation in
 			;;
 
 		*)
-                        echo "mauvaise commande veuillez réesayer"
-                        echo "$(date +%F-%X) - $USER - à Utiliser une mauvaise commande" >> /var/log/log_evt.log 
+                        echo "Mauvaise commande veuillez réessayer"
+                        echo "$(date +%F-%X) - $USER - a Utilisé une mauvaise commande" >> /var/log/log_evt.log 
                         menu_journalisation;;
 
 esac
+
 }
-menu_information_reseaux(){
+
+
+# Menu Information Réseaux
+
+menu_information_reseaux()
+
+{
 
 echo "Menu Information Réseaux"
 
-echo "1) Affichage adresse mac"
+echo "1) Affichage adresse MAC"
 echo "2) Nombre d'interface réseaux"
 echo "3) Affichage adresse IP"
 echo "4) Affichage liste ports ouvert"
 echo "r) Retour au Menu Précédent"
 echo "x) Retour au Menu Principal"
 echo "q) Sortie Script"
-read -p "faites votre choix :" choix_reseaux
+read -p "Faites votre choix :" choix_reseaux
+
 case $choix_reseaux in
 
 		1) 
@@ -596,6 +604,7 @@ case $choix_reseaux in
 
 esac
 }
+
 # Permet d'établir de nouvelles règles sur le pare-feu
 menu_regle_parefeu () {
 read -p "Vous désirez : 
@@ -781,7 +790,9 @@ case $choix_menu in
 
 esac
 }
-# Sous-menu de Menu-principal. Permet à l'utilisateur des se diriger vers des sous-sous-menu thématiques en fonction du type d'action qu'il veut appliquer
+
+# Sous-menu de Menu-principal. Permet à l'utilisateur de se diriger vers des sous-menu thématiques en fonction du type d'action qu'il veut appliquer
+
 menu_action () {
 clear
 echo "Menu Action
@@ -795,19 +806,19 @@ q) Sortie Script"
 	case $choix in
 		1)	
 			clear
-			echo "$(date +%F-%X) - $USER - a Sélectionné le Menu Compte et Utilisateur" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a sélectionné le Menu Compte et Utilisateur" >> /var/log/log_evt.log
 			action_comptes_utilisateurs;;
 		2)
 			clear
-			echo "$(date +%F-%X) - $USER - a Sélectionné le Menu Action sur le Système" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a sélectionné le Menu Action sur le Système" >> /var/log/log_evt.log
 			action_systeme;;
 		3)
 			clear
-			echo "$(date +%F-%X) - $USER - a Sélectionné le Menu Sécurité" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - a sélectionné le Menu Sécurité" >> /var/log/log_evt.log
 			menu_gestion_parefeu;;
 		x)
 			echo "Retour au menu principal "
-			echo "$(date +%F-%X) - $USER - est Retourné au Menu Principal" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est retourné au Menu Principal" >> /var/log/log_evt.log
 			menu_principal;;
 			
 		q)
@@ -824,7 +835,8 @@ q) Sortie Script"
 			
 	esac	
 }
-# Fontion du Menu principal. Envoie l'utilisateur vers les sous-menus/fonctions Information et action
+
+# Fontion du Menu principal. Envoi l'utilisateur vers les sous-menus/fonctions Information et action
 menu_principal () {
 clear
 	echo "__________________________________________________"
