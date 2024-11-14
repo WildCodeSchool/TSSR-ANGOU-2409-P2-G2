@@ -1,6 +1,5 @@
 #!/bin/bash
 #Menu information utilitsateur 
-
 menu_information_utilisateur()
 { 
 
@@ -13,35 +12,59 @@ echo "5) Liste des sessions ouvertes par l'utilisateur"
 echo "6) Liste des utilisateurs locaux"
 echo "r) Retour au menu Précédent"
 echo "x) Retour au Menu Principal"
+echo "q) Sortie Script"
 read -p "Quel est votre choix ?" choix_information_utilisateur 
 
         case $choix_information_utilisateur in 
 
         1) echo "Droits/Permissions de l'utilisateur sur un dossier" 
         read -p "Quel dossier vous séléctionner ?" $directory      
-        getfacl $directory | grep user;;
+        getfacl $directory | grep user
+        echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+        menu_information_utilisateur;;
 
         2) echo "Droits/Permissions de l'utilisateur sur un fichier"
         read -p "Quel fichier voulez vous sélectionner ?" $file
-        getfacl $file | grep user;;
+        getfacl $file | grep user
+        echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+        menu_information_utilisateur;;
 
         3) echo "Date de dernière connexion d'un utilisateur"
-        last $nom_utilisateur;;
+        last $nom_utilisateur
+        echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+        menu_information_utilisateur;;
 
         4) echo "Date de dernière modification du mot de passe de l'utilisateur"
-        passwd $nom_utilisateur -S;;
+        passwd $nom_utilisateur -S
+        echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+        menu_information_utilisateur;;
 
         5) echo "Liste des sessions ouvertes par l'utilisateur"
-        w;;
+        w
+        echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+        menu_information_utilisateur;;
 
         6) echo "Liste des utilisateurs locaux"
-        cut -d: -f1 /etc/passwd;;
+        cut -d: -f1 /etc/passwd
+        echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+        menu_information_utilisateur;;
 
-        r) echo "Retour au Menu Précédent"
-           menu_information;;
-
+        r) echo "Retour au Menu Précédent" 
+           smenu_information;;
+        
         x) echo "Retour au Menu Principal"
-           menu_principal;;
+	   echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
+    	   menu_principal;;
+           
+        q) echo "Vous quittez le script "
+	   sleep 3
+	   echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
+	   echo "--------------" >> /var/log/log_evt.log
+	   exit
+	   ;;
+	   
+	*) echo "Mauvaise commande veuillez réessayer"
+	   menu_information_systeme;; 
            
 esac
 }
@@ -62,36 +85,63 @@ echo "6) La version du système d'exploitation"
 echo "7) Liste des applications installées"
 echo "r) Retour au Menu Précédent"
 echo "x) Retour au Menu Principal"
+echo "q) Sortie Script"
 read -p  "Quel est votre choix ?" choix_information_system
 
 case $choix_information_system in 
 
         1)      echo "Informations du CPU ( type de processeur)"
-                lscpu;;
+                lscpu
+                echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+                menu_information_systeme;;
 
         2)      echo "Mémoire RAM totale"
-                cat /proc/meminfo;;
+                cat /proc/meminfo
+                echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+                menu_information_systeme;;
 
         3)      echo "Utilisation de la RAM" 
-                free;;
+                free
+                echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+                menu_information_systeme;;
 
         4)      echo "Utilisation du processeur"
-                top;;
+                top
+                echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+                menu_information_systeme;;
 
         5)      echo "Utilisation du disque"
-                lsblk -f;;
+                lsblk -f
+                echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+                menu_information_systeme;;
 
         6)      echo "Version de l'OS :"
-                lsb_release -a ;; 
+                lsb_release -a 
+                echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+                menu_information_systeme;; 
 
         7)      echo "Liste des applications installées :"
-                sudo dpkg -l;;
+                sudo dpkg -l
+                echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
+                menu_information_systeme;;
 
         r)      echo "Retour au Menu Précédent"
                 menu_information;;
 
-        x)      echo "Retour au Menu Principal" 
-                menu_principal;;
+        x)      echo "Retour au Menu Principal"
+		echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
+		menu_principal;;
+	
+	q)	echo "Vous quittez le script "
+		sleep 3
+		echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
+		echo "--------------" >> /var/log/log_evt.log
+		exit
+		;;
+	*)
+		echo "Mauvaise commande veuillez réessayer"
+		menu_information_systeme;;
+			
 
 esac
 }
@@ -104,7 +154,7 @@ action_comptes_utilisateurs () {
 creation_compte_utilisateur () {
 
         read -p "Nom de l'utilisateur dont le compte doit être créé? " user_account
-        echo "$(date) - Création du mot de passe pour l'utilisateur $user_account" >> /var/log/log_evt.log 
+        echo "$(date +%F-%X) - $USER - Création du mot de passe pour l'utilisateur $user_account" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -S useradd -m $user_account"
         echo "Mot de passe créé pour l'utilisateur $user_account"
         sleep 2
@@ -114,7 +164,7 @@ creation_compte_utilisateur () {
 changement_mot_de_passe_utilisateur () {
 
         read -p "Nom de l'utilisateur dont le mot de passe doit être changer ? " user_passwd
-        echo "$(date) - Modification du mot de passe pour l'utilisateur $user_passwd" >> /var/log/log_evt.log
+        echo "$(date +%F-%X) - $USER - Modification du mot de passe pour l'utilisateur $user_passwd" >> /var/log/log_evt.log
         ssh $nom_utilisateur@$adresse_ip "sudo -S chpasswd $user_passwd" 
         echo "Mot de passe changé pour l'utilisateur $user_passwd"
         sleep 2
@@ -123,9 +173,10 @@ changement_mot_de_passe_utilisateur () {
 suppression_de_compte_utilisateur_local () {
 
         read -p "Nom de l'utilisateur dont le compte doit être supprimmé ? " del_user_local_account
-        echo "Suppression du compte de l'utilisateur local $del_user_local_account" >> /var/log/log_evt.log
+        echo "$(date +%F-%X) - $USER - Suppression du compte de l'utilisateur local $del_user_local_account" >> /var/log/log_evt.log
         ssh $nom_utilisateur@$adresse_ip  "sudo -S deluser $del_user_local_account"
         echo "Suppression avec succès du compte pour l'utilisateur $del_user_local_account"
+
         sleep 2
 
     }
@@ -134,7 +185,7 @@ suppression_de_compte_utilisateur_local () {
 ajout_utilisateur_au_groupe_administrateur () {
 
         read -p "Nom de l'utilisateur qui doit être ajouté au groupe administrateur ? " add_user_to_admin
-        echo "Ajout de l'utilisateur $add_user_to_admin au groupe administrateur" >l> /var/log/og_evt.log
+        echo "$(date +%F-%X) - $USER - Ajout de l'utilisateur $add_user_to_admin au groupe administrateur" >l> /var/log/og_evt.log
         ssh $nom_utilisateur@$adresse_ip  "sudo -S usermod -aG sudo "$add_user_to_admin""
         echo "Ajout avec succès de l'utilisateur $add_user_to_admin au groupe administrateur"
         sleep 2
@@ -146,7 +197,7 @@ ajout_utilisateur_au_groupe_administrateur () {
 ajout_utilisateur_a_un_groupe_local () {
         
         read -p "Nom de l'utilisateur qui doit être ajouté au groupe utilisateur local ? " add_user_to_local_users
-        echo "Ajout de l'utilisateur $add_user_to_local_users au groupe local" >l> /var/log/og_evt.log
+        echo "$(date +%F-%X) - $USER - Ajout de l'utilisateur $add_user_to_local_users au groupe local" >l> /var/log/og_evt.log
         ssh $nom_utilisateur@$adresse_ip  "sudo -S usermod -aG users "$add_user_to_local_users""
         echo "Ajout avec succès de l'utilisateur $add_user_to_local_users au groupe utilisateur local"
         sleep 2
@@ -155,7 +206,7 @@ ajout_utilisateur_a_un_groupe_local () {
 sortie_utilisateur_a_un_groupe_local () {
 
         read -p "Nom de l'utilisateur qui doit sortir du groupe utilisateur local ? " del_user_to_local_users
-        echo "sortie de l'utilisateur $del_user_to_local_users au groupe local" >l> /var/log/og_evt.log
+        echo "$(date +%F-%X) - $USER - sortie de l'utilisateur $del_user_to_local_users au groupe local" >l> /var/log/og_evt.log
         ssh $nom_utilisateur@$adresse_ip  "sudo -S deluser "$del_user_to_local_users" users"
         echo "Suppression avec succès de l'utilisateur $del_user_to_local_users du groupe utilisateur local"
         sleep 2
@@ -177,6 +228,7 @@ sortie_utilisateur_a_un_groupe_local () {
     echo "6- Sortie utilisateur de groupe local"
     echo "r- Retour au menu précédent"
     echo "x- Retour au menu principal"
+    echo "q) Sortie Script"
     read -p "Votre choix ? :" repcmu
 
         case $repcmu in
@@ -186,10 +238,17 @@ sortie_utilisateur_a_un_groupe_local () {
             4) ajout_utilisateur_au_groupe_administrateur;;
             5) ajout_utilisateur_a_un_groupe_local ;;
             6) sortie_utilisateur_a_un_groupe_local ;;            
-            r) echo "Retour au menu précédent" ;;
+            r) echo "Retour au menu précédent" ; menu_action;;
             x) echo "Retour au menu principal" ; menu_principal ;;
+            q) echo "Vous quittez le script "
+	       sleep 3
+               echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
+               echo "--------------" >> /var/log/log_evt.log
+	       exit
+	       ;;
             *) echo "Erreur choix non valide merci de modifier votre choix" ;; 
             
+			
             
         esac
 
@@ -225,7 +284,7 @@ creation_repertoire () {
 suppression_repertoire () {
 
         read -p "Nom du repertoire à supprimer (En Chemin absolu) ? " del_dir_name
-        echo "$(date) - Supression du repertoire $del_dir_name" >> /var/log/log_evt.log 
+        echo "$(date +%F-%X) - $USER - Supression du repertoire $del_dir_name" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -S rm -r -v $del_dir_name"
         # echo "Repertoire $del_dir_name supprimé "
         sleep 2
@@ -235,7 +294,7 @@ suppression_repertoire () {
 installation_logiciel () {
 
         read -p "Nom du package à installer ? " install_soft
-        echo "$(date) - Installation du package $install_soft" >> /var/log/log_evt.log 
+        echo "$(date +%F-%X) - $USER - Installation du package $install_soft" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -S apt-get install $install_soft -y"
         echo "Package $install_soft installé "
         sleep 2
@@ -246,7 +305,7 @@ installation_logiciel () {
 desinstallation_logiciel () {
 
         read -p "Nom du package à installer ? " desinstall_soft
-        echo "$(date) - Desinstallation du package $desinstall_soft" >> /var/log/log_evt.log 
+        echo "$(date +%F-%X) - $USER - Desinstallation du package $desinstall_soft" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -S apt remove $desinstall_soft -y"
         echo "Package $desinstall_soft desinstallé "
         sleep 2
@@ -256,7 +315,7 @@ desinstallation_logiciel () {
 execution_script () {
 
         read -p "Nom du script à lancer ? " exec_script
-        echo "$(date) - Execution du script $exec_script" >> /var/log/log_evt.log 
+        echo "$(date +%F-%X) - $USER - Execution du script $exec_script" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -yes | ./$exec_script -y"
         echo "Script $exec_script lancé "
         sleep 2
@@ -266,7 +325,7 @@ execution_script () {
 verrouillage_machine () {
 
         Echo "Verrouillage de la machine" 
-        echo "$(date) - Verrouillage de  la machine  : $adresse_ip" >> /var/log/log_evt.log
+        echo "$(date +%F-%X) - $USER - Verrouillage de  la machine  : $adresse_ip" >> /var/log/log_evt.log
         sleep 2 
         ssh $nom_utilisateur@$adresse_ip "sudo -S systemctl suspend"
     }
@@ -274,7 +333,7 @@ verrouillage_machine () {
 redemarrage_machine () {
 
         Echo "Redémarrage de la machine" 
-        echo "$(date) - Redémarrage de la machine : $adresse_ip" >> /var/log/log_evt.log
+        echo "$(date +%F-%X) - $USER - Redémarrage de la machine : $adresse_ip" >> /var/log/log_evt.log
         sleep 2 
         ssh $nom_utilisateur@$adresse_ip "sudo -S reboot"
     }
@@ -283,7 +342,7 @@ redemarrage_machine () {
 arret_machine () {
 
         Echo "Arrêt de la machine" 
-        echo "$(date) - Arrêt de la machine : $adresse_ip" >> /var/log/log_evt.log
+        echo "$(date +%F-%X) - $USER - Arrêt de la machine : $adresse_ip" >> /var/log/log_evt.log
         sleep 2 
         ssh $nom_utilisateur@$adresse_ip "sudo -S shutdown now"
     }
@@ -292,7 +351,7 @@ arret_machine () {
 update_machine () {
 
         Echo "Mise à jour du système de la machine" 
-        echo "$(date) - Mise à jour du système : $adresse_ip" >> /var/log/log_evt.log
+        echo "$(date +%F-%X) - $USER - Mise à jour du système : $adresse_ip" >> /var/log/log_evt.log
         ssh $nom_utilisateur@$adresse_ip "sudo -S apt update && apt upgrade -y"
         echo "Système mis à jour "
         sleep 2
@@ -317,6 +376,7 @@ update_machine () {
     echo "9- Mise à jour du système de la machine"
     echo "r- Retour au menu précédent"
     echo "x- Retour au menu principal"
+    echo "q) Sortie Script"
     read -p "Votre choix ? :" reps
 
         case $reps in
@@ -329,9 +389,17 @@ update_machine () {
             7) redemarrage_machine ;;
             8) arret_machine ;;
             9) update_machine ;;
-            r) echo "Retour au menu précédent" ;;
+            r) echo "Retour au menu précédent" ; menu_action ;;
             x) echo "Retour au menu principal" ; menu_principal ;;
+            q) echo "Vous quittez le script "
+	       sleep 3
+	       echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
+	       echo "--------------" >> /var/log/log_evt.log
+	       exit;;
             *) echo "Erreur choix non valide merci de modifier votre choix" ;; 
+	   
+	       
+			
             
             
         esac
@@ -348,82 +416,95 @@ echo "1) Statut du Pare-Feu"
 echo "2) Liste des Ports Ouverts"
 echo "r) Retour au Menu Précédent"
 echo "x) Retour au Menu Principal"
-echo "q) Sorti Script"
+echo "q) Sortie Script"
 read -p "faites votre choix :" choix_securite
 case $choix_securite in
 
 		1)
 			sudo ufw status
-			echo "$USER $(date) à Afficher le status du Pare-feu" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - à Afficher le status du Pare-feu" >> /var/log/log_evt.log
 			menu_information_pare_feu;;
 			
 		2)
 			ss -tulpn
-                	echo "$USER $(date) à effectuer l'action Affichage liste ports ouvert" >> /var/log/log_evt.log
+                	echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage liste ports ouvert" >> /var/log/log_evt.log
 			menu_information_pare_feu;;
 
 		r)
 			echo "retour au menu précédent"
-			echo "$USER $(date) est Retourner au Menu Précédent" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est Retourner au Menu Précédent" >> /var/log/log_evt.log
 			menu_information;;
 
 		x)
 			echo "Retour au Menu Principal"
-			echo "$USER $(date) est Retourner au Menu Principal" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
 			menu_principal;;
 
 		q)
+			echo "Vous quittez le script "
+			sleep 3
+			echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
+			echo "--------------" >> /var/log/log_evt.log
 			exit
-			echo "$USER $(date) est sorti du script" >> /var/log/log_evt.log
 			;;
 			
 
 		*)
 			echo "mauvaise commande veuillez réesayer"
-			echo "$USER $(date) à Utiliser une mauvaise commande" >> /var/log/log_evt.log 
+			echo "$(date +%F-%X) - $USER - à Utiliser une mauvaise commande" >> /var/log/log_evt.log 
 			menu_information_pare_feu;;
 
 esac
 } 
 menu_journalisation(){
+
 echo "Menu Journalisation"
 echo "1) Recherche des événements dans le fichier log_evt.log par utilisateur"
 echo "2) Affichage des événements éffectuer sur l'Ordinateur"
 echo "r) Retour au Menu Précédent"
 echo "x) Retour au Menu Principal"
-echo "q) Sorti Script"
+echo "q) Sortie Script"
 read -p "faites votre choix :" choix_journalisation
 case $choix_journalisation in
 
 		1)
+			clear
 			read -p "Entré le nom d'utilisateur :" utilisateur
 			cat /var/log/log_evt.log | grep "$utilisateur"
-			echo "$USER $(date) à Rechercher des événements éffectuer par $utilisateur" >> /var/log/log_evt.log 
+			echo "$(date +%F-%X) - $USER - à Rechercher des événements éffectuer par $utilisateur" >> /var/log/log_evt.log 
+			read -p "appuyer sur entrée pour continuer :"
+			clear
 			menu_journalisation;;
 
 		2)
+			clear
 			cat /var/log/log_evt.log
-			echo "$USER $(date) à éffectuer l'action Affichage des événement de l'Ordinateur" >> /var/log/log_evt.log 
+			echo "$(date +%F-%X) - $USER - à éffectuer l'action Affichage des événement de l'Ordinateur" >> /var/log/log_evt.log 
+			read -p "appuyer sur entrée pour continuer :"
+			clear
 			menu_journalisation;;
 
 		r)
 			echo "Retour au Menu Précédent"
-			echo "$USER $(date) est Retourner au Menu Précédent" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est Retourner au Menu Précédent" >> /var/log/log_evt.log
 			menu_information;;
 
 		x)
 			echo "Retour au Menu Principal"
-			echo "$USER $(date) est Retourner au Menu Principal" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
 			menu_principal;;
 
 		q)
+			echo "Vous quittez le script "
+			sleep 3			
+			echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
+			echo "--------------" >> /var/log/log_evt.log
 			exit
-			echo "$USER $(date) est sorti du script" >> /var/log/log_evt.log
 			;;
 
-		 *)
+		*)
                         echo "mauvaise commande veuillez réesayer"
-                        echo "$USER $(date) à Utiliser une mauvaise commande" >> /var/log/log_evt.log 
+                        echo "$(date +%F-%X) - $USER - à Utiliser une mauvaise commande" >> /var/log/log_evt.log 
                         menu_journalisation;;
 
 esac
@@ -438,47 +519,60 @@ echo "3) Affichage adresse IP"
 echo "4) Affichage liste ports ouvert"
 echo "r) Retour au Menu Précédent"
 echo "x) Retour au Menu Principal"
-echo "q) Sorti Script"
+echo "q) Sortie Script"
 read -p "faites votre choix :" choix_reseaux
 case $choix_reseaux in
 
-		1)
+		1) 
 			ip a | grep link/ether | cut -d\  -f 6
-			echo "$USER $(date) à effectuer l'action Affichage de l'adresse mac" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage de l'adresse mac" >> /var/log/log_evt.log
+			read -p "appuyer sur entrée pour continuer :"
+			clear
 			menu_information_reseaux;;
 
 		2)
-			ls /sys/class/net/ | wc -l
-			echo "$USER $(date) à effectuer l'action Affichage du nombre d'interface réseaux" >> /var/log/log_evt.log
+			interface_reseaux=$(ls /sys/class/net/ | wc -l)
+			echo "le Nombre d'interface réseaux et de $interface_reseaux"
+			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage du nombre d'interface réseaux" >> /var/log/log_evt.log
+			sleep 5
+			clear
 			menu_information_reseaux;;
 
 		3)
 			ip a | grep inet | cut -d\  -f 6
-			echo "$USER $(date) à effectuer l'action Affichage adresse IP" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage adresse IP" >> /var/log/log_evt.log
+			sleep 5
+			clear
 			menu_information_reseaux;;
 
 		4)
 			ss -tulpn
-			echo "$USER $(date) à effectuer l'action Affichage liste ports ouvert" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage liste ports ouvert" >> /var/log/log_evt.log
+			sleep 5
 			menu_information_reseaux;;
 
 		r)
 			echo "retour au menu précédent"
-			echo "$USER $(date) est Retourner au Menu Précédent" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est Retourner au Menu Précédent" >> /var/log/log_evt.log
 			menu_information;;
 
 		x)
 			echo "Retour au Menu Principal"
-			echo "$USER $(date) est Retourner au Menu Principal" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
+			sleep 3
 			menu_principal;;
 		q)
+			echo "Vous quittez le script "
+			sleep 3
+			echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
+			echo "--------------" >> /var/log/log_evt.log
 			exit
-			echo "$USER $(date) est sorti du script" >> /var/log/log_evt.log
 			;;
 			
 		*)
 			echo "mauvaise commande veuillez réesayer"
-			echo "$USER $(date) à Utiliser une mauvaise commande" >> /var/log/log_evt.log 
+			echo "$(date +%F-%X) - $USER - à Utiliser une mauvaise commande" >> /var/log/log_evt.log 
+			sleep 3
 			menu_information_reseaux;;
 
 esac
@@ -491,6 +585,8 @@ menu_regle_parefeu () {
 	A) Autoriser/Ouvrir un protocole ou un port
 	I) Interdire/Fermer un protocole ou un port
 	r) Revenir au menu précédent (Action sur les Pare-Feux)
+	x) Revenir au menu Principal
+	q) Sortie Script
 	" action_parefeu
 
 	case $action_parefeu in
@@ -500,6 +596,7 @@ menu_regle_parefeu () {
 			echo "Autorisation/Ouverture : "
 			read -p "De quel port ? (entrez le numéro du port ou laissez vide et appuyez sur entrée) " port
 			read -p "De quel protocole ? (entrez le nom du protocole ou laissez vide et appuyez sur entrée) " protocole
+			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
 			;;
 		I)
 			clear
@@ -507,11 +604,26 @@ menu_regle_parefeu () {
 			echo "Interdiction/Fermeture : "
 			read -p "De quel port ? (entrez le numéro du port ou laissez vide et appuyez sur entrée) " port
 			read -p "De quel protocole ? (entrez le nom du protocole ou laissez vide et appuyez sur entrée) " protocole
+			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
 			;;
 
 		r)
 			echo "Retour au menu Action sur les Pare-Feux"
+			echo "$(date +%F-%X) - $USER - est Retourner au Menu Précédent" >> /var/log/log_evt.log
 			menu_gestion_parefeu;;
+			
+		x)
+			echo "Retour au menu Principal"
+			echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
+			menu_principal;;
+		
+		q)
+			echo "Vous quittez le script "
+			echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
+			echo "--------------" >> /var/log/log_evt.log
+			exit
+			;;
+			
 		*)
 			echo "Mauvaise commande veuillez réessayer"
 			menu_regle_parefeu;;
@@ -525,6 +637,7 @@ menu_regle_parefeu () {
 	else
 		echo "Nouvelle regle de pare feu établie : $port $protocole $action"
 		sudo ufw $action $port $protocole
+		echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
 		menu_regle_parefeu
 	fi
 }	
@@ -535,7 +648,9 @@ menu_gestion_parefeu () {
 	1) Activation du Pare-feu
 	2) Désactivation du Pare-feu
 	3) Définire une nouvelle règle de pare-feu
-	4) Retour au menu Action
+	r) Retour au menu Action
+	x) Retour au menu Principal
+	q) Sortie Script
 	"
 	read -p "Que souhaitez-vous réaliser ? " choix
 
@@ -543,18 +658,36 @@ menu_gestion_parefeu () {
 		1)
 			echo "Le pare-feu est désactivé"
 			sudo ufw enable
+			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
 			menu_gestion_parefeu;;
 		2)
 			echo "Le pare-feu est activé"
 			sudo ufw disable
+			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
 			menu_gestion_parefeu;;
 		3)
 			echo "Définition d'une nouvelle règle de pare-feu"
+			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
 			sleep 1
 			menu_regle_parefeu;;
-		4)
+		r)
 			echo "Retour au menu Action"
+			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
 			menu_action;;
+			
+		x)
+			echo "Retour au Menu Principal"
+			echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
+			menu_principal;;
+			
+		q)
+			echo "Vous quittez le script "
+			sleep 3
+			echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
+			echo "--------------" >> /var/log/log_evt.log
+			exit
+			;;
+			
 		*)
 			echo "Mauvaise commande veuillez réessayer"
 			menu_gestion_parefeu;;
@@ -562,7 +695,7 @@ menu_gestion_parefeu () {
 	esac
 }
 menu_information(){
-
+clear
 echo "Menu Information"
 echo "1) Menu Information Compte / Utilisateurs"
 echo "2) Menu Information Réseaux"
@@ -570,101 +703,143 @@ echo "3) Menu Information Systeme"
 echo "4) Menu Information Pare-feu"
 echo "5) Consulter le journal des événements"
 echo "x) Retour au Menu principal"
-echo "q) Sorti Script"
-read -p "A qu'elle menu voulez vous accéder :" choix_menu
+echo "q) Sortie Script"
+read -p "A quel menu voulez vous accéder :" choix_menu
 case $choix_menu in
 
 		1)
 			echo "Ouverture Menu Information Compte / Utilisateurs"
-			echo "$USER $(date) à Sélectionner le Menu Information Compte / Utilisateur" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - à Sélectionner le Menu Information Compte / Utilisateur" >> /var/log/log_evt.log
+			sleep 2
+			clear
 			menu_information_utilisateur;;
 
 		2)
 			echo "Ouverture Menu Réseaux"
-			echo "$USER $(date) à Sélectionner le Menu Réseaux" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - à Sélectionner le Menu Réseaux" >> /var/log/log_evt.log
+			sleep 2
+			clear
 			menu_information_reseaux;;
 
 		3)
 			echo "Ouverture Menu système"
-			echo "$USER $(date) à Sélectionner le Menu Système" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - à Sélectionner le Menu Système" >> /var/log/log_evt.log
+			sleep 2
+			clear
 			menu_information_systeme;;
 
 		4)
 			echo "Ouverture Menu sécurité"
-			echo "$USER $(date) à Sélectionner le Menu Sécurité" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - à Sélectionner le Menu Sécurité" >> /var/log/log_evt.log
+			sleep 2
+			clear
 			menu_information_pare_feu;;
 
 		5)
 			echo "Ouverture Menu Journalisation"
-			echo "$USER $(date) à choisi de Conulter le journal des évenements" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - à choisi de Conulter le journal des évenements" >> /var/log/log_evt.log
+			sleep 2
+			clear
 			menu_journalisation;;
 
 		x)
 			echo "Retour au Menu Principal"
-			echo "$USER $(date) est Retourner au Menu Principal" >> /var/log/log_evt.log
-			menu_principale;;
+			echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
+			menu_principal;;
 			
 		q)
+			echo "Vous quittez le script "
+			sleep 3
+			echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
+			echo "--------------" >> /var/log/log_evt.log
 			exit
-			echo "$USER $(date) est sorti du script" >> /var/log/log_evt.log
 			;;
 			
 		*)
 			echo "mauvaise commande veuillez réesayer"
-			echo "$USER $(date) à Utiliser une mauvaise commande" >> /var/log/log_evt.log 
+			echo "$(date +%F-%X) - $USER - à Utiliser une mauvaise commande" >> /var/log/log_evt.log 
 			menu_information;;
 
 esac
 }
 menu_action () {
-
+clear
 	echo "Menu Action
 	
 	1) Menu Comptes et Utilisateurs
 	2) Menu Action Système
 	3) Menu Gestion du Pare-Feu 
 	x) Retour au menu Principal
-	"
+	q) Sortie Script"
 	read -p "Quel action souhaitez-vous réaliser ? " choix
 	
 	case $choix in
-		1)
+		1)	
+			clear
+			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
 			action_comptes_utilisateurs;;
 		2)
+			clear
+			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
 			action_systeme;;
 		3)
+			clear
+			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
 			menu_gestion_parefeu;;
 		x)
 			echo "Retour au menu principal "
+			echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
 			menu_principal;;
+			
+		q)
+                	echo "Vous quittez le script "
+			sleep 3
+			echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
+			echo "--------------" >> /var/log/log_evt.log
+			exit
+			;;
 		*)	
                 	echo "Mauvaise commande veuillez réesayer"
-                	menu_principal;;
+                	menu_action;;
+               
+			
 	esac	
 }
 menu_principal () {
-
+clear
 	echo "Menu Principal
 	
 	1) Effectuer des actions (exemple : créer un dossier, activer un par-feu...)
 	2) Rechercher des informations (exemple : liste des utilisateurs, utilisation de la RAM....)	
-	x) Quitter le script
-	"
+	x) Quitter le script"
+
+	
 	read -p "Que souhaitez-vous réaliser ? " choix
 	
 	case $choix in
 		1)
+			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
 			menu_action;;
 		2)
+			echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
 			menu_information;;
 		x)
-			echo "Vous quittez le script "
+			echo "Vous quittez le script"
 			sleep 3
+			echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
+			echo "--------------" >> /var/log/log_evt.log
 			exit;;
 		*)
 			echo "Mauvaise commande veuillez réessayer"
 			menu_principal;;
+		
+
 		esac
 }
 
+chmod 777 /var/log/log_evt.log
+chmod 777 /var/log
+chmod 777 /var
+echo "--------------" >> /var/log/log_evt.log
+echo "$(date +%F-%X) - $USER - ********StartScript********" >> /var/log/log_evt.log
 menu_principal
