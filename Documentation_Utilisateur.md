@@ -6,8 +6,9 @@
 Au lancement du script, le menu principal s'affiche :
 puis vous avez plusieurs choix possibles soit réaliser des actions ou rechercher des informations sur la machine client.
 
-**Actions :**
+### Navigation dans les menus
 
+**Actions :**
 
 verrouillage_machine : pouvoir vérrouiller la machine à distance.   
 redemarrage_machine : pouvoir redemmarrer la machine à distance.  
