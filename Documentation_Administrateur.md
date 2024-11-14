@@ -25,12 +25,13 @@ Après avoir saisi vos identifiants de connexion au server Debian, pour prendre 
 
 #### Installation et Configuration
 - Avant tout execution du script, assurez vous que le fichier __log_evt.log__ soit présent à l'emplacement ̀/var/log/̀ de l'ordinateur sur lequel vous allez l'exécuter.
-- S'il n'existe pas, creez le fichier `log_evt.log̀
+- S'il n'existe pas, creez le fichier :
+  -__log_evt.log__
 
 #### Lancement du script
 
 - Executer le script à l'aide de votre interpréteur de comande BASH en rentrant la commande :\
-  `bash post_scriptum.sh̀
+` bash post_scriptum.sh ̀
 
 - Au lancement du script, celui-ci vous demande de renseigner l'adresse IP de l'ordinateur client sur lequel vous voulez effectuer des actions.
 - Indiquez également le nom d'utilisateur avec lequel vous voulez vous connecter sur l'ordinateur client.
