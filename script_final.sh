@@ -287,7 +287,7 @@ action_systeme() {
 
 
 
-    # Fonctions pour le menu Action - Système
+ # Fonctions pour le menu Action - Système
 
 
 creation_repertoire () {
@@ -645,7 +645,7 @@ menu_regle_parefeu () {
 			echo "Mauvaise commande veuillez réessayer"
 			menu_regle_parefeu;;
 	esac
-	# Vérifie que l'utilisateur a bien séléctionné un port ou un protocole à modifier pour établir une nouvelle règle sur le pare-feu
+	# Vérifie que l'utilisateur a bien séléctionné un port ou un protocole à modifier pour établir une nouvelle règle sur le pare-feu. N'applique pas de nouvelles règles sur le pare-feu si rien a été séléctionné.
 	if [ $protocole -z ] && [ $port -z ]
 	then	
 		echo "Aucun port où protocole n'a été séléctionné "
@@ -714,6 +714,7 @@ menu_gestion_parefeu () {
 			menu_gestion_parefeu;;
 	
 	esac
+# Sous-menu de Menu-principal. Permet à l'utilisateur des se diriger vers des sous-sous-menu thématiques en fonction du type d'Information qu'il recherche
 }
 menu_information(){
 clear
@@ -783,6 +784,7 @@ case $choix_menu in
 
 esac
 }
+# Sous-menu de Menu-principal. Permet à l'utilisateur des se diriger vers des sous-sous-menu thématiques en fonction du type d'action qu'il veut appliquer
 menu_action () {
 clear
 	echo "Menu Action
