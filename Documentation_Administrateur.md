@@ -15,7 +15,7 @@ _______________________________________________
 
 #### Lancer le serveur SSH
 
-Après avoir saisi vos identifiants de connexion au server Debian, pour prendre en compte la configuration de votre server SSH, il peut être necessaire de redémarer votre interface réseau :\
+Après avoir saisi vos identifiants de connexion au server Debian, pour prendre en compte la configuration de votre server SSH, il peut être necessaire de redémarer votre interface réseau :
 - Eteindre votre interface réseau
   - `sudo ifdown <nom_interface>`
 - Démarer votre interface réseau
