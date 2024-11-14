@@ -41,4 +41,4 @@ Après avoir saisi vos identifiants de connexion au server Debian, pour prendre 
 
 _________________________________________________
 
-## WINDOWS
+## Pour une utilisation du script avec WINDOWS
