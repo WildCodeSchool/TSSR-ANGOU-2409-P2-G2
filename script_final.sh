@@ -598,15 +598,13 @@ esac
 }
 # Permet d'établir de nouvelles règles sur le pare-feu
 menu_regle_parefeu () {
-
-	read -p "Vous désirez : 
-
-	A) Autoriser/Ouvrir un protocole ou un port
-	I) Interdire/Fermer un protocole ou un port
-	r) Revenir au menu précédent (Action sur les Pare-Feux)
-	x) Revenir au menu Principal
-	q) Sortie Script
-	" action_parefeu
+read -p "Vous désirez : 
+A) Autoriser/Ouvrir un protocole ou un port
+I) Interdire/Fermer un protocole ou un port
+r) Revenir au menu précédent (Action sur les Pare-Feux)
+x) Revenir au menu Principal
+q) Sortie Script
+" action_parefeu
 
 	case $action_parefeu in
 		A)
@@ -664,14 +662,13 @@ menu_regle_parefeu () {
 # Menu de gestion basic du pare-feu. Permet d'accéder à la gestion avancé du parefeu (établir de nouvelles règles)
 menu_gestion_parefeu () {
 
-	echo "Menu Gestion du Pare-feu
-
-	1) Activation du Pare-feu
-	2) Désactivation du Pare-feu
-	3) Définir une nouvelle règle de pare-feu
-	r) Retour au menu Action
-	x) Retour au menu Principal
-	q) Sortie Script
+echo "Menu Gestion du Pare-feu
+1) Activation du Pare-feu
+2) Désactivation du Pare-feu
+3) Définir une nouvelle règle de pare-feu
+r) Retour au menu Action
+x) Retour au menu Principal
+q) Sortie Script
 	"
 	read -p "Que souhaitez-vous réaliser ? " choix
 
@@ -787,13 +784,12 @@ esac
 # Sous-menu de Menu-principal. Permet à l'utilisateur des se diriger vers des sous-sous-menu thématiques en fonction du type d'action qu'il veut appliquer
 menu_action () {
 clear
-	echo "Menu Action
-	
-	1) Menu Comptes et Utilisateurs
-	2) Menu Action Système
-	3) Menu Gestion du Pare-Feu 
-	x) Retour au menu Principal
-	q) Sortie Script"
+echo "Menu Action
+1) Menu Comptes et Utilisateurs
+2) Menu Action Système
+3) Menu Gestion du Pare-Feu 
+x) Retour au menu Principal
+q) Sortie Script"
 	read -p "Quel action souhaitez-vous réaliser ? " choix
 	
 	case $choix in
@@ -828,7 +824,7 @@ clear
 			
 	esac	
 }
-# Fcontion du Menu principal. Envoie l'utilisateur vers les sous-menus/fonctions Information et action
+# Fontion du Menu principal. Envoie l'utilisateur vers les sous-menus/fonctions Information et action
 menu_principal () {
 clear
 	echo "__________________________________________________"
