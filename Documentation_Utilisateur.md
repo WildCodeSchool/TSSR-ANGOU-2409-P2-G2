@@ -10,21 +10,25 @@ puis vous avez plusieurs choix possibles soit réaliser des actions ou recherche
 
 **Menu Principal**   
 
+Vous permet de choisir entre les menus _Action_ ou _Informations_
+
 ![image](https://github.com/user-attachments/assets/e8f51c2b-44af-4fcf-991d-9aa6c1e61196)
 
 
-
+________________________________________________________
 
 **Actions :**
 
-verrouillage_machine : pouvoir vérrouiller la machine à distance.   
+verrouillage_machine : verrouiller la machine à distance.   
 redemarrage_machine : pouvoir redemmarrer la machine à distance.  
 arret_machine : 
 
 
 
 **Informations :**
-
+Les différents droits et permsissions, connexions et date de modification de mot de passe.
+Liste des utilisateurs locaux
+Retour au menu précédent
 
 
 
