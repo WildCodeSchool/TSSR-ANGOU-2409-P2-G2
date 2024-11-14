@@ -37,6 +37,7 @@ Après avoir saisi vos identifiants de connexion au server Debian, pour prendre 
 
 ### FAQ : solutions aux problèmes connus et communs liés à l’installation et à la configuration
 
+
 _________________________________________________
 
 ## Pour une utilisation du script avec WINDOWS
