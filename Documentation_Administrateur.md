@@ -1,7 +1,5 @@
 # Documentation Administrateur
 
-_______________________________________________
-
 ## Pour une utilisation du script avec BASH
 
 ### Prérequis techniques
