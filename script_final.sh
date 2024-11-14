@@ -487,7 +487,7 @@ case $choix_journalisation in
 
 		1)
 			clear
-			read -p "Entré le nom d'utilisateur :" utilisateur
+			read -p "Entrer le nom d'utilisateur :" utilisateur
 			cat /var/log/log_evt.log | grep "$utilisateur"
 			echo "$(date +%F-%X) - $USER - à Rechercher des événements éffectuer par $utilisateur" >> /var/log/log_evt.log 
 			read -p "appuyer sur entrée pour continuer :"
@@ -653,7 +653,7 @@ menu_regle_parefeu () {
 		clear
 		menu_gestion_parefeu
 	else
-		echo "Nouvelle regle de pare feu établie : $port $protocole $action"
+		echo "Nouvelle règle de pare feu établie : $port $protocole $action"
 		sudo ufw $action $port $protocole
 		echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
 		menu_regle_parefeu
@@ -665,7 +665,7 @@ menu_gestion_parefeu () {
 
 	1) Activation du Pare-feu
 	2) Désactivation du Pare-feu
-	3) Définire une nouvelle règle de pare-feu
+	3) Définir une nouvelle règle de pare-feu
 	r) Retour au menu Action
 	x) Retour au menu Principal
 	q) Sortie Script
@@ -755,7 +755,7 @@ case $choix_menu in
 
 		5)
 			echo "Ouverture Menu Journalisation"
-			echo "$(date +%F-%X) - $USER - à choisi de Conulter le journal des évenements" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $USER - à choisi de Consulter le journal des évenements" >> /var/log/log_evt.log
 			sleep 2
 			clear
 			menu_journalisation;;
