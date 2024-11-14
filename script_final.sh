@@ -890,4 +890,5 @@ echo "--------------" >> /var/log/log_evt.log
 echo "$(date +%F-%X) - $USER - ********StartScript********" >> /var/log/log_evt.log
 read -p "A quel machine voulez-vous vous connecter en ssh ? ( adresse ip )" adresse_ip
 read -p "Veuillez renseigner le nom d'utilisateur pour ssh ? " nom_utilisateur
+nom_fichier_texte=info\_$nom_utilisateur\_$(date +%F)
 menu_principal
