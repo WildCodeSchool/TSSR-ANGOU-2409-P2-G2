@@ -663,7 +663,7 @@ q) Sortie Script
 	# Applique la nouvelle règle de pare-feu
 	else
 		echo "Nouvelle règle de pare feu établie : $port $protocole $action"
-		sudo ufw $action $port $protocole
+		ssh $nom_utilisateur@$adresse_ip "sudo ufw $action $port $protocole"
 		echo "$(date +%F-%X) - $USER - a défini $action $protocole $port comme nouvelle règle de pare-feu" >> /var/log/log_evt.log
 		menu_regle_parefeu
 	fi
@@ -684,12 +684,13 @@ q) Sortie Script
 	case $choix in
 		1)
 			echo "Le pare-feu est Activé"
-			sudo ufw enable
+   			ssh $nom_utilisateur@$adresse_ip "sudo ufw enable"
 			echo "$(date +%F-%X) - $USER - a Activé le pare-feu" >> /var/log/log_evt.log
 			menu_gestion_parefeu;;
 		2)
 			echo "Le pare-feu est désactivé"
-			sudo ufw disable
+   			ssh $nom_utilisateur@$adresse_ip "sudo ufw disable"
+			
 			echo "$(date +%F-%X) - $USER - a désactivé le pare-feu" >> /var/log/log_evt.log
 			menu_gestion_parefeu;;
 		3)
@@ -880,8 +881,6 @@ sudo chmod 777 /var/log
 sudo chmod 777 /var
 echo "--------------" >> /var/log/log_evt.log
 echo "$(date +%F-%X) - $USER - ********StartScript********" >> /var/log/log_evt.log
-
 read -p "A quel machine voulez-vous vous connecter en ssh ? ( adresse ip )" adresse_ip
 read -p "Veuillez renseigner le nom d'utilisateur pour ssh ? " nom_utilisateur
-
 menu_principal
