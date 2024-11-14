@@ -2,7 +2,7 @@
 
 _______________________________________________
 
-## Pour une utilisation du script sur avec BASH
+## Pour une utilisation du script avec BASH
 
 ### Prérequis techniques
 
