@@ -19,9 +19,8 @@ ________________________________________________________
 
 **Actions :**
 
-verrouillage_machine : verrouiller la machine à distance.   
-redemarrage_machine : pouvoir redemmarrer la machine à distance.  
-arret_machine : 
+'redemarrage_machine'/'verrouillage_machine'/'arret_machine': pouvoir gerer l'alimentaion de la machine à distance.  
+
 
 
 
