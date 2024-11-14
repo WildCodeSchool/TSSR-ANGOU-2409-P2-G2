@@ -22,38 +22,38 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
         1) clear 
         echo "Droits/Permissions de l'utilisateur sur un dossier" 
         read -p "Quel dossier vous séléctionner ?" $directory      
-        getfacl $directory | grep user
+        ssh $nom_utilisateur@$adresse_ip "sudo getfacl $directory | grep user"
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
         2) clear
         echo "Droits/Permissions de l'utilisateur sur un fichier"
         read -p "Quel fichier voulez vous sélectionner ?" $file
-        getfacl $file | grep user
+        ssh $nom_utilisateur@$adresse_ip "sudo getfacl $file | grep user"
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
         3) clear
         echo "Date de dernière connexion d'un utilisateur"
-        last $nom_utilisateur
+        ssh $nom_utilisateur@$adresse_ip "last $nom_utilisateur"
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
         4) clear
         echo "Date de dernière modification du mot de passe de l'utilisateur"
-        passwd $nom_utilisateur -S
+        ssh $nom_utilisateur@$adresse_ip "passwd $nom_utilisateur -S"
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
         5) clear
         echo "Liste des sessions ouvertes par l'utilisateur"
-        w
+        ssh $nom_utilisateur@$adresse_ip "w"
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
         6) clear
         echo "Liste des utilisateurs locaux"
-        cut -d: -f1 /etc/passwd
+        ssh $nom_utilisateur@$adresse_ip "cut -d: -f1 /etc/passwd"
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
@@ -103,43 +103,43 @@ case $choix_information_system in
 
         1)      clear
         	echo "Informations du CPU ( type de processeur)"
-                lscpu
+                ssh $nom_utilisateur@$adresse_ip "lscpu"
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
         2)      clear
         	echo "Mémoire RAM totale"
-                cat /proc/meminfo
+                ssh $nom_utilisateur@$adresse_ip "cat /proc/meminfo"
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
         3)      clear
         	echo "Utilisation de la RAM" 
-                free
+                ssh $nom_utilisateur@$adresse_ip "free"
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
         4)      clear
         	echo "Utilisation du processeur"
-                top
+                ssh $nom_utilisateur@$adresse_ip "top"
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
         5)      clear
         	echo "Utilisation du disque"
-                lsblk -f
+                ssh $nom_utilisateur@$adresse_ip "lsblk -f"
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
         6)      clear
         	echo "Version de l'OS :"
-                lsb_release -a 
+                ssh $nom_utilisateur@$adresse_ip "lsb_release -a" 
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;; 
 
         7)      clear
         	echo "Liste des applications installées :"
-                sudo dpkg -l
+                ssh $nom_utilisateur@$adresse_ip "sudo dpkg -l"
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
@@ -880,4 +880,8 @@ chmod 777 /var/log
 chmod 777 /var
 echo "--------------" >> /var/log/log_evt.log
 echo "$(date +%F-%X) - $USER - ********StartScript********" >> /var/log/log_evt.log
+
+read -p "A quel machine voulez-vous vous connecter en ssh ? ( adresse ip )" adresse_ip
+read -p "Veuillez renseigner le nom d'utilisateur pour ssh ? " nom_utilisateur
+
 menu_principal
