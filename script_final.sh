@@ -17,42 +17,51 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
 
         case $choix_information_utilisateur in 
 
-        1) echo "Droits/Permissions de l'utilisateur sur un dossier" 
+        1) clear 
+        echo "Droits/Permissions de l'utilisateur sur un dossier" 
         read -p "Quel dossier vous séléctionner ?" $directory      
         getfacl $directory | grep user
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
-        2) echo "Droits/Permissions de l'utilisateur sur un fichier"
+        2) clear
+        echo "Droits/Permissions de l'utilisateur sur un fichier"
         read -p "Quel fichier voulez vous sélectionner ?" $file
         getfacl $file | grep user
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
-        3) echo "Date de dernière connexion d'un utilisateur"
+        3) clear
+        echo "Date de dernière connexion d'un utilisateur"
         last $nom_utilisateur
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
-        4) echo "Date de dernière modification du mot de passe de l'utilisateur"
+        4) clear
+        echo "Date de dernière modification du mot de passe de l'utilisateur"
         passwd $nom_utilisateur -S
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
-        5) echo "Liste des sessions ouvertes par l'utilisateur"
+        5) clear
+        echo "Liste des sessions ouvertes par l'utilisateur"
         w
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
-        6) echo "Liste des utilisateurs locaux"
+        6) clear
+        echo "Liste des utilisateurs locaux"
         cut -d: -f1 /etc/passwd
         echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
-        r) echo "Retour au Menu Précédent" 
-           smenu_information;;
+        r) clear
+           echo "Retour au Menu Précédent" 
+           echo "$(date +%F-%X) - $USER - est Retourner au Menu Précédent" >> /var/log/log_evt.log
+           menu_information;;
         
-        x) echo "Retour au Menu Principal"
+        x) clear
+           echo "Retour au Menu Principal"
 	   echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
     	   menu_principal;;
            
@@ -90,45 +99,54 @@ read -p  "Quel est votre choix ?" choix_information_system
 
 case $choix_information_system in 
 
-        1)      echo "Informations du CPU ( type de processeur)"
+        1)      clear
+        	echo "Informations du CPU ( type de processeur)"
                 lscpu
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
-        2)      echo "Mémoire RAM totale"
+        2)      clear
+        	echo "Mémoire RAM totale"
                 cat /proc/meminfo
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
-        3)      echo "Utilisation de la RAM" 
+        3)      clear
+        	echo "Utilisation de la RAM" 
                 free
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
-        4)      echo "Utilisation du processeur"
+        4)      clear
+        	echo "Utilisation du processeur"
                 top
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
-        5)      echo "Utilisation du disque"
+        5)      clear
+        	echo "Utilisation du disque"
                 lsblk -f
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
-        6)      echo "Version de l'OS :"
+        6)      clear
+        	echo "Version de l'OS :"
                 lsb_release -a 
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;; 
 
-        7)      echo "Liste des applications installées :"
+        7)      clear
+        	echo "Liste des applications installées :"
                 sudo dpkg -l
                 echo "$(date +%F-%X) - $USER - " >> /var/log/log_evt.log
                 menu_information_systeme;;
 
-        r)      echo "Retour au Menu Précédent"
+        r)      clear
+        	echo "Retour au Menu Précédent"
                 menu_information;;
 
-        x)      echo "Retour au Menu Principal"
+        x)      clear
+        	echo "Retour au Menu Principal"
 		echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
 		menu_principal;;
 	
@@ -534,21 +552,21 @@ case $choix_reseaux in
 			interface_reseaux=$(ls /sys/class/net/ | wc -l)
 			echo "le Nombre d'interface réseaux et de $interface_reseaux"
 			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage du nombre d'interface réseaux" >> /var/log/log_evt.log
-			sleep 5
+			read -p "appuyer sur entrée pour continuer :"
 			clear
 			menu_information_reseaux;;
 
 		3)
 			ip a | grep inet | cut -d\  -f 6
 			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage adresse IP" >> /var/log/log_evt.log
-			sleep 5
+			read -p "appuyer sur entrée pour continuer :"
 			clear
 			menu_information_reseaux;;
 
 		4)
 			ss -tulpn
 			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage liste ports ouvert" >> /var/log/log_evt.log
-			sleep 5
+			read -p "appuyer sur entrée pour continuer :"
 			menu_information_reseaux;;
 
 		r)
