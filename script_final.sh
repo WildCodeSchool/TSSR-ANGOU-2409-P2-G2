@@ -840,20 +840,20 @@ q) Sortie Script"
 # Fontion du Menu principal. Envoi l'utilisateur vers les sous-menus/fonctions Information et action
 menu_principal () {
 clear
-	echo "__________________________________________________"
-	echo "|:						:|"
-	echo "|:						:|"
-	echo "|:	    	  MENU PRINCIPAL 		:|"
-	echo "|:						:|"
-	echo "|:______________________________________________:|
+	echo "			__________________________________________________"
+	echo "			|:						:|"
+	echo "			|:						:|"
+	echo "			|:	    	  MENU PRINCIPAL 		:|"
+	echo "			|:						:|"
+	echo "			|:______________________________________________:|
 	
 	1) Effectuer des actions (exemple : créer un dossier, activer un par-feu...)
 	2) Rechercher des informations (exemple : liste des utilisateurs, utilisation de la RAM....)	
 	x) Quitter le script"
 	
 
-	
-	read -p "Que souhaitez-vous réaliser ? " choix
+	echo ""
+	read -p "	Que souhaitez-vous réaliser ? 	" choix
 	
 	case $choix in
 		1)
