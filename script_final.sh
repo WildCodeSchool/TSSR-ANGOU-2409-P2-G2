@@ -492,6 +492,7 @@ case $choix_journalisation in
 			clear
 			read -p "Entrer le nom d'utilisateur :" utilisateur
 			cat /var/log/log_evt.log | grep "$utilisateur"
+   			echo $(cat /var/log/log_evt.log | grep "$utilisateur") >> $nom_fichier_texte.txt
 			echo "$(date +%F-%X) - $USER - à Rechercher des événements éffectuer par $utilisateur" >> /var/log/log_evt.log 
 			read -p "appuyer sur entrée pour continuer :"
 			clear
