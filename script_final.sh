@@ -875,9 +875,9 @@ clear
 		esac
 }
 # Donne les droits d'accès en écriture au fichier de journalisation et Début de la Journalisation dans le fichier log_evt.log
-chmod 777 /var/log/log_evt.log
-chmod 777 /var/log
-chmod 777 /var
+sudo chmod 777 /var/log/log_evt.log
+sudo chmod 777 /var/log
+sudo chmod 777 /var
 echo "--------------" >> /var/log/log_evt.log
 echo "$(date +%F-%X) - $USER - ********StartScript********" >> /var/log/log_evt.log
 
