@@ -9,8 +9,8 @@ puis vous avez plusieurs choix possibles soit réaliser des actions ou recherche
 **Actions :**
 
 
-verrouillage_machine : pouvoir vérrouiller la machine à distance.
-redemarrage_machine : pouvoir redemmarrer la machine à distance.
+verrouillage_machine : pouvoir vérrouiller la machine à distance.   
+redemarrage_machine : pouvoir redemmarrer la machine à distance.  
 arret_machine : 
 
 
