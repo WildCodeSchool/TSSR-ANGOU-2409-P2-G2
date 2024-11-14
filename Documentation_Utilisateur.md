@@ -22,8 +22,8 @@ ________________________________________________________
 ![image](https://github.com/user-attachments/assets/70359be3-1a70-4ae7-bd67-d25e65aca8f2)
 
 
-Gestion des dossier, créer ou supprimer un dossier en indiquant son emplacment : 
-`redemarrage_machine`/`verrouillage_machine`/`arret_machine`/`update_machine`: pouvoir gerer l'alimentaion de la machine à distance.  
+Gestion des dossier, créer ou supprimer un dossier en indiquant son emplacment :         
+Pouvoir gerer l'alimentaion de la machine à distance : `redemarrage_machine`/`verrouillage_machine`/`arret_machine`/`update_machine`:   
 
 
 
@@ -38,7 +38,7 @@ Liste des utilisateurs locaux
 ## Utilisation avancée : comment utiliser au mieux les options
 
 - Activation, désactivation et gestion des règles du pare-feu : `menu_action/menu_action_`
-- 
+- Journalisation, rechercher des évenements avec les fichiers logs : 
 
 
 
