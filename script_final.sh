@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo $() >> $nom_fichier_texte.txt
 #Menu information utilitsateur 
 
 menu_information_utilisateur()
