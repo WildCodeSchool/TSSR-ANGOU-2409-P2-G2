@@ -439,11 +439,13 @@ case $choix_securite in
 
 		1)
 			sudo ufw status
+  			echo $(sudo ufw status) >> $nom_fichier_texte.txt
 			echo "$(date +%F-%X) - $USER - a affiché le status du Pare-feu" >> /var/log/log_evt.log
 			menu_information_pare_feu;;
 			
 		2)
 			ss -tulpn
+   			echo $(ss -tulpn) >> $nom_fichier_texte.txt
                 	echo "$(date +%F-%X) - $USER - a effectué l'action "Affichage liste ports ouvert"" >> /var/log/log_evt.log
 			menu_information_pare_feu;;
 
@@ -552,13 +554,15 @@ case $choix_reseaux in
 
 		1) 
 			ip a | grep link/ether | cut -d\  -f 6
-			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage de l'adresse mac" >> /var/log/log_evt.log
+			echo $(ip a | grep link/ether | cut -d\  -f 6) >> $nom_fichier_texte.txt
+   			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage de l'adresse mac" >> /var/log/log_evt.log
 			read -p "appuyer sur entrée pour continuer :"
 			clear
 			menu_information_reseaux;;
 
 		2)
 			interface_reseaux=$(ls /sys/class/net/ | wc -l)
+   			echo "le Nombre d'interface réseaux et de $interface_reseaux" >> $nom_fichier_texte.txt
 			echo "le Nombre d'interface réseaux et de $interface_reseaux"
 			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage du nombre d'interface réseaux" >> /var/log/log_evt.log
 			read -p "appuyer sur entrée pour continuer :"
@@ -567,6 +571,7 @@ case $choix_reseaux in
 
 		3)
 			ip a | grep inet | cut -d\  -f 6
+   			echo $(ip a | grep inet | cut -d\  -f 6) >> $nom_fichier_texte.txt
 			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage adresse IP" >> /var/log/log_evt.log
 			read -p "appuyer sur entrée pour continuer :"
 			clear
@@ -574,6 +579,7 @@ case $choix_reseaux in
 
 		4)
 			ss -tulpn
+   			echo $(ss -tulpn) >> $nom_fichier_texte.txt
 			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage liste ports ouvert" >> /var/log/log_evt.log
 			read -p "appuyer sur entrée pour continuer :"
 			menu_information_reseaux;;
