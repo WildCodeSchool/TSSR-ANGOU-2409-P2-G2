@@ -25,10 +25,11 @@ arret_machine :
 
 
 
-**Informations :**
-Les différents droits et permsissions, connexions et date de modification de mot de passe.
+**Informations :**   
+
+Les différents droits et permsissions, connexions et date de modification de mot de passe.    
 Liste des utilisateurs locaux
-Retour au menu précédent
+
 
 
 
