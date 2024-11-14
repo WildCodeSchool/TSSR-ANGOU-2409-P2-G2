@@ -14,33 +14,12 @@ Afin de faciliter l'intégration et la désentégration des utilisateurs et leur
 
 ## Membres du groupe de projet (rôles par sprint)
 
-### Sprint 1
-
-Product Owner : Thomas
- 
-Scrum Manager : Mathieu
- 
-Techniciens : 
-Frederic, Tristan 
-
-
-### Sprint 2
-
-Product Owner : Frederic
- 
-Scrum Manager : Thomas
- 
-Techniciens : 
-Mathieu, Tristan 
-
-### Sprint 3
-
-Product Owner : Tristan
- 
-Scrum Manager : Frederic
- 
-Techniciens : 
-Mathieu, Thomas 
+| Rôles du groupe | SPRINT 1 | SPRINT 2 | SPRINT 3 | SPRINT 4 | SPRINT 5 | 
+|:--------| :------: | :-----------: | :-----------: | :--------: | :--------: |
+| Scrum Master  | Mathieu  | Thomas | Frederic | 
+| Product Owner |  Thomas | Frederic |  Tristan | 
+| Technicien 1  |  Frederic |  Tristan | Thomas | 
+| Technicien 2 |  Tristan | Mathieu | Mathieu | 
 
 
 ## Choix techniques : quel OS, quelle version, etc.
