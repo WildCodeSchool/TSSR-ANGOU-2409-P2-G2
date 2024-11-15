@@ -75,8 +75,6 @@ Client Windows 10
 
 ## Difficultés rencontrées : problèmes techniques rencontrés
 
-Installation et configuration de debian server ?
-
 ## Solutions trouvées : Solutions et alternatives trouvées
 
 ## Améliorations possibles : suggestions d’améliorations futures
