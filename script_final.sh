@@ -885,6 +885,7 @@ q) Sortie Script"
 menu_ssh_connex_distance () {
 
 ssh $nom_utilisateur@$adresse_ip
+menu_principal
 
 }
 
