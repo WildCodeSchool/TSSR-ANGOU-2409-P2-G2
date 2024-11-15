@@ -35,6 +35,11 @@ Après avoir saisi vos identifiants de connexion au server Debian, pour prendre 
 - Indiquez également le nom d'utilisateur avec lequel vous voulez vous connecter sur l'ordinateur client.
 - Laissez-vous ensuite guider par la navigation des menus ou repportez vous à la [documentation utilisateur](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Documentation_Utilisateur.md "Documentation Utilisateur post_scriptum") pour un usage de base ou avancé du script.
 
+### FAQ : Points de blocages / Modifications à venir
+
+- Demande de mot de passe à chaque utilisation d'une tâche à travers le menu
+- Prise en main à distance en GUI
+
 ### FAQ : solutions aux problèmes connus et communs liés à l’installation et à la configuration
 
 
