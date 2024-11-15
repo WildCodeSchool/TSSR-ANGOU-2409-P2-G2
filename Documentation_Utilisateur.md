@@ -23,7 +23,7 @@ ________________________________________________________
 
 
 Gestion des dossier, créer ou supprimer un dossier en indiquant son emplacment :         
-Pouvoir gerer l'alimentaion de la machine à distance : `redemarrage_machine`/`verrouillage_machine`/`arret_machine`/`update_machine`:   
+Pouvoir gerer l'alimentaion de la machine à distance : `6 - verrouillage_machine` / `7 - Redemarrage de la machine`/ `8 - arret de la machine` / `9 -mise à jour du système de la machine`:   
 
 
 
