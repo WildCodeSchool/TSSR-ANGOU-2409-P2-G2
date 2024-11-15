@@ -881,6 +881,14 @@ q) Sortie Script"
 	esac	
 }
 
+
+menu_ssh_connex_distance () {
+
+ssh $nom_utilisateur@$adresse_ip
+
+}
+
+
 # Fontion du Menu principal. Envoi l'utilisateur vers les sous-menus/fonctions Information et action
 menu_principal () {
 clear
@@ -892,7 +900,8 @@ clear
 	echo "			|:______________________________________________:|
 	
 	1) Effectuer des actions (exemple : créer un dossier, activer un par-feu...)
-	2) Rechercher des informations (exemple : liste des utilisateurs, utilisation de la RAM....)	
+	2) Rechercher des informations (exemple : liste des utilisateurs, utilisation de la RAM....)
+ 	3) Connexion à un hôte en SSH
 	x) Quitter le script"
 	
 
@@ -906,6 +915,9 @@ clear
 		2)
 			echo "$(date +%F-%X) - $USER - a Sélectionné le Menu Rechercher des Informations" >> /var/log/log_evt.log
 			menu_information;;
+		3)
+			echo "$(date +%F-%X) - $USER - a Sélectionné Prise de main à distance" >> /var/log/log_evt.log
+			menu_ssh_connex_distance;;
 		x)
 			echo "Vous quittez le script"
 			sleep 3
