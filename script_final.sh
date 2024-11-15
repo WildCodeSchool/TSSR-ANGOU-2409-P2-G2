@@ -26,7 +26,8 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
         echo "Droits/Permissions de l'utilisateur sur un dossier" 
         read -p "Quel dossier vous séléctionner ( ./path/nom_dossier ) ?" $directory      
         ssh $nom_utilisateur@$adresse_ip "sudo getfacl $directory | grep user"
-	echo $(sudo getfacl $directory | grep user) >> $nom_fichier_texte.txt
+	echo $(sudo getfacl $directory | grep user) >> /Documents/$nom_fichier_texte.txt
+ 	echo "--------------" >>  /Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les droits/permissions de l'utilisateur sur un dossier" >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
@@ -34,35 +35,40 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
         echo "Droits/Permissions de l'utilisateur sur un fichier"
         read -p "Quel fichier voulez vous sélectionner avec son emplacement ( ./path/nom_fichier ) ?" $file
         ssh $nom_utilisateur@$adresse_ip "sudo getfacl $file | grep user"
-	echo $(sudo getfacl $file | grep user) >> $nom_fichier_texte.txt
+	echo $(sudo getfacl $file | grep user) >> /Documents/$nom_fichier_texte.txt
+ 	echo "--------------" >>  /Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les droits/permissions de l'utilisateur sur un fichier" >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
         3) clear
         echo "Date de dernière connexion d'un utilisateur"
         ssh $nom_utilisateur@$adresse_ip "last $nom_utilisateur"
-	echo $(last $nom_utilisateur) >> $nom_fichier_texte.txt
+	echo $(last $nom_utilisateur) >> /Documents/$nom_fichier_texte.txt
+ 	echo "--------------" >>  /Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les informations de la dernière connexion de l'utilisateur" >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
         4) clear
         echo "Date de dernière modification du mot de passe de l'utilisateur"
         ssh $nom_utilisateur@$adresse_ip "passwd $nom_utilisateur -S"
-	echo $(passwd $nom_utilisateur -S) >> $nom_fichier_texte.txt
+	echo $(passwd $nom_utilisateur -S) >>  /Documents/$nom_fichier_texte.txt
+ 	echo "--------------" >>  /Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les informations de la dernière modification du mot de passe" >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
         5) clear
         echo "Liste des sessions ouvertes par l'utilisateur"
         ssh $nom_utilisateur@$adresse_ip "w"
-	echo $(w) >> $nom_fichier_texte.txt
+	echo $(w) >>  /Documents/$nom_fichier_texte.txt
+ 	echo "--------------" >>  /Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A lister les sessions ouvertes par l'utilisateur" >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
         6) clear
         echo "Liste des utilisateurs locaux"
         ssh $nom_utilisateur@$adresse_ip "cut -d: -f1 /etc/passwd"
-	echo $(cut -d: -f1 /etc/passwd) >> $nom_fichier_texte.txt
+	echo $(cut -d: -f1 /etc/passwd) >> /Documents/$nom_fichier_texte.txt
+ 	echo "--------------" >>  /Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A lister les utilisateurs locaux" >> /var/log/log_evt.log
         menu_information_utilisateur;;
 
@@ -113,49 +119,56 @@ case $choix_information_system in
         1)      clear
         	echo "Informations du CPU ( type de processeur)"
                 ssh $nom_utilisateur@$adresse_ip "lscpu"
-		echo $(lscpu) >> $nom_fichier_texte.txt
+		echo $(lscpu) >> /Documents/$nom_fichier_texte.txt
+  		echo "--------------" >>  /Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A afficher les informations du CPU" >> /var/log/log_evt.log
                 menu_information_systeme;;
 
         2)      clear
         	echo "Mémoire RAM totale"
                 ssh $nom_utilisateur@$adresse_ip "cat /proc/meminfo"
-		echo $(cat /proc/meminfo) >> $nom_fichier_texte.txt
+		echo $(cat /proc/meminfo) >>/Documents/$nom_fichier_texte.txt
+  		echo "--------------" >>  /Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A afficher les informations de la mémoire RAM" >> /var/log/log_evt.log
                 menu_information_systeme;;
 
         3)      clear
         	echo "Utilisation de la RAM" 
                 ssh $nom_utilisateur@$adresse_ip "free"
-		echo $(free) >> $nom_fichier_texte.txt
+		echo $(free) >> /Documents/$nom_fichier_texte.txt
+  		echo "--------------" >>  /Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A afficher les informations de l'utilisation de la RAM" >> /var/log/log_evt.log
                 menu_information_systeme;;
 
         4)      clear
         	echo "Utilisation du processeur"
                 ssh $nom_utilisateur@$adresse_ip "top"
-		echo $(top) >> $nom_fichier_texte.txt
+		echo $(top) >> /Documents/$nom_fichier_texte.txt
+  		echo "--------------" >>  /Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A afficher les informations de l'utilisation de processeur" >> /var/log/log_evt.log
                 menu_information_systeme;;
 
         5)      clear
         	echo "Utilisation du disque"
                 ssh $nom_utilisateur@$adresse_ip "lsblk -f"
-		echo $(lsblk -f) >> $nom_fichier_texte.txt
+		echo $(lsblk -f) >> /Documents/$nom_fichier_texte.txt
+  		echo "--------------" >>  /Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A afficher les informations de l'utilisation du disque" >> /var/log/log_evt.log
                 menu_information_systeme;;
 
         6)      clear
         	echo "Version de l'OS :"
                 ssh $nom_utilisateur@$adresse_ip "lsb_release -a" 
-		echo $(lsb_release -a) >> $nom_fichier_texte.txt
+		echo $(lsb_release -a) >> /Documents/$nom_fichier_texte.txt
+  		echo "--------------" >>  /Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A afficher les informations de la version du systeme d'exploitation" >> /var/log/log_evt.log
                 menu_information_systeme;; 
 
         7)      clear
         	echo "Liste des applications installées :"
                 ssh $nom_utilisateur@$adresse_ip "sudo dpkg -l"
-		echo $(sudo dpkg -l) >> $nom_fichier_texte.txt
+		echo $(sudo dpkg -l) >> /Documents/$nom_fichier_texte.txt
+  		echo "--------------" >>  /Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A lister les applications installés" >> /var/log/log_evt.log
                 menu_information_systeme;;
 
@@ -443,7 +456,7 @@ update_machine () {
 
 
 }
-
+# Menu Information Pare-Feu 
 menu_information_pare_feu(){
 echo "Menu Information Pare-Feu"
 echo "1) Statut du Pare-Feu"
@@ -455,14 +468,16 @@ read -p "faites votre choix :" choix_securite
 case $choix_securite in
 
 		1)
-			sudo ufw status
-  			echo $(sudo ufw status) >> $nom_fichier_texte.txt
+			ssh $nom_utilisateur@$adresse_ip "sudo ufw status"
+  			echo $(sudo ufw status) >> /Documents/$nom_fichier_texte.txt
+     			echo "--------------" >>  /Documents/$nom_fichier_texte.txt
 			echo "$(date +%F-%X) - $USER - a affiché le status du Pare-feu" >> /var/log/log_evt.log
 			menu_information_pare_feu;;
 			
 		2)
-			ss -tulpn
-   			echo $(ss -tulpn) >> $nom_fichier_texte.txt
+			ssh $nom_utilisateur@$adresse_ip "ss -tulpn"
+   			echo $(ss -tulpn) >> /Documents/$nom_fichier_texte.txt
+      			echo "--------------" >>  /Documents/$nom_fichier_texte.txt
                 	echo "$(date +%F-%X) - $USER - a effectué l'action "Affichage liste ports ouvert"" >> /var/log/log_evt.log
 			menu_information_pare_feu;;
 
@@ -492,7 +507,7 @@ case $choix_securite in
 
 esac
 } 
-
+# Menu journalisation Permet d'acceder au donnée du fichier log 
 
 menu_journalisation(){
 
@@ -508,8 +523,9 @@ case $choix_journalisation in
 		1)
 			clear
 			read -p "Entrer le nom d'utilisateur :" utilisateur
-			cat /var/log/log_evt.log | grep "$utilisateur"
-   			echo $(cat /var/log/log_evt.log | grep "$utilisateur") >> $nom_fichier_texte.txt
+			ssh $nom_utilisateur@$adresse_ip "cat /var/log/log_evt.log | grep "$utilisateur""
+   			echo $(cat /var/log/log_evt.log | grep "$utilisateur") >> /Documents/$nom_fichier_texte.txt
+      			echo "--------------" >>  /Documents/$nom_fichier_texte.txt
 			echo "$(date +%F-%X) - $USER - à Rechercher des événements éffectuer par $utilisateur" >> /var/log/log_evt.log 
 			read -p "appuyer sur entrée pour continuer :"
 			clear
@@ -517,7 +533,7 @@ case $choix_journalisation in
 
 		2)
 			clear
-			cat /var/log/log_evt.log
+			ssh $nom_utilisateur@$adresse_ip "cat /var/log/log_evt.log"
 			echo "$(date +%F-%X) - $USER - à éffectuer l'action Affichage des événement de l'Ordinateur" >> /var/log/log_evt.log 
 			read -p "appuyer sur entrée pour continuer :"
 			clear
@@ -551,7 +567,7 @@ esac
 }
 
 
-# Menu Information Réseaux
+# Menu Information Réseaux 
 
 menu_information_reseaux()
 
@@ -571,16 +587,18 @@ read -p "Faites votre choix :" choix_reseaux
 case $choix_reseaux in
 
 		1) 
-			ip a | grep link/ether | cut -d\  -f 6
-			echo $(ip a | grep link/ether | cut -d\  -f 6) >> $nom_fichier_texte.txt
+			ssh $nom_utilisateur@$adresse_ip "ip a | grep link/ether | cut -d\  -f 6"
+			echo $(ip a | grep link/ether | cut -d\  -f 6) >> /Documents/$nom_fichier_texte.txt
+   			echo "--------------" >>  /Documents/$nom_fichier_texte.txt
    			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage de l'adresse mac" >> /var/log/log_evt.log
 			read -p "appuyer sur entrée pour continuer :"
 			clear
 			menu_information_reseaux;;
 
 		2)
-			interface_reseaux=$(ls /sys/class/net/ | wc -l)
-   			echo "le Nombre d'interface réseaux et de $interface_reseaux" >> $nom_fichier_texte.txt
+			ssh $nom_utilisateur@$adresse_ip "interface_reseaux=$(ls /sys/class/net/ | wc -l)"
+   			echo "le Nombre d'interface réseaux et de $interface_reseaux" >> /Documents/$nom_fichier_texte.txt
+      			echo "--------------" >>  /Documents/$nom_fichier_texte.txt
 			echo "le Nombre d'interface réseaux et de $interface_reseaux"
 			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage du nombre d'interface réseaux" >> /var/log/log_evt.log
 			read -p "appuyer sur entrée pour continuer :"
@@ -588,16 +606,18 @@ case $choix_reseaux in
 			menu_information_reseaux;;
 
 		3)
-			ip a | grep inet | cut -d\  -f 6
-   			echo $(ip a | grep inet | cut -d\  -f 6) >> $nom_fichier_texte.txt
+			ssh $nom_utilisateur@$adresse_ip "ip a | grep inet | cut -d\  -f 6"
+   			echo $(ip a | grep inet | cut -d\  -f 6) >> /Documents/$nom_fichier_texte.txt
+      			echo "--------------" >>  /Documents/$nom_fichier_texte.txt
 			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage adresse IP" >> /var/log/log_evt.log
 			read -p "appuyer sur entrée pour continuer :"
 			clear
 			menu_information_reseaux;;
 
 		4)
-			ss -tulpn
-   			echo $(ss -tulpn) >> $nom_fichier_texte.txt
+			ssh $nom_utilisateur@$adresse_ip "ss -tulpn"
+   			echo $(ss -tulpn) >> /Documents/$nom_fichier_texte.txt
+      			echo "--------------" >>  /Documents/$nom_fichier_texte.txt
 			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage liste ports ouvert" >> /var/log/log_evt.log
 			read -p "appuyer sur entrée pour continuer :"
 			menu_information_reseaux;;
