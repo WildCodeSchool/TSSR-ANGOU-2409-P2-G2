@@ -22,12 +22,15 @@ Après avoir saisi vos identifiants de connexion au server Debian, pour prendre 
   - `sudo systemctl restart ssh`
 
 #### Installation et Configuration
+- Pour copier le script depuis une machine distante sur votre serveur, utilisez la commande :
+  - `scp <nom_ustilisateur>@<ip_machine_utilisateur>:/répertoire/du_fichier.sh .`
 - Avant tout execution du script, assurez vous que le fichier `log_evt.log` soit présent à l'emplacement `/var/log/` de l'ordinateur sur lequel vous allez l'exécuter.
 - S'il n'existe pas, creez le fichier :
   - `log_evt.log` à l'emplacement `/var/log/`
 
 #### Lancement du script
 
+- Le script se trouve dans le dossier `/home/Documents` du server Debian
 - Executer le script à l'aide de votre interpréteur de comande BASH en rentrant la commande :\
   - `bash post_scriptum.sh`
 
