@@ -81,4 +81,5 @@ Client Windows 10
 
 - Utiliser le script autrement qu'en connexion SSH
 - Affiner les règles à du Firewall (rejeter certains trafic, autoriser/refuser une plage d'adresse) pour une gestion du traffic plus souple et précise qu'avec le script actuelle (autorisation ou refus uniquement sur les ports ou protocoles)
+- Gestion des erreurs (utilisateur déjà existant, fichier ou dossier déjà présent ou inexistant...)
 
