@@ -1,5 +1,8 @@
 #!/bin/bash
-#echo $() >> $nom_fichier_texte.txt
+#Les lignes dans chaque fonctions correspondant à :
+# echo $(<comande>) >> $nom_fichier_texte.txt
+# permettent d'inscrire les informations recuillis sur la machine client dans un fichier portant le nom de l'utilisateur dans ~/Documents
+#
 #Menu information utilitsateur 
 
 menu_information_utilisateur()
