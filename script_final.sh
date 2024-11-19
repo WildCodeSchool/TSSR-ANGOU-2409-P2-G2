@@ -5,6 +5,16 @@
 #
 #Menu information utilitsateur 
 
+
+# Fonction de fin du script : Restreint les droits d'accès en écriture au fichier de journalisation du fichier log_evt.log et son chemin à leur statut d'origine et quitte le script
+sortie_script () {
+
+	sudo chmod 644 /var/log/log_evt.log
+	sudo chmod 644 /var/log
+	sudo chmod 644 /var
+ 	exit 0
+}
+
 menu_information_utilisateur()
 { 
 
@@ -86,7 +96,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
 	   sleep 3
 	   echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
 	   echo "--------------" >> /var/log/log_evt.log
-	   exit
+	   sortie_script
 	   ;;
 	   
 	*) echo "Mauvaise commande veuillez réessayer"
@@ -186,7 +196,7 @@ case $choix_information_system in
 		sleep 3
 		echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
 		echo "--------------" >> /var/log/log_evt.log
-		exit
+		sortie_script
 		;;
 	*)
 		echo "Mauvaise commande veuillez réessayer"
@@ -294,7 +304,7 @@ sortie_utilisateur_a_un_groupe_local () {
 	       sleep 3
                echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
                echo "--------------" >> /var/log/log_evt.log
-	       exit
+	       sortie_script
 	       ;;
             *) echo "Erreur choix non valide merci de modifier votre choix" ;; 
             
@@ -445,7 +455,7 @@ update_machine () {
 	       sleep 3
 	       echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
 	       echo "--------------" >> /var/log/log_evt.log
-	       exit;;
+	       sortie_script;;
             *) echo "Erreur choix non valide merci de modifier votre choix" ;; 
 	           
             
@@ -496,7 +506,7 @@ case $choix_securite in
 			sleep 3
 			echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
 			echo "--------------" >> /var/log/log_evt.log
-			exit
+			sortie_script
 			;;
 			
 
@@ -554,7 +564,7 @@ case $choix_journalisation in
 			sleep 3			
 			echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
 			echo "--------------" >> /var/log/log_evt.log
-			exit
+			sortie_script
 			;;
 
 		*)
@@ -637,7 +647,7 @@ case $choix_reseaux in
 			sleep 3
 			echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
 			echo "--------------" >> /var/log/log_evt.log
-			exit
+			sortie_script
 			;;
 			
 		*)
@@ -689,7 +699,7 @@ q) Sortie Script
 			echo "Vous quittez le script "
 			echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
 			echo "--------------" >> /var/log/log_evt.log
-			exit
+			sortie_script
 			;;
 			
 		*)
@@ -757,7 +767,7 @@ q) Sortie Script
 			sleep 3
 			echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
 			echo "--------------" >> /var/log/log_evt.log
-			exit
+			sortie_script
 			;;
 			
 		*)
@@ -825,7 +835,7 @@ case $choix_menu in
 			sleep 3
 			echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
 			echo "--------------" >> /var/log/log_evt.log
-			exit
+			sortie_script
 			;;
 			
 		*)
@@ -871,7 +881,7 @@ q) Sortie Script"
 			sleep 3
 			echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
 			echo "--------------" >> /var/log/log_evt.log
-			exit
+			sortie_script
 			;;
 		*)	
                 	echo "Mauvaise commande veuillez réesayer"
@@ -924,7 +934,7 @@ clear
 			sleep 3
 			echo "$(date +%F-%X) - $USER - ********EndScript********" >> /var/log/log_evt.log
 			echo "--------------" >> /var/log/log_evt.log
-			exit;;
+			sortie_script;;
 		*)
 			echo "Mauvaise commande veuillez réessayer"
 			menu_principal;;
@@ -938,7 +948,12 @@ sudo chmod 777 /var/log
 sudo chmod 777 /var
 echo "--------------" >> /var/log/log_evt.log
 echo "$(date +%F-%X) - $USER - ********StartScript********" >> /var/log/log_evt.log
+
+# Connexion Identification à la machine cliente
 read -p "A quel machine voulez-vous vous connecter en ssh ? ( adresse ip )" adresse_ip
 read -p "Veuillez renseigner le nom d'utilisateur pour ssh ? " nom_utilisateur
+
+# Nom du fichier qui contiendra les informations colléctées sur la machine cliente
 nom_fichier_texte=info\_$nom_utilisateur\_$(date +%F)
+# Le script commence ici
 menu_principal
