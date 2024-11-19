@@ -376,7 +376,7 @@ execution_script () {
 
         read -p "Nom du script a lancer ? " exec_script
         echo "$(date +%F-%X) - $USER - Execution du script $exec_script" >> /var/log/log_evt.log 
-        ssh $nom_utilisateur@$adresse_ip "sudo -yes | ./$exec_script -y"
+        ssh $nom_utilisateur@$adresse_ip "sudo -S  ./$exec_script -y"
         echo "Script $exec_script lancé "
         sleep 2
     }
