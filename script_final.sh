@@ -35,7 +35,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
         1) clear 
         echo "Droits/Permissions de l'utilisateur sur un dossier" 
         read -p "Quel dossier vous séléctionner ( ./path/nom_dossier ) ?" $directory      
-        ssh $nom_utilisateur@$adresse_ip "sudo getfacl $directory | grep user"
+        ssh $nom_utilisateur@$adresse_ip "sudo -S getfacl $directory | grep user"
 	echo $(sudo getfacl $directory | grep user) >> /Documents/$nom_fichier_texte.txt
  	echo "--------------" >>  /Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les droits/permissions de l'utilisateur sur un dossier" >> /var/log/log_evt.log
@@ -44,7 +44,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
         2) clear
         echo "Droits/Permissions de l'utilisateur sur un fichier"
         read -p "Quel fichier voulez vous sélectionner avec son emplacement ( ./path/nom_fichier ) ?" $file
-        ssh $nom_utilisateur@$adresse_ip "sudo getfacl $file | grep user"
+        ssh $nom_utilisateur@$adresse_ip "sudo -S getfacl $file | grep user"
 	echo $(sudo getfacl $file | grep user) >> /Documents/$nom_fichier_texte.txt
  	echo "--------------" >>  /Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les droits/permissions de l'utilisateur sur un fichier" >> /var/log/log_evt.log
