@@ -717,7 +717,7 @@ q) Sortie Script
 	# Applique la nouvelle règle de pare-feu
 	else
 		echo "Nouvelle règle de pare feu établie : $port $protocole $action"
-		ssh $nom_utilisateur@$adresse_ip "sudo ufw $action $port $protocole"
+		ssh $nom_utilisateur@$adresse_ip "sudo -S ufw $action $port $protocole"
 		echo "$(date +%F-%X) - $USER - a défini $action $protocole $port comme nouvelle règle de pare-feu" >> /var/log/log_evt.log
 		menu_regle_parefeu
 	fi
