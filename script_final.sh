@@ -710,7 +710,8 @@ q) Sortie Script
 	if [ $protocole -z ] && [ $port -z ]
 	then	
 		echo "Aucun port où protocole n'a été séléctionné "
-		clear
+		sleep 3
+  		clear
   		echo "$(date +%F-%X) - $USER - n'a défini aucune nouvelle règle de pare-feu" >> /var/log/log_evt.log
 		menu_gestion_parefeu
 
@@ -718,7 +719,9 @@ q) Sortie Script
 	else
 		echo "Nouvelle règle de pare feu établie : $port $protocole $action"
 		ssh $nom_utilisateur@$adresse_ip "sudo -S ufw $action $port $protocole"
-		echo "$(date +%F-%X) - $USER - a défini $action $protocole $port comme nouvelle règle de pare-feu" >> /var/log/log_evt.log
+		sleep 3
+  		clear
+  		echo "$(date +%F-%X) - $USER - a défini $action $protocole $port comme nouvelle règle de pare-feu" >> /var/log/log_evt.log
 		menu_regle_parefeu
 	fi
 }
