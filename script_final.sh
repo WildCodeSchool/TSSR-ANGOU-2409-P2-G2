@@ -384,7 +384,7 @@ execution_script () {
 
 verrouillage_machine () {
 
-        Echo "Verrouillage de la machine" 
+        echo "Verrouillage de la machine" 
         echo "$(date +%F-%X) - $USER - Verrouillage de  la machine  : $adresse_ip" >> /var/log/log_evt.log
         sleep 2 
         ssh $nom_utilisateur@$adresse_ip "sudo -S systemctl suspend"
@@ -392,7 +392,7 @@ verrouillage_machine () {
 
 redemarrage_machine () {
 
-        Echo "Redémarrage de la machine" 
+        echo "Redémarrage de la machine" 
         echo "$(date +%F-%X) - $USER - Redémarrage de la machine : $adresse_ip" >> /var/log/log_evt.log
         sleep 2 
         ssh $nom_utilisateur@$adresse_ip "sudo -S reboot"
@@ -401,7 +401,7 @@ redemarrage_machine () {
 
 arret_machine () {
 
-        Echo "Arrêt de la machine" 
+        echo "Arrêt de la machine" 
         echo "$(date +%F-%X) - $USER - Arrêt de la machine : $adresse_ip" >> /var/log/log_evt.log
         sleep 2 
         ssh $nom_utilisateur@$adresse_ip "sudo -S shutdown now"
@@ -410,7 +410,7 @@ arret_machine () {
 
 update_machine () {
 
-        Echo "Mise à jour du système de la machine" 
+        echo "Mise à jour du système de la machine" 
         echo "$(date +%F-%X) - $USER - Mise à jour du système : $adresse_ip" >> /var/log/log_evt.log
         ssh $nom_utilisateur@$adresse_ip "sudo -S apt update && apt upgrade -y"
         echo "Système mis à jour "
@@ -738,12 +738,12 @@ q) Sortie Script
 	case $choix in
 		1)
 			echo "Le pare-feu est Activé"
-   			ssh $nom_utilisateur@$adresse_ip "sudo ufw enable"
+   			ssh $nom_utilisateur@$adresse_ip "Sudo -S ufw enable"
 			echo "$(date +%F-%X) - $USER - a Activé le pare-feu" >> /var/log/log_evt.log
 			menu_gestion_parefeu;;
 		2)
 			echo "Le pare-feu est désactivé"
-   			ssh $nom_utilisateur@$adresse_ip "sudo ufw disable"
+   			ssh $nom_utilisateur@$adresse_ip "Sudo -S ufw disable"
 			
 			echo "$(date +%F-%X) - $USER - a désactivé le pare-feu" >> /var/log/log_evt.log
 			menu_gestion_parefeu;;
