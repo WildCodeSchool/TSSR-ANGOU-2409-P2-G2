@@ -54,7 +54,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
 
         3) 
         echo "Date de dernière connexion d'un utilisateur"
-        ssh $nom_utilisateur@$adresse_ip "last $nom_utilisateur"
+        ssh $nom_utilisateur@$adresse_ip "last $nom_utilisateur | head -1"
 	echo $(last $nom_utilisateur) >> Documents/$nom_fichier_texte.txt
  	echo "--------------" >>  Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les informations de la dernière connexion de l'utilisateur" >> /var/log/log_evt.log
@@ -170,7 +170,7 @@ case $choix_information_system in
 
         5)      
         	echo "Utilisation du disque"
-                ssh $nom_utilisateur@$adresse_ip "lsblk -f"
+                ssh $nom_utilisateur@$adresse_ip "fdisk -l"
 		echo $(lsblk -f) >> Documents/$nom_fichier_texte.txt
   		echo "--------------" >> Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A afficher les informations de l'utilisation du disque" >> /var/log/log_evt.log
@@ -188,7 +188,7 @@ case $choix_information_system in
 
         7)      
         	echo "Liste des applications installées :"
-                ssh $nom_utilisateur@$adresse_ip "sudo dpkg -l"
+                ssh $nom_utilisateur@$adresse_ip "sudo -S dpkg -l"
 		echo $(sudo dpkg -l) >> Documents/$nom_fichier_texte.txt
   		echo "--------------" >> Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A lister les applications installés" >> /var/log/log_evt.log
