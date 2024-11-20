@@ -163,8 +163,8 @@ case $choix_information_system in
 
         4)      
         	echo "Utilisation du processeur"
-                ssh $nom_utilisateur@$adresse_ip "top"
-		echo $(top) >> Documents/$nom_fichier_texte.txt
+                ssh $nom_utilisateur@$adresse_ip "top -b -n1"
+		echo $(top -b -n1) >> Documents/$nom_fichier_texte.txt
   		echo "--------------" >>  Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - A afficher les informations de l'utilisation de processeur" >> /var/log/log_evt.log
                 read -p "appuyer sur entrée pour continuer :" t
