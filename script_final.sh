@@ -143,7 +143,7 @@ case $choix_information_system in
 
         2)      
         	echo "Mémoire RAM totale"
-                ssh $nom_utilisateur@$adresse_ip "cat /proc/meminfo"
+                ssh $nom_utilisateur@$adresse_ip "grep MemTotal /proc/meminfo"
 		echo $(cat /proc/meminfo) >>Documents/$nom_fichier_texte.txt
   		echo "--------------" >>  Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A afficher les informations de la mémoire RAM" >> /var/log/log_evt.log
