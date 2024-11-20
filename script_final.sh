@@ -17,7 +17,7 @@ sortie_script () {
 
 menu_information_utilisateur()
 { 
-
+clear 
 echo "Menu information utilisateur" 
 echo "1) Droits/Permissions de l'utilisateur sur un dossier" 
 echo "2) Droits/Permissions de l'utilisateur sur un fichier"
@@ -32,62 +32,68 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
 
         case $choix_information_utilisateur in 
 
-        1) clear 
+        1) 
         echo "Droits/Permissions de l'utilisateur sur un dossier" 
         read -p "Quel dossier vous séléctionner ( ./path/nom_dossier ) ?" $directory      
         ssh $nom_utilisateur@$adresse_ip "sudo -S getfacl $directory | grep user"
 	echo $(sudo getfacl $directory | grep user) >> Documents/$nom_fichier_texte.txt
  	echo "--------------" >> Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les droits/permissions de l'utilisateur sur un dossier" >> /var/log/log_evt.log
-        menu_information_utilisateur;;
+        read -p "appuyer sur entrée pour continuer :"
+	menu_information_utilisateur;;
 
-        2) clear
+        2) 
         echo "Droits/Permissions de l'utilisateur sur un fichier"
         read -p "Quel fichier voulez vous sélectionner avec son emplacement ( ./path/nom_fichier ) ?" $file
         ssh $nom_utilisateur@$adresse_ip "sudo -S getfacl $file | grep user"
 	echo $(sudo getfacl $file | grep user) >> Documents/$nom_fichier_texte.txt
  	echo "--------------" >> Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les droits/permissions de l'utilisateur sur un fichier" >> /var/log/log_evt.log
-        menu_information_utilisateur;;
+       read -p "appuyer sur entrée pour continuer :"
+	menu_information_utilisateur;;
 
-        3) clear
+        3) 
         echo "Date de dernière connexion d'un utilisateur"
         ssh $nom_utilisateur@$adresse_ip "last $nom_utilisateur"
 	echo $(last $nom_utilisateur) >> Documents/$nom_fichier_texte.txt
  	echo "--------------" >> Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les informations de la dernière connexion de l'utilisateur" >> /var/log/log_evt.log
-        menu_information_utilisateur;;
+        read -p "appuyer sur entrée pour continuer :"
+	menu_information_utilisateur;;
 
-        4) clear
+        4) 
         echo "Date de dernière modification du mot de passe de l'utilisateur"
         ssh $nom_utilisateur@$adresse_ip "passwd $nom_utilisateur -S"
 	echo $(passwd $nom_utilisateur -S) >> Documents/$nom_fichier_texte.txt
  	echo "--------------" >> Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les informations de la dernière modification du mot de passe" >> /var/log/log_evt.log
-        menu_information_utilisateur;;
+        read -p "appuyer sur entrée pour continuer :"
+	menu_information_utilisateur;;
 
-        5) clear
+        5) 
         echo "Liste des sessions ouvertes par l'utilisateur"
         ssh $nom_utilisateur@$adresse_ip "w"
 	echo $(w) >> Documents/$nom_fichier_texte.txt
  	echo "--------------" >> Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A lister les sessions ouvertes par l'utilisateur" >> /var/log/log_evt.log
-        menu_information_utilisateur;;
+        read -p "appuyer sur entrée pour continuer :"
+	menu_information_utilisateur;;
 
-        6) clear
+        6) 
         echo "Liste des utilisateurs locaux"
         ssh $nom_utilisateur@$adresse_ip "cut -d: -f1 /etc/passwd"
 	echo $(cut -d: -f1 /etc/passwd) >> Documents/$nom_fichier_texte.txt
  	echo "--------------" >> Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A lister les utilisateurs locaux" >> /var/log/log_evt.log
-        menu_information_utilisateur;;
+        read -p "appuyer sur entrée pour continuer :"
+	menu_information_utilisateur;;
 
-        r) clear
+        r) 
            echo "Retour au Menu Précédent"
            echo "$(date +%F-%X) - $USER - est Retourner au Menu Précédent" >> /var/log/log_evt.log
            menu_information;;
         
-        x) clear
+        x) 
            echo "Retour au Menu Principal"
 	   echo "$(date +%F-%X) - $USER - est Retourner au Menu Principal" >> /var/log/log_evt.log
     	   menu_principal;;
