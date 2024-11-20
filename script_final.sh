@@ -230,8 +230,7 @@ creation_compte_utilisateur () {
 
         read -p "Nom de l'utilisateur dont le compte doit être créé ? : " user_account
         echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Création du mot de passe pour l'utilisateur $user_account" >> /var/log/log_evt.log 
-        ssh $nom_utilisateur@$adresse_ip "sudo -S useradd -m $user_account"
-        echo "Mot de passe créé pour l'utilisateur $user_account"
+        ssh $nom_utilisateur@$adresse_ip "sudo -S useradd $user_account "
         sleep 2
     }   
 
@@ -240,7 +239,7 @@ changement_mot_de_passe_utilisateur () {
 
         read -p "Nom de l'utilisateur dont le mot de passe doit être changer ? : " user_passwd
         echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Modification du mot de passe pour l'utilisateur $user_passwd" >> /var/log/log_evt.log
-        ssh $nom_utilisateur@$adresse_ip "sudo -S chpasswd $user_passwd" 
+        ssh $nom_utilisateur@$adresse_ip "sudo -S passwd $user_passwd" 
         echo "Mot de passe changé pour l'utilisateur $user_passwd"
         sleep 2
     }
@@ -542,7 +541,7 @@ menu_journalisation(){
 
 echo "Menu Journalisation"
 echo "1) Recherche des événements dans le fichier log_evt.log par utilisateur"
-echo "2) Affichage des événements éffectuer sur l'Ordinateur"
+echo "2) Recherche des événements dans le fichier log_evt.log pour un Ordinateur"
 echo "r) Retour au Menu Précédent"
 echo "x) Retour au Menu Principal"
 echo "q) Sortie Script"
@@ -562,7 +561,7 @@ case $choix_journalisation in
 
 		2)
 			clear
-			read -p "Entrer le nom d'utilisateur : " ordinateur
+			read -p "Entrer le nom de l'Ordinateur : " ordinateur
 			cat /var/log/log_evt.log | grep "$ordinateur"
 			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - à éffectuer l'action Affichage des événement de l'Ordinateur" >> /var/log/log_evt.log 
 			read -p "appuyer sur entrée pour continuer :" t
