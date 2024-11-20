@@ -612,7 +612,7 @@ case $choix_reseaux in
 			menu_information_reseaux;;
 
 		2)
-			ssh $nom_utilisateur@$adresse_ip "interface_reseaux=$(ls /sys/class/net/ | wc -l)"
+			interface_reseaux=$(ssh $nom_utilisateur@$adresse_ip "ls /sys/class/net/ | wc -l")
    			echo "le Nombre d'interface réseaux et de $interface_reseaux" >> Documents/$nom_fichier_texte.txt
       			echo "--------------" >>  Documents/$nom_fichier_texte.txt
 			echo "le Nombre d'interface réseaux et de $interface_reseaux"
