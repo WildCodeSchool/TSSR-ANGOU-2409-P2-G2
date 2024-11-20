@@ -1,9 +1,9 @@
 #!/bin/bash
 #Les lignes dans chaque fonctions correspondant à :
-# echo $(<comande>) >> $nom_fichier_texte.txt
-# permettent d'inscrire les informations recuillis sur la machine client dans un fichier portant le nom de l'utilisateur dans ~/Documents
+# echo $(<commande>) >> $nom_fichier_texte.txt
+# permettent d'inscrire les informations recueillis sur la machine client dans un fichier portant le nom de l'utilisateur dans ~/Documents
 #
-#Menu information utilitsateur 
+#Menu information utilisateur 
 
 
 # Fonction de fin du script : Restreint les droits d'accès en écriture au fichier de journalisation du fichier log_evt.log et son chemin à leur statut d'origine et quitte le script
@@ -34,7 +34,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
 
         1) 
         echo "Droits/Permissions de l'utilisateur sur un dossier" 
-        read -p "Quel dossier vous séléctionner ( ./path/nom_dossier ) ? : " directory      
+        read -p "Quel dossier vous sélectionner ( ./path/nom_dossier ) ? : " directory      
         droitdossier=$(ssh $nom_utilisateur@$adresse_ip "sudo -S getfacl $directory | grep user")
 	echo "$droitdossier"
 	echo "$droitdossier" >> Documents/$nom_fichier_texte.txt
@@ -184,7 +184,7 @@ case $choix_information_system in
                 ssh $nom_utilisateur@$adresse_ip "lsb_release -a" 
 		echo $(lsb_release -a) >> Documents/$nom_fichier_texte.txt
   		echo "--------------" >>  Documents/$nom_fichier_texte.txt
-                echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - A afficher les informations de la version du systeme d'exploitation" >> /var/log/log_evt.log
+                echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - A afficher les informations de la version du système d'exploitation" >> /var/log/log_evt.log
                 read -p "appuyer sur entrée pour continuer :" t
                 menu_information_systeme;; 
 
@@ -246,7 +246,7 @@ changement_mot_de_passe_utilisateur () {
 
 suppression_de_compte_utilisateur_local () {
 
-        read -p "Nom de l'utilisateur dont le compte doit être supprimmé ? : " del_user_local_account
+        read -p "Nom de l'utilisateur dont le compte doit être supprimé ? : " del_user_local_account
         echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Suppression du compte de l'utilisateur local $del_user_local_account" >> /var/log/log_evt.log
         ssh $nom_utilisateur@$adresse_ip  "sudo -S deluser $del_user_local_account"
         echo "Suppression avec succès du compte pour l'utilisateur $del_user_local_account"
@@ -347,8 +347,8 @@ action_systeme() {
 
 creation_repertoire () {
 
-        read -p "Nom du repertoire à créer (En Chemin absolu) ? : " mkdir_name
-        echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Création du repertoire $mkdir_name" >> /var/log/log_evt.log 
+        read -p "Nom du répertoire à créer (En Chemin absolu) ? : " mkdir_name
+        echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Création du répertoire $mkdir_name" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -S mkdir -v $mkdir_name"
         echo "Repertoire $mkdir_name créé "
         sleep 2
@@ -358,7 +358,7 @@ creation_repertoire () {
 suppression_repertoire () {
 
         read -p "Nom du repertoire à supprimer (En Chemin absolu) ? : " del_dir_name
-        echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Supression du repertoire $del_dir_name" >> /var/log/log_evt.log 
+        echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Suppression du répertoire $del_dir_name" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -S rm -r -v $del_dir_name"
         # echo "Repertoire $del_dir_name supprimé "
         sleep 2
@@ -379,9 +379,9 @@ installation_logiciel () {
 desinstallation_logiciel () {
 
         read -p "Nom du package a installer ? : " desinstall_soft
-        echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Desinstallation du package $desinstall_soft" >> /var/log/log_evt.log 
+        echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Désinstallation du package $desinstall_soft" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -S apt remove $desinstall_soft -y"
-        echo "Package $desinstall_soft desinstallé "
+        echo "Package $desinstall_soft désinstallé "
         sleep 2
     }
 
@@ -389,7 +389,7 @@ desinstallation_logiciel () {
 execution_script () {
 
         read -p "Nom du script a lancer ? : " exec_script
-        echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Execution du script $exec_script" >> /var/log/log_evt.log 
+        echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Exécution du script $exec_script" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -S  ./$exec_script -y"
         echo "Script $exec_script lancé "
         sleep 2
@@ -443,7 +443,7 @@ update_machine () {
     echo "2- Suppression de répertoire"
     echo "3- Installation de logiciel (distribution Linux Ubuntu)"
     echo "4- Désinstallation de logiciel (distribution Linux Ubuntu)"
-    echo "5- Execution de script sur une machine distante"
+    echo "5- Exécution de script sur une machine distante"
     echo "6- Verrouillage de la machine"
     echo "7- Redémarrage de la machine"
     echo "8- Arrêt de la machine"
@@ -535,7 +535,7 @@ case $choix_securite in
 
 esac
 } 
-# Menu journalisation Permet d'acceder au donnée du fichier log 
+# Menu journalisation Permet d'accéder au donnée du fichier log 
 
 menu_journalisation(){
 
@@ -554,7 +554,7 @@ case $choix_journalisation in
 			cat /var/log/log_evt.log | grep "$utilisateur"
    			echo $(cat /var/log/log_evt.log | grep "$utilisateur") >> Documents/$nom_fichier_texte.txt
       			echo "--------------" >>  Documents/$nom_fichier_texte.txt
-			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - à Rechercher des événements éffectuer par $utilisateur" >> /var/log/log_evt.log 
+			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - à Rechercher des événements effectuer par $utilisateur" >> /var/log/log_evt.log 
 			read -p "appuyer sur entrée pour continuer :" t
 			clear
 			menu_journalisation;;
@@ -563,7 +563,7 @@ case $choix_journalisation in
 			clear
 			read -p "Entrer le nom de l'Ordinateur : " ordinateur
 			cat /var/log/log_evt.log | grep "$ordinateur"
-			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - à éffectuer l'action Affichage des événement de l'Ordinateur" >> /var/log/log_evt.log 
+			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - à effectuer l'action Affichage des événement de l'Ordinateur" >> /var/log/log_evt.log 
 			read -p "appuyer sur entrée pour continuer :" t
 			clear
 			menu_journalisation;;
@@ -726,10 +726,10 @@ q) Sortie Script
 			echo "Mauvaise commande veuillez réessayer"
 			menu_regle_parefeu;;
 	esac
-	# Vérifie que l'utilisateur a bien séléctionné un port ou un protocole à modifier pour établir une nouvelle règle sur le pare-feu. N'applique pas de nouvelles règles sur le pare-feu si rien a été séléctionné.
+	# Vérifie que l'utilisateur a bien sélectionné un port ou un protocole à modifier pour établir une nouvelle règle sur le pare-feu. N'applique pas de nouvelles règles sur le pare-feu si rien a été sélectionné.
 	if [ $protocole -z ] && [ $port -z ]
 	then	
-		echo "Aucun port où protocole n'a été séléctionné "
+		echo "Aucun port où protocole n'a été sélectionné "
 		sleep 3
   		clear
   		echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - n'a défini aucune nouvelle règle de pare-feu" >> /var/log/log_evt.log
@@ -745,7 +745,7 @@ q) Sortie Script
 		menu_regle_parefeu
 	fi
 }
-# Menu de gestion basic du pare-feu. Permet d'accéder à la gestion avancé du parefeu (établir de nouvelles règles)
+# Menu de gestion basic du pare-feu. Permet d'accéder à la gestion avancé du pare-feu (établir de nouvelles règles)
 menu_gestion_parefeu () {
 
 echo "Menu Gestion du Pare-feu
@@ -805,7 +805,7 @@ clear
 echo "Menu Information"
 echo "1) Menu Information Compte / Utilisateurs"
 echo "2) Menu Information Réseaux"
-echo "3) Menu Information Systeme"
+echo "3) Menu Information Système"
 echo "4) Menu Information Pare-feu"
 echo "5) Consulter le journal des événements"
 echo "x) Retour au Menu principal"
@@ -821,29 +821,29 @@ case $choix_menu in
 			menu_information_utilisateur;;
 
 		2)
-			echo "Ouverture Menu Réseaux"
-			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - a Sélectionné le Menu Réseaux" >> /var/log/log_evt.log
+			echo "Ouverture Menu Information Réseaux"
+			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - a Sélectionné le Menu Information Réseaux" >> /var/log/log_evt.log
 			sleep 2
 			clear
 			menu_information_reseaux;;
 
 		3)
-			echo "Ouverture Menu système"
-			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - a Sélectionné le Menu Système" >> /var/log/log_evt.log
+			echo "Ouverture Menu Information Système"
+			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - a Sélectionné le Menu Information Système" >> /var/log/log_evt.log
 			sleep 2
 			clear
 			menu_information_systeme;;
 
 		4)
 			echo "Ouverture Menu sécurité"
-			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - a Sélectionné le Menu Sécurité" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - a Sélectionné le Menu Information Sécurité" >> /var/log/log_evt.log
 			sleep 2
 			clear
 			menu_information_pare_feu;;
 
 		5)
 			echo "Ouverture Menu Journalisation"
-			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - a choisi de Conulter le journal des évenements" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - a choisi de Consulter le journal des événements" >> /var/log/log_evt.log
 			sleep 2
 			clear
 			menu_journalisation;;
@@ -862,7 +862,7 @@ case $choix_menu in
 			;;
 			
 		*)
-			echo "mauvaise commande veuillez réesayer"
+			echo "mauvaise commande veuillez réessayer"
 			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - a Utilisé une mauvaise commande" >> /var/log/log_evt.log 
 			menu_information;;
 
@@ -892,7 +892,7 @@ q) Sortie Script"
 			action_systeme;;
 		3)
 			clear
-			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - a sélectionné le Menu Sécurité" >> /var/log/log_evt.log
+			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - a sélectionné le Menu Gestion Du Pare-Feu" >> /var/log/log_evt.log
 			menu_gestion_parefeu;;
 		x)
 			echo "Retour au menu principal "
@@ -907,7 +907,7 @@ q) Sortie Script"
 			sortie_script
 			;;
 		*)	
-                	echo "Mauvaise commande veuillez réesayer"
+                	echo "Mauvaise commande veuillez réessayer"
                 	menu_action;;
                
 			
@@ -923,7 +923,7 @@ menu_principal
 }
 
 
-# Fontion du Menu principal. Envoi l'utilisateur vers les sous-menus/fonctions Information et action
+# Fonction du Menu principal. Envoi l'utilisateur vers les sous-menus/fonctions Information et action
 menu_principal () {
 clear
 	echo "			__________________________________________________"
@@ -976,7 +976,7 @@ echo "$(date +%F-%X) - $USER - ********StartScript********" >> /var/log/log_evt.
 read -p "A quel machine voulez-vous vous connecter en ssh ( adresse ip ) ? : " adresse_ip
 read -p "Veuillez renseigner le nom d'utilisateur pour ssh ? : " nom_utilisateur
 machineclient=$(ssh $nom_utilisateur@$adresse_ip "hostname")
-# Nom du fichier qui contiendra les informations colléctées sur la machine cliente
+# Nom du fichier qui contiendra les informations collectées sur la machine cliente
 nom_fichier_texte=info\_$nom_utilisateur\_$(date +%F)
 # Le script commence ici
 touch /Documents/$nom_fichier_texte.txt
