@@ -39,7 +39,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
 	echo $(sudo getfacl $directory | grep user) >> Documents/$nom_fichier_texte.txt
  	echo "--------------" >>  Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les droits/permissions de l'utilisateur sur un dossier" >> /var/log/log_evt.log
-        read -p "appuyer sur entrée pour continuer :"
+        read -p "appuyer sur entrée pour continuer :" t
         menu_information_utilisateur;;
 
         2) 
@@ -49,7 +49,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
 	echo $(sudo getfacl $file | grep user) >> Documents/$nom_fichier_texte.txt
  	echo "--------------" >>  Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les droits/permissions de l'utilisateur sur un fichier" >> /var/log/log_evt.log
-        read -p "appuyer sur entrée pour continuer :"
+        read -p "appuyer sur entrée pour continuer :" t
         menu_information_utilisateur;;
 
         3) 
@@ -58,7 +58,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
 	echo $(last $nom_utilisateur) >> Documents/$nom_fichier_texte.txt
  	echo "--------------" >>  Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les informations de la dernière connexion de l'utilisateur" >> /var/log/log_evt.log
-        read -p "appuyer sur entrée pour continuer :"
+        read -p "appuyer sur entrée pour continuer :" t
         menu_information_utilisateur;;
 
         4) 
@@ -67,7 +67,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
 	echo $(passwd $nom_utilisateur -S) >>  Documents/$nom_fichier_texte.txt
  	echo "--------------" >>  Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les informations de la dernière modification du mot de passe" >> /var/log/log_evt.log
-        read -p "appuyer sur entrée pour continuer :"
+        read -p "appuyer sur entrée pour continuer :" t
         menu_information_utilisateur;;
 
         5) 
@@ -76,7 +76,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
 	echo $(w) >>  Documents/$nom_fichier_texte.txt
  	echo "--------------" >>  Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A lister les sessions ouvertes par l'utilisateur" >> /var/log/log_evt.log
-        read -p "appuyer sur entrée pour continuer :"
+        read -p "appuyer sur entrée pour continuer :" t
         menu_information_utilisateur;;
 
         6) 
@@ -85,7 +85,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
 	echo $(cut -d: -f1 /etc/passwd) >> Documents/$nom_fichier_texte.txt
  	echo "--------------" >>  Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A lister les utilisateurs locaux" >> /var/log/log_evt.log
-        read -p "appuyer sur entrée pour continuer :"
+        read -p "appuyer sur entrée pour continuer :" t
         menu_information_utilisateur;;
 
         r) 
@@ -138,7 +138,7 @@ case $choix_information_system in
 		echo $(lscpu) >> Documents/$nom_fichier_texte.txt
   		echo "--------------" >>  Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A afficher les informations du CPU" >> /var/log/log_evt.log
-                read -p "appuyer sur entrée pour continuer :"
+                read -p "appuyer sur entrée pour continuer :" t
                 menu_information_systeme;;
 
         2)      
@@ -147,7 +147,7 @@ case $choix_information_system in
 		echo $(cat /proc/meminfo) >>Documents/$nom_fichier_texte.txt
   		echo "--------------" >>  Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A afficher les informations de la mémoire RAM" >> /var/log/log_evt.log
-                read -p "appuyer sur entrée pour continuer :"
+                read -p "appuyer sur entrée pour continuer :" t
                 menu_information_systeme;;
 
         3)      
@@ -156,7 +156,7 @@ case $choix_information_system in
 		echo $(free) >> Documents/$nom_fichier_texte.txt
   		echo "--------------" >> Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A afficher les informations de l'utilisation de la RAM" >> /var/log/log_evt.log
-                read -p "appuyer sur entrée pour continuer :"
+                read -p "appuyer sur entrée pour continuer :" t
                 menu_information_systeme;;
 
         4)      
@@ -165,7 +165,7 @@ case $choix_information_system in
 		echo $(top) >> Documents/$nom_fichier_texte.txt
   		echo "--------------" >>  Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A afficher les informations de l'utilisation de processeur" >> /var/log/log_evt.log
-                read -p "appuyer sur entrée pour continuer :"
+                read -p "appuyer sur entrée pour continuer :" t
                 menu_information_systeme;;
 
         5)      
@@ -174,7 +174,7 @@ case $choix_information_system in
 		echo $(lsblk -f) >> Documents/$nom_fichier_texte.txt
   		echo "--------------" >> Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A afficher les informations de l'utilisation du disque" >> /var/log/log_evt.log
-                read -p "appuyer sur entrée pour continuer :"
+                read -p "appuyer sur entrée pour continuer :" t
                 menu_information_systeme;;
 
         6)      
@@ -183,7 +183,7 @@ case $choix_information_system in
 		echo $(lsb_release -a) >> Documents/$nom_fichier_texte.txt
   		echo "--------------" >>  Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A afficher les informations de la version du systeme d'exploitation" >> /var/log/log_evt.log
-                read -p "appuyer sur entrée pour continuer :"
+                read -p "appuyer sur entrée pour continuer :" t
                 menu_information_systeme;; 
 
         7)      
@@ -192,7 +192,7 @@ case $choix_information_system in
 		echo $(sudo dpkg -l) >> Documents/$nom_fichier_texte.txt
   		echo "--------------" >> Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A lister les applications installés" >> /var/log/log_evt.log
-                read -p "appuyer sur entrée pour continuer :"
+                read -p "appuyer sur entrée pour continuer :" t
                 menu_information_systeme;;
 
         r)      
@@ -496,7 +496,7 @@ case $choix_securite in
   			echo $(sudo ufw status) >> Documents/$nom_fichier_texte.txt
      			echo "--------------" >>  Documents/$nom_fichier_texte.txt
 			echo "$(date +%F-%X) - $USER - a affiché le status du Pare-feu" >> /var/log/log_evt.log
-			read -p "appuyer sur entrée pour continuer :"
+			read -p "appuyer sur entrée pour continuer :" t
 			menu_information_pare_feu;;
 			
 		2)
@@ -504,7 +504,7 @@ case $choix_securite in
    			echo $(ss -tulpn) >> Documents/$nom_fichier_texte.txt
       			echo "--------------" >>  Documents/$nom_fichier_texte.txt
                 	echo "$(date +%F-%X) - $USER - a effectué l'action "Affichage liste ports ouvert"" >> /var/log/log_evt.log
-			read -p "appuyer sur entrée pour continuer :"
+			read -p "appuyer sur entrée pour continuer :" t
 			menu_information_pare_feu;;
 
 		r)
@@ -553,7 +553,7 @@ case $choix_journalisation in
    			echo $(cat /var/log/log_evt.log | grep "$utilisateur") >> Documents/$nom_fichier_texte.txt
       			echo "--------------" >>  Documents/$nom_fichier_texte.txt
 			echo "$(date +%F-%X) - $USER - à Rechercher des événements éffectuer par $utilisateur" >> /var/log/log_evt.log 
-			read -p "appuyer sur entrée pour continuer :"
+			read -p "appuyer sur entrée pour continuer :" t
 			clear
 			menu_journalisation;;
 
@@ -561,7 +561,7 @@ case $choix_journalisation in
 			clear
 			ssh $nom_utilisateur@$adresse_ip "cat /var/log/log_evt.log"
 			echo "$(date +%F-%X) - $USER - à éffectuer l'action Affichage des événement de l'Ordinateur" >> /var/log/log_evt.log 
-			read -p "appuyer sur entrée pour continuer :"
+			read -p "appuyer sur entrée pour continuer :" t
 			clear
 			menu_journalisation;;
 
@@ -617,7 +617,7 @@ case $choix_reseaux in
 			echo $(ip a | grep link/ether | cut -d\  -f 6) >> Documents/$nom_fichier_texte.txt
    			echo "--------------" >> Documents/$nom_fichier_texte.txt
    			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage de l'adresse mac" >> /var/log/log_evt.log
-			read -p "appuyer sur entrée pour continuer :"
+			read -p "appuyer sur entrée pour continuer :" t
 			clear
 			menu_information_reseaux;;
 
@@ -627,7 +627,7 @@ case $choix_reseaux in
       			echo "--------------" >> Documents/$nom_fichier_texte.txt
 			echo "le Nombre d'interface réseaux et de $interface_reseaux"
 			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage du nombre d'interface réseaux" >> /var/log/log_evt.log
-			read -p "appuyer sur entrée pour continuer :"
+			read -p "appuyer sur entrée pour continuer :" t
 			clear
 			menu_information_reseaux;;
 
@@ -636,7 +636,7 @@ case $choix_reseaux in
    			echo $(ip a | grep inet | cut -d\  -f 6) >> Documents/$nom_fichier_texte.txt
       			echo "--------------" >> Documents/$nom_fichier_texte.txt
 			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage adresse IP" >> /var/log/log_evt.log
-			read -p "appuyer sur entrée pour continuer :"
+			read -p "appuyer sur entrée pour continuer :" t
 			clear
 			menu_information_reseaux;;
 
@@ -645,7 +645,7 @@ case $choix_reseaux in
    			echo $(ss -tulpn) >> Documents/$nom_fichier_texte.txt
       			echo "--------------" >> Documents/$nom_fichier_texte.txt
 			echo "$(date +%F-%X) - $USER - à effectuer l'action Affichage liste ports ouvert" >> /var/log/log_evt.log
-			read -p "appuyer sur entrée pour continuer :"
+			read -p "appuyer sur entrée pour continuer :" t
 			clear
 			menu_information_reseaux;;
 
@@ -668,7 +668,7 @@ case $choix_reseaux in
 			;;
 			
 		*)
-			echo "mauvaise commande veuillez réesayer"
+			echo "mauvaise commande veuillez réessayer"
 			echo "$(date +%F-%X) - $USER - à Utilisé une mauvaise commande" >> /var/log/log_evt.log 
 			sleep 3
 			menu_information_reseaux;;
