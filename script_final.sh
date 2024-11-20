@@ -35,8 +35,9 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
         1) 
         echo "Droits/Permissions de l'utilisateur sur un dossier" 
         read -p "Quel dossier vous séléctionner ( ./path/nom_dossier ) ? : " directory      
-        ssh $nom_utilisateur@$adresse_ip "sudo -S getfacl $directory | grep user"
-	echo $(sudo getfacl $directory | grep user) >> Documents/$nom_fichier_texte.txt
+        droitdossier=$(ssh $nom_utilisateur@$adresse_ip "sudo -S getfacl $directory | grep user")
+	echo "$droitdossier"
+	echo "$droitdossier" >> Documents/$nom_fichier_texte.txt
  	echo "--------------" >>  Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les droits/permissions de l'utilisateur sur un dossier" >> /var/log/log_evt.log
         read -p "appuyer sur entrée pour continuer :" t
@@ -45,8 +46,9 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
         2) 
         echo "Droits/Permissions de l'utilisateur sur un fichier"
         read -p "Quel fichier voulez vous sélectionner avec son emplacement ( ./path/nom_fichier ) ? : " file
-        ssh $nom_utilisateur@$adresse_ip "sudo -S getfacl $file | grep user"
-	echo $(sudo getfacl $file | grep user) >> Documents/$nom_fichier_texte.txt
+        droitfichier=$(ssh $nom_utilisateur@$adresse_ip "sudo -S getfacl $file | grep user")
+	echo "$droitfichier"
+	echo "$droitfichier" >> Documents/$nom_fichier_texte.txt
  	echo "--------------" >>  Documents/$nom_fichier_texte.txt
         echo "$(date +%F-%X) - $USER - A afficher les droits/permissions de l'utilisateur sur un fichier" >> /var/log/log_evt.log
         read -p "appuyer sur entrée pour continuer :" t
@@ -144,7 +146,7 @@ case $choix_information_system in
         2)      
         	echo "Mémoire RAM totale"
                 ssh $nom_utilisateur@$adresse_ip "grep MemTotal /proc/meminfo"
-		echo $(cat /proc/meminfo) >>Documents/$nom_fichier_texte.txt
+		echo $(grep MemTotal /proc/meminfo) >>Documents/$nom_fichier_texte.txt
   		echo "--------------" >>  Documents/$nom_fichier_texte.txt
                 echo "$(date +%F-%X) - $USER - A afficher les informations de la mémoire RAM" >> /var/log/log_evt.log
                 read -p "appuyer sur entrée pour continuer :" t
@@ -492,8 +494,9 @@ read -p "faites votre choix :" choix_securite
 case $choix_securite in
 
 		1)
-			ssh $nom_utilisateur@$adresse_ip "sudo -S ufw status"
-  			echo $(sudo ufw status) >> Documents/$nom_fichier_texte.txt
+			statusparfeu=$(ssh $nom_utilisateur@$adresse_ip "sudo -S ufw status")
+			echo "$statusparfeu"
+			echo "$statusparfeu" >> Documents/$nom_fichier_texte.txt
      			echo "--------------" >>  Documents/$nom_fichier_texte.txt
 			echo "$(date +%F-%X) - $USER - a affiché le status du Pare-feu" >> /var/log/log_evt.log
 			read -p "appuyer sur entrée pour continuer :" t
