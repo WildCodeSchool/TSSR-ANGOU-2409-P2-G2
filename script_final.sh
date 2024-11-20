@@ -34,7 +34,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
 
         1) 
         echo "Droits/Permissions de l'utilisateur sur un dossier" 
-        read -p "Quel dossier vous séléctionner ( ./path/nom_dossier ) ?" $directory      
+        read -p "Quel dossier vous séléctionner ( ./path/nom_dossier ) ? : " directory      
         ssh $nom_utilisateur@$adresse_ip "sudo -S getfacl $directory | grep user"
 	echo $(sudo getfacl $directory | grep user) >> Documents/$nom_fichier_texte.txt
  	echo "--------------" >>  Documents/$nom_fichier_texte.txt
@@ -44,7 +44,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
 
         2) 
         echo "Droits/Permissions de l'utilisateur sur un fichier"
-        read -p "Quel fichier voulez vous sélectionner avec son emplacement ( ./path/nom_fichier ) ?" $file
+        read -p "Quel fichier voulez vous sélectionner avec son emplacement ( ./path/nom_fichier ) ? : " file
         ssh $nom_utilisateur@$adresse_ip "sudo -S getfacl $file | grep user"
 	echo $(sudo getfacl $file | grep user) >> Documents/$nom_fichier_texte.txt
  	echo "--------------" >>  Documents/$nom_fichier_texte.txt
@@ -226,7 +226,7 @@ action_comptes_utilisateurs () {
 
 creation_compte_utilisateur () {
 
-        read -p "Nom de l'utilisateur dont le compte doit être créé? " user_account
+        read -p "Nom de l'utilisateur dont le compte doit être créé ? : " user_account
         echo "$(date +%F-%X) - $USER - Création du mot de passe pour l'utilisateur $user_account" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -S useradd -m $user_account"
         echo "Mot de passe créé pour l'utilisateur $user_account"
@@ -236,7 +236,7 @@ creation_compte_utilisateur () {
 
 changement_mot_de_passe_utilisateur () {
 
-        read -p "Nom de l'utilisateur dont le mot de passe doit être changer ? " user_passwd
+        read -p "Nom de l'utilisateur dont le mot de passe doit être changer ? : " user_passwd
         echo "$(date +%F-%X) - $USER - Modification du mot de passe pour l'utilisateur $user_passwd" >> /var/log/log_evt.log
         ssh $nom_utilisateur@$adresse_ip "sudo -S chpasswd $user_passwd" 
         echo "Mot de passe changé pour l'utilisateur $user_passwd"
@@ -245,7 +245,7 @@ changement_mot_de_passe_utilisateur () {
 
 suppression_de_compte_utilisateur_local () {
 
-        read -p "Nom de l'utilisateur dont le compte doit être supprimmé ? " del_user_local_account
+        read -p "Nom de l'utilisateur dont le compte doit être supprimmé ? : " del_user_local_account
         echo "$(date +%F-%X) - $USER - Suppression du compte de l'utilisateur local $del_user_local_account" >> /var/log/log_evt.log
         ssh $nom_utilisateur@$adresse_ip  "sudo -S deluser $del_user_local_account"
         echo "Suppression avec succès du compte pour l'utilisateur $del_user_local_account"
@@ -257,7 +257,7 @@ suppression_de_compte_utilisateur_local () {
 
 ajout_utilisateur_au_groupe_administrateur () {
 
-        read -p "Nom de l'utilisateur qui doit être ajouté au groupe administrateur ? " add_user_to_admin
+        read -p "Nom de l'utilisateur qui doit être ajouté au groupe administrateur ? : " add_user_to_admin
         echo "$(date +%F-%X) - $USER - Ajout de l'utilisateur $add_user_to_admin au groupe administrateur" >l> /var/log/og_evt.log
         ssh $nom_utilisateur@$adresse_ip  "sudo -S usermod -aG sudo "$add_user_to_admin""
         echo "Ajout avec succès de l'utilisateur $add_user_to_admin au groupe administrateur"
@@ -269,7 +269,7 @@ ajout_utilisateur_au_groupe_administrateur () {
 
 ajout_utilisateur_a_un_groupe_local () {
         
-        read -p "Nom de l'utilisateur qui doit être ajouté au groupe utilisateur local ? " add_user_to_local_users
+        read -p "Nom de l'utilisateur qui doit être ajouté au groupe utilisateur local ? : " add_user_to_local_users
         echo "$(date +%F-%X) - $USER - Ajout de l'utilisateur $add_user_to_local_users au groupe local" >l> /var/log/og_evt.log
         ssh $nom_utilisateur@$adresse_ip  "sudo -S usermod -aG users "$add_user_to_local_users""
         echo "Ajout avec succès de l'utilisateur $add_user_to_local_users au groupe utilisateur local"
@@ -278,7 +278,7 @@ ajout_utilisateur_a_un_groupe_local () {
 
 sortie_utilisateur_a_un_groupe_local () {
 
-        read -p "Nom de l'utilisateur qui doit sortir du groupe utilisateur local ? " del_user_to_local_users
+        read -p "Nom de l'utilisateur qui doit sortir du groupe utilisateur local ? : " del_user_to_local_users
         echo "$(date +%F-%X) - $USER - sortie de l'utilisateur $del_user_to_local_users au groupe local" >l> /var/log/og_evt.log
         ssh $nom_utilisateur@$adresse_ip  "sudo -S deluser "$del_user_to_local_users" users"
         echo "Suppression avec succès de l'utilisateur $del_user_to_local_users du groupe utilisateur local"
@@ -346,8 +346,8 @@ action_systeme() {
 
 creation_repertoire () {
 
-        read -p "Nom du repertoire à créer (En Chemin absolu) ? " mkdir_name
-        echo "$(date +"%d/%m/%Y à %Hh%M") - $USER - Création du repertoire $mkdir_name" >> /var/log/log_evt.log 
+        read -p "Nom du repertoire à créer (En Chemin absolu) ? : " mkdir_name
+        echo "$(date +%F-%X) - $USER - Création du repertoire $mkdir_name" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -S mkdir -v $mkdir_name"
         echo "Repertoire $mkdir_name créé "
         sleep 2
@@ -356,7 +356,7 @@ creation_repertoire () {
 
 suppression_repertoire () {
 
-        read -p "Nom du repertoire à supprimer (En Chemin absolu) ? " del_dir_name
+        read -p "Nom du repertoire à supprimer (En Chemin absolu) ? : " del_dir_name
         echo "$(date +%F-%X) - $USER - Supression du repertoire $del_dir_name" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -S rm -r -v $del_dir_name"
         # echo "Repertoire $del_dir_name supprimé "
@@ -366,7 +366,7 @@ suppression_repertoire () {
 
 installation_logiciel () {
 
-        read -p "Nom du package à installer ? " install_soft
+        read -p "Nom du package à installer ? : " install_soft
         echo "$(date +%F-%X) - $USER - Installation du package $install_soft" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -S apt-get install $install_soft -y"
         echo "Package $install_soft installé "
@@ -377,7 +377,7 @@ installation_logiciel () {
 
 desinstallation_logiciel () {
 
-        read -p "Nom du package a installer ? " desinstall_soft
+        read -p "Nom du package a installer ? : " desinstall_soft
         echo "$(date +%F-%X) - $USER - Desinstallation du package $desinstall_soft" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -S apt remove $desinstall_soft -y"
         echo "Package $desinstall_soft desinstallé "
@@ -387,7 +387,7 @@ desinstallation_logiciel () {
 
 execution_script () {
 
-        read -p "Nom du script a lancer ? " exec_script
+        read -p "Nom du script a lancer ? : " exec_script
         echo "$(date +%F-%X) - $USER - Execution du script $exec_script" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -S  ./$exec_script -y"
         echo "Script $exec_script lancé "
@@ -548,8 +548,8 @@ case $choix_journalisation in
 
 		1)
 			clear
-			read -p "Entrer le nom d'utilisateur :" utilisateur
-			ssh $nom_utilisateur@$adresse_ip "cat /var/log/log_evt.log | grep "$utilisateur""
+			read -p "Entrer le nom d'utilisateur : " utilisateur
+			cat /var/log/log_evt.log | grep "$utilisateur"
    			echo $(cat /var/log/log_evt.log | grep "$utilisateur") >> Documents/$nom_fichier_texte.txt
       			echo "--------------" >>  Documents/$nom_fichier_texte.txt
 			echo "$(date +%F-%X) - $USER - à Rechercher des événements éffectuer par $utilisateur" >> /var/log/log_evt.log 
@@ -559,7 +559,7 @@ case $choix_journalisation in
 
 		2)
 			clear
-			ssh $nom_utilisateur@$adresse_ip "cat /var/log/log_evt.log"
+			cat /var/log/log_evt.log
 			echo "$(date +%F-%X) - $USER - à éffectuer l'action Affichage des événement de l'Ordinateur" >> /var/log/log_evt.log 
 			read -p "appuyer sur entrée pour continuer :" t
 			clear
@@ -970,8 +970,8 @@ echo "--------------" >> /var/log/log_evt.log
 echo "$(date +%F-%X) - $USER - ********StartScript********" >> /var/log/log_evt.log
 
 # Connexion Identification à la machine cliente
-read -p "A quel machine voulez-vous vous connecter en ssh ? ( adresse ip )" adresse_ip
-read -p "Veuillez renseigner le nom d'utilisateur pour ssh ? " nom_utilisateur
+read -p "A quel machine voulez-vous vous connecter en ssh ( adresse ip ) ? : " adresse_ip
+read -p "Veuillez renseigner le nom d'utilisateur pour ssh ? : " nom_utilisateur
 
 # Nom du fichier qui contiendra les informations colléctées sur la machine cliente
 nom_fichier_texte=info\_$nom_utilisateur\_$(date +%F)
