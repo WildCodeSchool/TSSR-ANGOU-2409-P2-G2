@@ -76,7 +76,7 @@ La session du nouvelle utilisateur est activée sur la machine distante
 
 Depuis le menu principal, séléctionnez  __1) Effectuer des actions__
 
-[menu_principal_action](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_principal_action.png)
+![menu_principal_action](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_principal_action.png)
 
 Puis, depuis le menu des actions séléctionnez __3) Menu Gestion du Parefeu__
 
