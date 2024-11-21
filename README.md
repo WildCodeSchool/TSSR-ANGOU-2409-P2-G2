@@ -2,13 +2,13 @@
 
 ## Index
 
-1) Présentation du projet et objectifs finaux
-2) Mise en contexte
-3) Membres du groupe projet et rôles par sprint
-4) Choix techniques
-5) Difficultés rencontrés
-6) Solutions aux problèmes rencontrés
-7) Améliorations futures
+1) [Présentation du projet et objectifs finaux](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/tree/main?tab=readme-ov-file#1-pr%C3%A9sentation-du-projet-objectifs-finaux)
+2) [Mise en contexte](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/tree/main?tab=readme-ov-file#introduction--mise-en-contexte)
+3) [Membres du groupe projet, rôles par sprint et objectifs par sprint](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/tree/main?tab=readme-ov-file#membres-du-groupe-de-projet-r%C3%B4les-par-sprint)
+4) [Choix techniques](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/tree/main?tab=readme-ov-file#choix-techniques--quel-os-quelle-version-etc)
+5) [Difficultés rencontrés](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/tree/main?tab=readme-ov-file#difficult%C3%A9s-rencontr%C3%A9es--probl%C3%A8mes-techniques-rencontr%C3%A9s)
+6) [Solutions aux problèmes rencontrés](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/tree/main?tab=readme-ov-file#am%C3%A9liorations-possibles--suggestions-dam%C3%A9liorations-futures)
+7) [Améliorations futures](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/tree/main?tab=readme-ov-file#am%C3%A9liorations-possibles--suggestions-dam%C3%A9liorations-futures)
 
 
 
@@ -20,14 +20,14 @@ Ces scripts devront être présentés, et leur installation ainsi que leur fonct
 
 
 
-## Introduction : mise en contexte
+## 2) Introduction : mise en contexte
 
 En 2022 un raport de Cisco évaluait le nombre d'équipements numériques connectés à 28.5 milliards et 4.8 millards d'utilisateurs connectés au réseaux Internet.
 Avec l'augmentation des objets et des services connectés, les techniciens et services informatiques en charge de l'administration des équipements et réseaux sont donc de plus en plus solicités et ils n'ont plus le temps de jouer aux cartes :-). 
 Afin de faciliter l'intégration et la désintégration des utilisateurs et leurs équipements, gagner en rapidité, en souplesse le technicien informatique peut, en s'appuyant sur une infrastructure réseau, faire l'usage de scripts, automatiser ses tâches et enfin finir sa partie de carte !!!
 
 
-## Membres du groupe de projet (rôles par sprint)
+## 3) Membres du groupe de projet (rôles par sprint)
 
 | Rôles du groupe | SPRINT 1 | SPRINT 2 | SPRINT 3 | SPRINT 4 | SPRINT 5 | 
 |:--------| :------: | :-----------: | :-----------: | :--------: | :--------: |
@@ -35,8 +35,6 @@ Afin de faciliter l'intégration et la désintégration des utilisateurs et leur
 | Product Owner |  Thomas | Frederic |  Tristan | Mathieu |
 | Technicien 1  |  Frederic |  Tristan | Thomas | Frederic |
 | Technicien 2 |  Tristan | Mathieu | Mathieu | Thomas |
-
-
 
 
 Objectifs Semaine 1 : 
@@ -65,7 +63,7 @@ Objectifs Semaine 4 :
 - Finalisation documentation
 
 
-## Choix techniques : quel OS, quelle version, etc.
+## 4) Choix techniques : quel OS, quelle version, etc.
 
 Server Debian 12
 Client Linux Ubuntu 22.04/24.04 LTS 
@@ -73,11 +71,11 @@ Client Linux Ubuntu 22.04/24.04 LTS
 Windows Server 2022 
 Client Windows 10
 
-## Difficultés rencontrées : problèmes techniques rencontrés
+## 5) Difficultés rencontrées : problèmes techniques rencontrés
 
-## Solutions trouvées : Solutions et alternatives trouvées
+## 6) Solutions trouvées : Solutions et alternatives trouvées
 
-## Améliorations possibles : suggestions d’améliorations futures
+## 7) Améliorations possibles : suggestions d’améliorations futures
 
 - Utiliser le script autrement qu'en connexion SSH
 - Affiner les règles à du Firewall (rejeter certains trafic, autoriser/refuser une plage d'adresse) pour une gestion du traffic plus souple et précise qu'avec le script actuelle (autorisation ou refus uniquement sur les ports ou protocoles)
