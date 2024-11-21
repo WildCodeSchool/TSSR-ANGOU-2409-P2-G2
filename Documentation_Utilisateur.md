@@ -68,7 +68,7 @@ La session du nouvelle utilisateur est activée sur la machine distante
 
 ## Utilisation avancée :
 ### Gestion du pare-feu : 
-Depuis le menu principal, séléctionnez __1) Effectuer des actions__
+Depuis le menu principal, séléctionnez  __1) Effectuer des actions__
 
 [menu_principal_action]()
 
@@ -76,10 +76,29 @@ Puis, depuis le menu des actions séléctionnez __3) Menu Gestion du Parefeu__
 
 [menu_gestion_parefeu]()
 
-Depuis le Menu Gestion du Parefeu, vous pouvez choisir d'activer ou désactiver le parefeu de la machine client ou déterminer des nouvelles règles sur celui-ci.
+Dans le Menu Gestion du Parefeu, vous pouvez choisir d'activer ou désactiver le parefeu de la machine client ou déterminer de nouvelles règles de pare-feu.
 
 ##### Déterminer une nouvelle règle sur le Pare-feu
-Le script permet uniquement d'accepter ou de refuser de nouvelles règles 
+Le script permet uniquement d'accepter ou de refuser de nouvelles règles (ouverture/fermeture de ports et/ou autorisation/refus de protocole...)
+Dans l'exemple suivant nous choisirons d'ouvrir le port 80 et autoriser le protocole http sur celui-ci. 
+> note : La gestion des ports et des protocoles est indépendante l'une de l'autre. Si vous voulez uniquement établir une règle pour un port ou un protocole, laissez vide le champs sur lequel vous ne voulez pas établir de nouvelles règles en appuyant sur __entrée__.
+
+Depuis le menu Gestion du Parefeu, séléctionnez __3) Définir une nouvelle règle de pare-feu__
+
+[nouvelle_regle_parefeu]()
+
+Pour ouvrir le port 80 nous séléctionnons __A) Autoriser/Ouvrir un protocole ou un port__ (s'il s'agissait d'interdire le traffic sur celui-ci nous aurions pu séléctionner __I) Interdire/Fermer un protocole ou un port__)
+
+[autoriser_port]()
+
+[numéro_port]()
+
+[nom_protocole]()
+
+Le script nous renvois __"Nouvelle règle de pare feu établie : `80 http allow` "__, nous confirmant ainsi que la nouvelle règle a bien été appliquée.
+
+[confirmation]()
+
 
 - Journalisation, rechercher des évenements avec les fichiers logs : 
 
