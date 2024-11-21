@@ -229,9 +229,15 @@ action_comptes_utilisateurs () {
 creation_compte_utilisateur () {
 
         read -p "Nom de l'utilisateur dont le compte doit être créé ? : " user_account
-        echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Création du mot de passe pour l'utilisateur $user_account" >> /var/log/log_evt.log 
+        echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Création de l'utilisateur $user_account" >> /var/log/log_evt.log 
         ssh $nom_utilisateur@$adresse_ip "sudo -S useradd $user_account "
-        sleep 2
+        if [ $? = 0 ]
+        then 
+        	echo "L'utilisateur $user_accont a bien été crée"
+        	read -p "Appuyez sur une touche pour continuer" t
+        else
+        	echo "Erreur, l'utilisateur n'a pas été crée"
+        fi	
     }   
 
 
@@ -720,25 +726,24 @@ q) Sortie Script
 			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - ********EndScript********" >> /var/log/log_evt.log
 			echo "--------------" >> /var/log/log_evt.log
 			sortie_script
-			;;
-			
+			;;	
 		*)
 			echo "Mauvaise commande veuillez réessayer"
 			menu_regle_parefeu;;
 	esac
 	# Vérifie que l'utilisateur a bien sélectionné un port ou un protocole à modifier pour établir une nouvelle règle sur le pare-feu. N'applique pas de nouvelles règles sur le pare-feu si rien a été sélectionné.
-	if [ $protocole -z ] && [ $port -z ]
+	if [ -z $protocole ] && [ -z $port ]
 	then	
 		echo "Aucun port où protocole n'a été sélectionné "
-		sleep 3
+		sleep 2
   		clear
   		echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - n'a défini aucune nouvelle règle de pare-feu" >> /var/log/log_evt.log
 		menu_gestion_parefeu
 
 	# Applique la nouvelle règle de pare-feu
 	else
-		echo "Nouvelle règle de pare feu établie : $port $protocole $action"
 		ssh $nom_utilisateur@$adresse_ip "sudo -S ufw $action $port $protocole"
+		echo "Nouvelle règle de pare feu établie : $port $protocole $action"
 		read -p "appuyer sur entrée pour continuer :" t
   		clear
   		echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - a défini $action $protocole $port comme nouvelle règle de pare-feu" >> /var/log/log_evt.log
