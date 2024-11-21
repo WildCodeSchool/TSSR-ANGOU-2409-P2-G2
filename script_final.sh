@@ -101,7 +101,7 @@ read -p "Quel est votre choix ?" choix_information_utilisateur
     	   menu_principal;;
            
         q) echo "Vous quittez le script "
-	   sleep 3
+	   sleep 2
 	   echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - ********EndScript********" >> /var/log/log_evt.log
 	   echo "--------------" >> /var/log/log_evt.log
 	   sortie_script
@@ -208,7 +208,7 @@ case $choix_information_system in
 		menu_principal;;
 	
 	q)	echo "Vous quittez le script "
-		sleep 3
+		sleep 2
 		echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - ********EndScript********" >> /var/log/log_evt.log
 		echo "--------------" >> /var/log/log_evt.log
 		sortie_script
@@ -315,7 +315,7 @@ sortie_utilisateur_a_un_groupe_local () {
             r) echo "Retour au menu précédent" ; menu_action;;
             x) echo "Retour au menu principal" ; menu_principal ;;
             q) echo "Vous quittez le script "
-	       sleep 3
+	       sleep 2
                echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - ********EndScript********" >> /var/log/log_evt.log
                echo "--------------" >> /var/log/log_evt.log
 	       sortie_script
@@ -466,7 +466,7 @@ update_machine () {
             r) echo "Retour au menu précédent" ; menu_action ;;
             x) echo "Retour au menu principal" ; menu_principal ;;
             q) echo "Vous quittez le script "
-	       sleep 3
+	       sleep 2
 	       echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - ********EndScript********" >> /var/log/log_evt.log
 	       echo "--------------" >> /var/log/log_evt.log
 	       sortie_script;;
@@ -521,7 +521,7 @@ case $choix_securite in
 
 		q)
 			echo "Vous quittez le script "
-			sleep 3
+			sleep 2
 			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - ********EndScript********" >> /var/log/log_evt.log
 			echo "--------------" >> /var/log/log_evt.log
 			sortie_script
@@ -580,7 +580,7 @@ case $choix_journalisation in
 
 		q)
 			echo "Vous quittez le script "
-			sleep 3			
+			sleep 2			
 			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - ********EndScript********" >> /var/log/log_evt.log
 			echo "--------------" >> /var/log/log_evt.log
 			sortie_script
@@ -660,11 +660,11 @@ case $choix_reseaux in
 		x)
 			echo "Retour au Menu Principal"
 			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - est Retourné au Menu Principal" >> /var/log/log_evt.log
-			sleep 3
+			sleep 2
 			menu_principal;;
 		q)
 			echo "Vous quittez le script "
-			sleep 3
+			sleep 2
 			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - ********EndScript********" >> /var/log/log_evt.log
 			echo "--------------" >> /var/log/log_evt.log
 			sortie_script
@@ -673,7 +673,7 @@ case $choix_reseaux in
 		*)
 			echo "mauvaise commande veuillez réessayer"
 			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - à Utilisé une mauvaise commande" >> /var/log/log_evt.log 
-			sleep 3
+			sleep 1
 			menu_information_reseaux;;
 
 esac
@@ -684,7 +684,7 @@ menu_regle_parefeu () {
 read -p "Vous désirez : 
 A) Autoriser/Ouvrir un protocole ou un port
 I) Interdire/Fermer un protocole ou un port
-r) Revenir au menu précédent (Action sur les Pare-Feux)
+r) Revenir au menu précédent (Action sur le Pare-Feu)
 x) Revenir au menu Principal
 q) Sortie Script
 " action_parefeu
@@ -739,7 +739,7 @@ q) Sortie Script
 	else
 		echo "Nouvelle règle de pare feu établie : $port $protocole $action"
 		ssh $nom_utilisateur@$adresse_ip "sudo -S ufw $action $port $protocole"
-		sleep 3
+		read -p "appuyer sur entrée pour continuer :" t
   		clear
   		echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - a défini $action $protocole $port comme nouvelle règle de pare-feu" >> /var/log/log_evt.log
 		menu_regle_parefeu
@@ -787,7 +787,7 @@ q) Sortie Script
 			
 		q)
 			echo "Vous quittez le script "
-			sleep 3
+			sleep 2
 			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - ********EndScript********" >> /var/log/log_evt.log
 			echo "--------------" >> /var/log/log_evt.log
 			sortie_script
@@ -855,7 +855,7 @@ case $choix_menu in
 			
 		q)
 			echo "Vous quittez le script "
-			sleep 3
+			sleep 2
 			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - ********EndScript********" >> /var/log/log_evt.log
 			echo "--------------" >> /var/log/log_evt.log
 			sortie_script
@@ -901,7 +901,7 @@ q) Sortie Script"
 			
 		q)
                 	echo "Vous quittez le script "
-			sleep 3
+			sleep 2
 			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - ********EndScript********" >> /var/log/log_evt.log
 			echo "--------------" >> /var/log/log_evt.log
 			sortie_script
@@ -954,7 +954,7 @@ clear
 			menu_ssh_connex_distance;;
 		x)
 			echo "Vous quittez le script"
-			sleep 3
+			sleep 2
 			echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - ********EndScript********" >> /var/log/log_evt.log
 			echo "--------------" >> /var/log/log_evt.log
 			sortie_script;;
