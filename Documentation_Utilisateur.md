@@ -97,7 +97,11 @@ Pour ouvrir le port 80 nous séléctionnons __A) Autoriser/Ouvrir un protocole o
 
 ![autoriser_port](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/autoriser_port.png)
 
+Nous saisissons ensuite le numéro du port :
+
 ![numéro_port](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/num%C3%A9ro_port.png)
+
+Puis le nom du protocole :
 
 ![nom_protocole](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/protocole.png)
 
