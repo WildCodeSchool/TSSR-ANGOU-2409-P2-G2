@@ -3,7 +3,7 @@
 ## Index
 
 1) [Présentation du projet et objectifs finaux](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/tree/main?tab=readme-ov-file#1-pr%C3%A9sentation-du-projet-objectifs-finaux)
-2) [Mise en contexte](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/tree/main?tab=readme-ov-file#introduction--mise-en-contexte)
+2) [Mise en contexte](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/tree/main?tab=readme-ov-file#2-introduction--mise-en-contexte)
 3) [Membres du groupe projet, rôles par sprint et objectifs par sprint](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/tree/main?tab=readme-ov-file#membres-du-groupe-de-projet-r%C3%B4les-par-sprint)
 4) [Choix techniques](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/tree/main?tab=readme-ov-file#choix-techniques--quel-os-quelle-version-etc)
 5) [Difficultés rencontrés](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/tree/main?tab=readme-ov-file#difficult%C3%A9s-rencontr%C3%A9es--probl%C3%A8mes-techniques-rencontr%C3%A9s)
