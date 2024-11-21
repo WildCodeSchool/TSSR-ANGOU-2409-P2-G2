@@ -69,7 +69,8 @@ _________________________________________________
 
 
   2) Configuration du service WinRM
-     winrm quickconfig
+     
+    ` winrm quickconfig
 
   cette commande permet de réaliser une configuration rapide de WinRM, dans le but de démarrer le service et de faire en sorte qu'il démarre
   automatiquement. Cela va également permettre de créer une exception dans le pare-feu de Windows.
