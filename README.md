@@ -31,10 +31,10 @@ Afin de faciliter l'intégration et la désintégration des utilisateurs et leur
 
 | Rôles du groupe | SPRINT 1 | SPRINT 2 | SPRINT 3 | SPRINT 4 | SPRINT 5 | 
 |:--------| :------: | :-----------: | :-----------: | :--------: | :--------: |
-| Scrum Master  | Mathieu  | Thomas | Frederic | 
-| Product Owner |  Thomas | Frederic |  Tristan | 
-| Technicien 1  |  Frederic |  Tristan | Thomas | 
-| Technicien 2 |  Tristan | Mathieu | Mathieu | 
+| Scrum Master  | Mathieu  | Thomas | Frederic | Tristan |
+| Product Owner |  Thomas | Frederic |  Tristan | Mathieu |
+| Technicien 1  |  Frederic |  Tristan | Thomas | Frederic |
+| Technicien 2 |  Tristan | Mathieu | Mathieu | Thomas |
 
 
 
