@@ -40,9 +40,9 @@ Après avoir saisi vos identifiants de connexion au server Debian, pour prendre 
 
 ### FAQ : Points de blocages / Modifications à venir
 
-- Demande de mot de passe à chaque utilisation d'une tâche à travers le menu
-- Prise en main à distance en GUI (OK SOLUTIONNER)
-
+- Demande de mot de passe à chaque utilisation d'une tâche à travers le menu => problème d'ergonomie du script
+  La modification à venir sera d'essayer d'implementer le protocole SSH avec une clé SSH, ce qui devrait solutionner ce problème
+  
 ### FAQ : solutions aux problèmes connus et communs liés à l’installation et à la configuration
 
 
