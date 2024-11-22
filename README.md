@@ -59,8 +59,10 @@ Objectifs Semaine 3 :
 
 Objectifs Semaine 4 :
 
-- Tests / deboguage scripts
-- Finalisation documentation
+- Tests / deboguage script bash
+- Compléter la  documentation pour le Sprint
+- Recherche et installation du protocol
+- Choix de la méthode et des mesures de progression
 
 
 ## 4) Choix techniques : quel OS, quelle version, etc.
