@@ -1,4 +1,3 @@
-#!/bin/bash
 #Les lignes dans chaque fonctions correspondant à :
 # echo $(<commande>) >> $nom_fichier_texte.txt
 # permettent d'inscrire les informations recueillis sur la machine client dans un fichier portant le nom de l'utilisateur dans ~/Documents
@@ -250,7 +249,8 @@ function menu_information_systeme {
 #     Fonctions pour le menu Action - Comptes et Utilisateurs
  
 
-#     creation_compte_utilisateur () {
+
+#    function creation_compte_utilisateur {
 
 #         read -p "Nom de l'utilisateur dont le compte doit être créé ? : " user_account
 #         echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Création du mot de passe pour l'utilisateur $user_account" >> /var/log/log_evt.log 
@@ -262,7 +262,7 @@ function menu_information_systeme {
 #     changement_mot_de_passe_utilisateur () {
 
 #         read -p "Nom de l'utilisateur dont le mot de passe doit être changer ? : " user_passwd
-#        echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Modification du mot de passe pour l'utilisateur $user_passwd" >> /var/log/log_evt.log
+#         echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Modification du mot de passe pour l'utilisateur $user_passwd" >> /var/log/log_evt.log
 #         ssh $nom_utilisateur@$adresse_ip "sudo -S passwd $user_passwd" 
 #         echo "Mot de passe changé pour l'utilisateur $user_passwd"
 #         sleep 2
@@ -304,175 +304,358 @@ function menu_information_systeme {
 #         echo "Suppression avec succès de l'utilisateur $del_user_to_local_users du groupe utilisateur local"
 #         sleep 2
 
-#     }
+#   }
 
 #     # Menu action comptes et utilisateurs
 
+    menu_action_compte_utilisateurs {
 
-#     while true; do
-#     clear
-#     echo "Menu Action comptes et utilisateurs :"
-#     echo "----------------------------------"
-#     echo "1- Création de compte utilisateur local"
-#     echo "2- Changement de mot de passe utilisateur"
-#     echo "3- Suppression de compte utilisateur local"
-#     echo "4- Ajout utilisateur à un groupe administrateur"
-#     echo "5- Ajout utilisateur à un groupe local"
-#     echo "6- Sortie utilisateur de groupe local"
-#      echo "r- Retour au menu précédent"
-#      echo "x- Retour au menu principal"
-#      echo "q) Sortie Script"
-#      read -p "Votre choix ? :" repcmu
+
+      Clear-Host
+      Write-Output "Menu Action comptes et utilisateurs :"
+      Write-Output "----------------------------------"
+      write-output "1- Création de compte utilisateur local"
+      write-output "2- Changement de mot de passe utilisateur"
+      write-output "3- Suppression de compte utilisateur local"
+      write-output "4- Ajout utilisateur à un groupe administrateur"
+      write-output "5- Ajout utilisateur à un groupe local"
+      write-output "6- Sortie utilisateur de groupe local"
+      write-output "r- Retour au menu précédent"
+      write-output "x- Retour au menu principal"
+      write-output "q) Sortie Script"
+
+       $repcmu = Read-Host -Prompt "Votre choix ?"
+
  
-#      case $repcmu in
-#      1) creation_compte_utilisateur ; ;
-#  2) changement_mot_de_passe_utilisateur ; ;
-#  3) suppression_de_compte_utilisateur_local ; ;
-#  4) ajout_utilisateur_au_groupe_administrateur; ;
-#  5) ajout_utilisateur_a_un_groupe_local ; ;
-#  6) sortie_utilisateur_a_un_groupe_local ; ;            
-#  r) echo "Retour au menu précédent" ; menu_action; ;
-#  x) echo "Retour au menu principal" ; menu_principal ; ;
-#  q {
-#      Write-Output "Vous quittez le script "
-#      Start-Sleep 3
-#      Write-Output "" >> /Windows/Système32/log_evt.log
-#      Write-Output "--------------" >> /Windows/Système32/log_evt.log
-#      sortie_script }
-#  ; ;
-#  * ) echo "Erreur choix non valide merci de modifier votre choix" ; ; 
-            
-			
-            
-#  esac
 
-#  sleep 2
+switch ($repcmu) {
 
-#  done
+    1 {
+          Write-Output "Création d'un compte utilisateur"
+          $user_account = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être créé ? :"
+          $passwd = Read-Host -Prompt "Mot de passe de l'utilisateur dont le compte doit être créé ? :" -AsSecureString
+          Write-Output " $nom_utlisateur à effectuer l'action création du compte utilisateur $user_account" >> /Windows/Système32/log_evt.log
+          Invoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock {  New-Local User ( $user_account / $passwd ) }
+          #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+          Start-Sleep 2
+          menu_action_compte_utilisateurs
+    }
+
+    2 {  
+        Write-Output "Changement mot de passe utilisateur"
+        
+        $user_passwd = Read-Host -Prompt "Nom de l'utilisateur dont le mot de passe doit être changé ? :"
+        $new_passwd = Read-Host -Prompt "Entrez le nouveau mot de passe" -AsSecureString
+        Invoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock {  Set-LocalUser -Name $user_passwd -Password $new_passwd }
+        #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+        Start-Sleep 2
+        menu_action_compte_utilisateurs
+        
+    }
+
+    3 {  
+        Write-Output "Suppression de compte utilisateur local"
+        $del_user_local_account = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être supprimé ? :"
+        Invoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock {  remove-localuser -Name $del_user_local_account }
+        #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+        Start-Sleep 2
+        menu_action_compte_utilisateurs
+        
+    }
+        
+    4 {  
+        Write-Output "Ajout utilisateur au groupe administrateur"
+        $add_user_to_admin = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être ajouté au groupe administrateur ? :"
+        Invoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock {  Add-LocalGroupMember -Group administrateur -Member $add_user_to_admin }   
+        #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+        Start-Sleep 2
+        menu_action_compte_utilisateurs
+    }
 
 
-# }
-# }
+    5 {  
+        Write-Output "Ajout utilisateur a un groupe local"
+        $add_user_to_grp = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être ajouté a un groupe ? :"
+        $grp = Read-Host -Prompt "Nom du groupe auquel l'utilisateur doit être ajouté ? :"
+        Invoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock {  Add-LocalGroupMember -Group $grp -Member $add_user_to_grp }    
+        #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+        Start-Sleep 2
+        menu_action_compte_utilisateurs
+    }
+
+
+
+    6 {  
+        Write-Output "sortie utilisateur d'un groupe local"
+        $del_user_to_grp = Read-Host -Prompt "nom de l'utilisateur dont le compte doit être ajoutésupprimé d'un groupe ? :"
+        $del_grp = Read-Host -Prompt "Nom du groupe auquel l'utilisateur doit être supprimé ? :"
+        Invoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock {  del-LocalGroupMember -Group $del_grp -Member $del_user_to_grp }
+        #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+        Start-Sleep 2
+        menu_action_compte_utilisateurs
+}
+
+    r {  
+    Write-Output "Retour au menu précédent"
+    menu_action
+    }
+
+    x {  
+        Write-Output "Retour au menu principal"
+        menu_principal
+        }
+
+    q {
+      Write-Output "Vous quittez le script "
+      Start-Sleep 3
+      Write-Output "" >> /Windows/Système32/log_evt.log
+      Write-Output "--------------" >> /Windows/Système32/log_evt.log
+      sortie_script }
+
+  default {  
+    echo "Erreur choix non valide merci de modifier votre choix"
+    Start-Sleep 2
+}
+}
+
+
+
 # Menu et fonctions pour : Action - Système
 
-
 #function action_systeme {
-
-
 
 # Déclaration des Fonctions pour le menu Action - Système
 
 
-#     creation_repertoire () {
+       creation_repertoire {
 # 
+          $mkdir_name = Read-Host -Prompt "Nom du repertoire à créer (En Chemin absolu) ? : "
 #         read -p "Nom du répertoire à créer (En Chemin absolu) ? : " mkdir_name
 #         echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Création du répertoire $mkdir_name" >> /var/log/log_evt.log 
+          Invoke-command
 #         ssh $nom_utilisateur@$adresse_ip "sudo -S mkdir -v $mkdir_name"
-#         echo "Repertoire $mkdir_name créé "
-#         sleep 2
-#     }
+          write output "Repertoire $mkdir_name créé "
+          Start-Sleep 2
+     }
 # 
 # 
-#     suppression_repertoire () {
+      suppression_repertoire  {
 # 
-#         read -p "Nom du repertoire à supprimer (En Chemin absolu) ? : " del_dir_name
-#         echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Suppression du répertoire $del_dir_name" >> /var/log/log_evt.log 
+         $del_dir_name = Read-Host -Prompt "Nom du repertoire à supprimer (En Chemin absolu) ? : "
+#        read -p "Nom du repertoire à supprimer (En Chemin absolu) ? : " del_dir_name
+#        echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Suppression du répertoire $del_dir_name" >> /var/log/log_evt.log
+         Invoke-command
 #        ssh $nom_utilisateur@$adresse_ip "sudo -S rm -r -v $del_dir_name"
-#        # echo "Repertoire $del_dir_name supprimé "
-#         sleep 2
-#     }
+         write output "Repertoire $del_dir_name supprimé "
+         Start-Sleep 2
+    }
 
 
-#    installation_logiciel () {
+    installation_logiciel  {
 # 
-#         read -p "Nom du package à installer ? : " install_soft
+          $install_soft = Read-Host -Prompt "Nom du package à installer ? : " 
 #         echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Installation du package $install_soft" >> /var/log/log_evt.log 
+          Invoke-command
 #         ssh $nom_utilisateur@$adresse_ip "sudo -S apt-get install $install_soft -y"
-#         echo "Package $install_soft installé "
-#         sleep 2
-#     }
+          write output  "Package $install_soft installé "
+          Start-Sleep 2
+     }
 # 
 # 
 # 
-#     desinstallation_logiciel () {
+    desinstallation_logiciel  {
 # 
+          $desinstall_soft = Read-Host -Prompt "Nom du package à desinstaller ? : "
 #         read -p "Nom du package a installer ? : " desinstall_soft
-#        echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Désinstallation du package $desinstall_soft" >> /var/log/log_evt.log 
+#         echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Désinstallation du package $desinstall_soft" >> /var/log/log_evt.log 
+          Invoke-command
 #         ssh $nom_utilisateur@$adresse_ip "sudo -S apt remove $desinstall_soft -y"
-#         echo "Package $desinstall_soft désinstallé "
-#         sleep 2
-#     }
+          write output  "Package $desinstall_soft desinstallé "
+          Start-Sleep 2
+    }
 # 
 # 
-#     execution_script () {
+      execution_script {
 # 
 #         read -p "Nom du script a lancer ? : " exec_script
 #         echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Exécution du script $exec_script" >> /var/log/log_evt.log 
+          Invoke-command         
 #         ssh $nom_utilisateur@$adresse_ip "sudo -S  ./$exec_script -y"
-#         echo "Script $exec_script lancé "
-#         sleep 2
-#     }
+          write output  "Script $exec_script lancé"
+#         echo "Script $exec_script lancé"
+          Start-Sleep 2
+      }
 # 
 # 
-#     verrouillage_machine () {
-# 
-#         echo "Verrouillage de la machine" 
+     verrouillage_machine {
+           
 #         echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Verrouillage de  la machine  : $adresse_ip" >> /var/log/log_evt.log
-#         sleep 2 
+          Invoke-commandInvoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock { Lockworkstation }
+          write-output "Verrouillage de la machine" 
+          Start-Sleep 2 
 #         ssh $nom_utilisateur@$adresse_ip "sudo -S systemctl suspend"
-#     }
+     }
 # 
-#     redemarrage_machine () {
+     redemarrage_machine {
 # 
-#         echo "Redémarrage de la machine" 
+          write-output "Redémarrage de la machine" 
 #         echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Redémarrage de la machine : $adresse_ip" >> /var/log/log_evt.log
-#         sleep 2 
+          Invoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock { Restart-Computer }
+          Start-Sleep 2          
 #         ssh $nom_utilisateur@$adresse_ip "sudo -S reboot"
-#     }
+    }
 # 
 # 
-#     arret_machine () {
+     arret_machine {
 # 
-#         echo "Arrêt de la machine" 
+          write-output "Arrêt de la machine" 
 #         echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Arrêt de la machine : $adresse_ip" >> /var/log/log_evt.log
-#         sleep 2 
+          Invoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock { Stop-Computer }          
+          Start-Sleep 2
 #         ssh $nom_utilisateur@$adresse_ip "sudo -S shutdown now"
-#     }
+     }
 # 
 # 
-#     update_machine () {
+     update_machine {
 # 
 #         echo "Mise à jour du système de la machine" 
 #         echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Mise à jour du système : $adresse_ip" >> /var/log/log_evt.log
+          Invoke-Command -ComputerName CLIWIN01 -Credential wilder -ScriptBlock {  Import-Module PSWindowsUpdate Get-WindowsUpdate -AcceptAll -Install -IgnoreReboot } 
 #         ssh $nom_utilisateur@$adresse_ip "sudo -S apt update && apt upgrade -y"
-#         echo "Système mis à jour "
-#         sleep 2
-#     }
-# 
-# 
-# 
-#     # Menu Action Système
-# 
-#     while true; do
-#     clear
-#     echo "Menu Action système :"
-#     echo "---------------------"
-#     echo "1- Création de répertoire"
-#     echo "2- Suppression de répertoire"
-#     echo "3- Installation de logiciel (distribution Linux Ubuntu)"
-#     echo "4- Désinstallation de logiciel (distribution Linux Ubuntu)"
-#     echo "5- Exécution de script sur une machine distante"
-#     echo "6- Verrouillage de la machine"
-#     echo "7- Redémarrage de la machine"
-#     echo "8- Arrêt de la machine"
-#     echo "9- Mise à jour du système de la machine"
-#     echo "r- Retour au menu précédent"
-#     echo "x- Retour au menu principal"
-#     echo "q) Sortie Script"
-#     read -p "Votre choix ? :" reps
-# 
-#     case $reps in
-#     1) creation_repertoire ; ;
+          write-output "Système mis à jour "
+          Start-Sleep 2
+    }
+
+    menu_action_compte_utilisateurs {
+
+      write-output "Menu Action système :"
+      write-output "---------------------"
+      write-output "1- Création de répertoire"
+      Write-Output "2- Suppression de répertoire"
+      write-output "3- Installation de logiciel (distribution Linux Ubuntu)"
+      write-output "4- Désinstallation de logiciel (distribution Linux Ubuntu)"
+      write-output "5- Exécution de script sur une machine distante"
+      write-output "6- Verrouillage de la machine"
+      write-output "7- Redémarrage de la machine"
+      write-output "8- Arrêt de la machine"
+      write-output "9- Mise à jour du système de la machine"
+      write-output "r- Retour au menu précédent"
+      write-output "x- Retour au menu principal"
+      write-output "q) Sortie Script"
+      $reps = Read-Host -Prompt "Votre choix ?"
+
+
+switch ($reps) {
+
+    1 {
+        Write-Output "Création de repertoire"
+        $mkdir_name = Read-Host -Prompt "Nom du repertoire à créer ? : "
+        $path_mkdir_name = Read-Host -Prompt "Chemin du repertoire à créer ? : "
+        # Write-Output "--------------" >> /Windows/Système32/log_evt.log
+        # echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Création du répertoire $mkdir_name" >> /var/log/log_evt.log 
+        Invoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock {  New-Item -Name $mkdir_name -ItemType Directory -path $path_mkdir_name} 
+        write output "Repertoire $mkdir_name créé "
+        Start-Sleep 2
+        menu_action_compte_utilisateurs
+    }
+
+
+    2 {
+        Write-Output "Suppression de repertoire"
+        $del_dir_name = Read-Host -Prompt "Nom du repertoire à supprimer (En Chemin absolu) ? : "
+        # $path_deldir_name = Read-Host -Prompt "Chemin du repertoire à supprimer ? : "
+        # echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Suppression du répertoire $del_dir_name" >> /var/log/log_evt.log
+        Invoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock {  Remove-Item -Name $del_dir_name }
+        write output "Repertoire $del_dir_name supprimé "
+        Start-Sleep 2
+        menu_action_compte_utilisateurs
+
+    }
+
+    3 {
+        Write-Output " Installation de logiciel"
+        $install_soft = Read-Host -Prompt "Nom du package à installer ? : " 
+        # echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Installation du package $install_soft" >> /var/log/log_evt.log 
+        Invoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock {  Get-PackageProvider $install_soft}
+        write output  "Package $install_soft installé "
+        Start-Sleep 2
+        menu_action_compte_utilisateurs
+
+    }
+
+    4 {
+        Write-Output " Desinstallation de logiciel"
+        $desinstall_soft = Read-Host -Prompt "Nom du package à desinstaller ? : " 
+#       echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Installation du package $install_soft" >> /var/log/log_evt.log 
+        Invoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock {  Uninstall-Package -Name $desinstall_soft}
+        write output  "Package $desinstall_soft desinstallé "
+        Start-Sleep 2
+        menu_action_compte_utilisateurs
+    }
+
+
+    5 {
+        Write-Output " Exécution de script sur une machine distante"
+        $exec_script = Read-Host -Prompt "Nom du script a lancer ? : "  
+#       echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Installation du package $install_soft" >> /var/log/log_evt.log 
+        IInvoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock { $exec_script }
+        write output  "Package $exec_script lancé "
+        Start-Sleep 2
+        menu_action_compte_utilisateurs
+        
+
+
+    }
+
+    6 {
+        Write-Output "Verrouillage de la machine"
+        Invoke-commandInvoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock { Lockworkstation }
+        write-output "Verrouillage de la machine" 
+        #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+        Start-Sleep 2 
+        menu_action_compte_utilisateurs
+        
+
+    }
+
+
+
+    7 {
+        Write-Output " Redémarrage machine"
+        Invoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock { Restart-Computer }
+        #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+        Start-Sleep 2 
+        menu_action_compte_utilisateurs
+
+
+    }
+
+
+    8 {
+        Write-Output " Arrêt machine"
+        Invoke-Command -computername CLIWIN01 -credential wilder -ScriptBlock { Stop-Computer }
+        #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+        Start-Sleep 2 
+        menu_action_compte_utilisateurs
+
+    }
+
+
+    9 {
+        Write-Output " Mise à jour de la machine"
+        Invoke-Command -ComputerName CLIWIN01 -Credential wilder -ScriptBlock {  Import-Module PSWindowsUpdate Get-WindowsUpdate -AcceptAll -Install -IgnoreReboot }
+        #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+        Start-Sleep 2 
+        menu_action_compte_utilisateurs
+
+    }
+
+
+}
+}
+
+#----------- A SUPPRILMER--------------
+# 1) creation_repertoire ; ;
 # 2) suppression_repertoire ; ;
 # 3) installation_logiciel ; ;
 # 4) desinstallation_logiciel ; ;
@@ -488,16 +671,13 @@ function menu_information_systeme {
 # echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - ********EndScript********" >> /var/log/log_evt.log
 # echo "--------------" >> /var/log/log_evt.log
 # sortie_script; ;
-# * ) echo "Erreur choix non valide merci de modifier votre choix" ; ; 
-# 	           
-#             
+# * ) echo "Erreur choix non valide merci de modifier votre choix" ; ;            
 # esac
 # 
-# sleep 2
 # done
-# 
-# 
-#}
+#--------------------------------------
+
+
 # Menu Information Pare-Feu 
 function menu_information_pare_feu {
 
