@@ -1,10 +1,7 @@
-﻿#Les lignes dans chaque fonctions correspondant à :
+#Les lignes dans chaque fonctions correspondant à :
 # echo $(<commande>) >> $nom_fichier_texte.txt
 # permettent d'inscrire les informations recueillis sur la machine client dans un fichier portant le nom de l'utilisateur dans ~/Documents
-#-----------------------------------------------------------------------------------------------------------------------------------------
-
-
-
+#
 #Menu information utilisateur 
 
 
@@ -280,7 +277,7 @@ function menu_information_systeme {
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  New-Local User ( $user_account / $passwd ) }
             #Write-Output "--------------" >> /Windows/Système32/log_evt.log
             Start-Sleep 2
-            menu_action_compte_utilisateurs
+            menu_action_comptes_utilisateurs
         }
 
         2 {  
@@ -291,7 +288,7 @@ function menu_information_systeme {
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Set-LocalUser -Name $user_passwd -Password $new_passwd }
             #Write-Output "--------------" >> /Windows/Système32/log_evt.log
             Start-Sleep 2
-            menu_action_compte_utilisateurs
+            menu_action_comptes_utilisateurs
             
         }
 
@@ -301,7 +298,7 @@ function menu_information_systeme {
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  remove-localuser -Name $del_user_local_account }
             #Write-Output "--------------" >> /Windows/Système32/log_evt.log
             Start-Sleep 2
-            menu_action_compte_utilisateurs
+            menu_action_comptes_utilisateurs
             
         }
             
@@ -311,7 +308,7 @@ function menu_information_systeme {
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Add-LocalGroupMember -Group administrateur -Member $add_user_to_admin }   
             #Write-Output "--------------" >> /Windows/Système32/log_evt.log
             Start-Sleep 2
-            menu_action_compte_utilisateurs
+            menu_action_comptes_utilisateurs
         }
 
 
@@ -322,7 +319,7 @@ function menu_information_systeme {
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Add-LocalGroupMember -Group $grp -Member $add_user_to_grp }    
             #Write-Output "--------------" >> /Windows/Système32/log_evt.log
             Start-Sleep 2
-            menu_action_compte_utilisateurs
+            menu_action_comptes_utilisateurs
         }
 
 
@@ -334,7 +331,7 @@ function menu_information_systeme {
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Del-LocalGroupMember -Group $del_grp -Member $del_user_to_grp }
             #Write-Output "--------------" >> /Windows/Système32/log_evt.log
             Start-Sleep 2
-            menu_action_compte_utilisateurs
+            menu_action_comptes_utilisateurs
         }
 
         r {  
@@ -367,6 +364,8 @@ function menu_information_systeme {
 
 
     function menu_action_systeme {
+        
+    Clear-Host
 
       write-output "Menu Action système :"
       write-output "---------------------"
@@ -392,12 +391,13 @@ function menu_information_systeme {
 
             $path_mkdir_name = Read-Host -Prompt "Chemin du repertoire à créer ? "
             $mkdir_name = Read-Host -Prompt "Nom du repertoire à créer ?  "
-            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$(get-date -Format yyyy/MM/dd-HH:mm:ss)-$env:USERNAME- Création du repertoire "$mkdir_name" "
+            #Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$(get-date -Format yyyy/MM/dd-HH:mm:ss)-$env:USERNAME- Création du repertoire "$mkdir_name" "
             # echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Création du répertoire $mkdir_name" >> /var/log/log_evt.log 
-            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  New-Item -Name $mkdir_name -ItemType Directory -path $path_mkdir_name} 
-            write output "Repertoire $mkdir_name créé "
+            # Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  New-Item -Name $mkdir_name -ItemType Directory -path $path_mkdir_name} 
+            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { New-Item -Path "$path_mkdir_name\$mkdir_name" -ItemType Directory }
+            write output "Repertoire $path_mkdir_name\$mkdir_name créé "
             Start-Sleep 2
-            menu_action_compte_utilisateurs
+            menu_action_systeme
         }
 
 
@@ -406,10 +406,10 @@ function menu_information_systeme {
             $path_del_dir_name = Read-Host -Prompt "Chemin du repertoire à supprimer ? "
             $del_dir_name = Read-Host -Prompt "Nom du repertoire à supprimer ? "
             # echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Suppression du répertoire $del_dir_name" >> /var/log/log_evt.log
-            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Remove-Item -Path "$path_del_dir_name\$del_dir_name " -Recurse -Force }
+            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Remove-Item -Path "$path_del_dir_name\$del_dir_name" -Recurse -Force }
             write output "Repertoire $del_dir_name supprimé "
             Start-Sleep 2
-            menu_action_compte_utilisateurs
+            menu_action_systeme
 
         }
 
@@ -420,7 +420,7 @@ function menu_information_systeme {
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Get-PackageProvider $install_soft}
             write output  "Package $install_soft installé "
             Start-Sleep 2
-            menu_action_compte_utilisateurs
+            menu_action_systeme
 
         }
 
@@ -431,7 +431,7 @@ function menu_information_systeme {
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Uninstall-Package -Name $desinstall_soft}
             write output  "Package $desinstall_soft desinstallé "
             Start-Sleep 2
-            menu_action_compte_utilisateurs
+            menu_action_systeme
         }
 
 
@@ -439,18 +439,18 @@ function menu_information_systeme {
             Write-Output " Exécution de script sur une machine distante"
             $exec_script = Read-Host -Prompt "Nom du script a lancer ? "  
     #       echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Installation du package $install_soft" >> /var/log/log_evt.log 
-            IInvoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $exec_script }
+            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $exec_script }
             write output  "Package $exec_script lancé "
             Start-Sleep 2
-            menu_action_compte_utilisateurs            
+            menu_action_systeme           
         }
 
         6 {
             Write-Output "Verrouillage de la machine"
             Start-Sleep 2
-            Invoke-commandInvoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Lockworkstation }
+            Invoke-commandInvoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { rundll32.exe user32.dll,LockWorkStation }
             #Write-Output "--------------" >> /Windows/Système32/log_evt.log            
-            menu_action_compte_utilisateurs        
+            menu_action_systeme        
         }
 
 
@@ -459,7 +459,7 @@ function menu_information_systeme {
             Start-Sleep 2 
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { shutdown /r }
             #Write-Output "--------------" >> /Windows/Système32/log_evt.log
-            menu_action_compte_utilisateurs
+            menu_action_systeme
         }
 
 
@@ -468,7 +468,7 @@ function menu_information_systeme {
             Start-Sleep 2
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { shutdown /s }
             #Write-Output "--------------" >> /Windows/Système32/log_evt.log 
-            menu_action_compte_utilisateurs
+            menu_action_systeme
         }
 
 
@@ -477,8 +477,37 @@ function menu_information_systeme {
             Invoke-Command -ComputerName CLIWIN01 -Credential wilder -ScriptBlock {  Import-Module PSWindowsUpdate Get-WindowsUpdate -AcceptAll -Install -IgnoreReboot }
             #Write-Output "--------------" >> /Windows/Système32/log_evt.log
             Start-Sleep 2 
-            menu_action_compte_utilisateurs
+            menu_action_systeme
         }
+
+        r {
+            Write-Output "Retour au Menu Precedent"
+            # Write-Output "est Retourné au Menu Precedent" >> /Windows/Système32/log_evt.log
+            menu_information 
+        }
+
+        x {
+            Write-Output "Retour au Menu Principal"
+            #Write-Output "est Retourné au Menu Principal" >> /Windows/Système32/log_evt.log
+            menu_principal 
+        }
+
+        q {
+            Write-Output "Vous quittez le script "
+            Start-Sleep 3
+            # Write-Output "" >> /Windows/Système32/log_evt.log
+            # Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            sortie_script 
+        }
+
+			
+
+        default {
+            Write-Output "mauvaise commande veuillez reessayer"
+            Start-Sleep 2
+            menu_action_systeme 
+        }
+
 
     }
 }
