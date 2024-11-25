@@ -67,7 +67,7 @@ _________________________________________________
   1) le service WinRM doit normalement être lancé mais vous pouvez le vérifié avec la commande : Get-Service WinRM
      Le status doit être sur "Running", sinon tapez la commande : `Enable-PSRemoting`
 
-  2) Approuver l'utilisation des commandes de gestion à distance par les utilisateurs locaux du serveur en paramêtrant le registre __LocalAccountTokenFilterPolicy__ sur 1
+  2) Configurez les droits d'administration à distance par les utilisateurs locaux du serveur en paramêtrant le registre __LocalAccountTokenFilterPolicy__ sur 1
      
      ```PowerShell
      Set-ItemProperty –Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System –Name  LocalAccountTokenFilterPolicy –Value 1 –Type DWord
