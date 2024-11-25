@@ -65,10 +65,15 @@ _________________________________________________
   La configuration est à faire sur le client ET le serveur dans une fenetre Powershell en administrateur
 
   1) le service WinRM doit normalement être lancé mais vous pouvez le vérifié avec la commande : Get-Service WinRM
-     Le status doit être sur "Running", sinon tapez la commande : Enable-PSRemoting
+     Le status doit être sur "Running", sinon tapez la commande : `Enable-PSRemoting`
 
-
-  2) Configuration du service WinRM
+  2) Approuver l'utilisation des commandes de gestion à distance par les utilisateurs locaux du serveur en paramêtrant le registre __LocalAccountTokenFilterPolicy__ sur 1
+     
+     ```PowerShell
+     Set-ItemProperty –Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System –Name  LocalAccountTokenFilterPolicy –Value 1 –Type DWord
+     ```
+     
+  4) Configuration du service WinRM
      
   ```winrm quickconfig```
 
