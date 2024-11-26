@@ -387,28 +387,32 @@ function menu_information_systeme {
     switch ($reps) {
 
         1 {
-            Write-Output "Création de repertoire"
-
-            $path_mkdir_name = Read-Host -Prompt "Chemin du repertoire à créer ? "
-            $mkdir_name = Read-Host -Prompt "Nom du repertoire à créer ?  "
+            Clear-host
+	    Write-Output "Création de repertoire"
+            # $path_mkdir_name = Read-Host -Prompt "Chemin du repertoire à créer ? "
+            # $mkdir_name = Read-Host -Prompt "Nom du repertoire à créer ?  "
             #Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$(get-date -Format yyyy/MM/dd-HH:mm:ss)-$env:USERNAME- Création du repertoire "$mkdir_name" "
             # echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Création du répertoire $mkdir_name" >> /var/log/log_evt.log 
-            # Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  New-Item -Name $mkdir_name -ItemType Directory -path $path_mkdir_name} 
-            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { New-Item -Path "$path_mkdir_name\$mkdir_name" -ItemType Directory }
+            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $path_mkdir_name = Read-Host -Prompt "Chemin du repertoire à créer ? "; 
+	    $mkdir_name = Read-Host -Prompt "Nom du repertoire à créer ?  " ;
+     	    New-Item -Path "$path_mkdir_name\$mkdir_name" -ItemType Directory }
             write output "Repertoire $path_mkdir_name\$mkdir_name créé "
-            Start-Sleep 2
+	    Read-host -Prompt "appuyez sur entrée pour continuer"
             menu_action_systeme
         }
 
 
         2 {
+	    Clear-host
             Write-Output "Suppression de repertoire"
-            $path_del_dir_name = Read-Host -Prompt "Chemin du repertoire à supprimer ? "
-            $del_dir_name = Read-Host -Prompt "Nom du repertoire à supprimer ? "
+            # $path_del_dir_name = Read-Host -Prompt "Chemin du repertoire à supprimer ? "
+            # $del_dir_name = Read-Host -Prompt "Nom du repertoire à supprimer ? "
             # echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Suppression du répertoire $del_dir_name" >> /var/log/log_evt.log
-            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Remove-Item -Path "$path_del_dir_name\$del_dir_name" -Recurse -Force }
+            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $path_del_dir_name = Read-Host -Prompt "Chemin du repertoire à supprimer ? " ;
+     	    $del_dir_name = Read-Host -Prompt "Nom du repertoire à supprimer ? " ;
+	    Remove-Item -Path "$path_del_dir_name\$del_dir_name" -Recurse -Force }
             write output "Repertoire $del_dir_name supprimé "
-            Start-Sleep 2
+            Read-host -Prompt "appuyez sur entrée pour continuer"
             menu_action_systeme
 
         }
@@ -483,7 +487,7 @@ function menu_information_systeme {
         r {
             Write-Output "Retour au Menu Precedent"
             # Write-Output "est Retourné au Menu Precedent" >> /Windows/Système32/log_evt.log
-            menu_information 
+            menu_action 
         }
 
         x {
