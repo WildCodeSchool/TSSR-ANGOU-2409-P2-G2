@@ -816,20 +816,14 @@ function menu_gestion_parefeu {
         
         1 { 
             Invoke-Command -ComputerName 172.16.10.30 -Credential wilder -ScriptBlock { Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled True }
-            if($?)
-            { 
             Write-Output "Le pare-feu est activé"
-            }
             # Write-Output "- a activé le pare-feu" >> /Windows/Système32/log_evt.log
             Read-Host -Prompt "Appuyez sur entrée pour continuer"
             menu_gestion_parefeu 
           }
         2 {
             Invoke-Command -ComputerName 172.16.10.30 -Credential wilder -ScriptBlock { Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False }
-            if($?)
-            { 
             Write-Output "Le pare-feu est desactive"
-            }
             # Write-Output "- a désactivé le pare-feu" >> /Windows/Système32/log_evt.log
             Read-Host -Prompt "Appuyez sur entrée pour continuer"
             menu_gestion_parefeu 
@@ -837,7 +831,7 @@ function menu_gestion_parefeu {
         3 {
             Write-Output "Définition d'une nouvelle regle de pare-feu"
             # Write-Output "- a choisi de définir une nouvelle regle de pare-feu" >> /Windows/Système32/log_evt.log
-            Start-Sleep 2
+            Read-Host -Prompt "Appuyez sur entrée pour continuer"
             menu_regle_parefeu 
         }
         r { 
@@ -1014,10 +1008,10 @@ function menu_connex_distance {
 function menu_principal {
     Clear-Host
     Write-Output "			__________________________________________________"
-    Write-Output "			|:						:|"
-    Write-Output "			|:						:|"
-    Write-Output "			|:	    	  MENU PRINCIPAL 		:|"
-    Write-Output "			|:						:|"
+    Write-Output "			|:						                        :|"
+    Write-Output "			|:						                        :|"
+    Write-Output "			|:	    	  MENU PRINCIPAL 		            :|"
+    Write-Output "			|:						                        :|"
     Write-Output "			|:______________________________________________:|
 	
 	1) Effectuer des actions (exemple : creer un dossier, activer un par-feu...)
