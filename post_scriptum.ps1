@@ -31,10 +31,9 @@ function menu_information_utilisateur {
 
         1 {
             Write-Output "Droits/Permissions de l'utilisateur sur un dossier" 
-            #Write-Output ""
-            #Write-Output "" >> Documents/$nom_fichier_texte.txt
-            #Write-Output "--------------" >>  Documents/$nom_fichier_texte.txt
-            #Write-Output "- A afficher les droits/permissions de l'utilisateur sur un dossier" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les droits/permissions de l'utilisateur sur un dossier" 
             Read-Host -Prompt "appuyer sur entrée pour continuer "
             menu_information_utilisateur 
         }
@@ -42,10 +41,10 @@ function menu_information_utilisateur {
 
         2 {
             Write-Output "Droits/Permissions de l'utilisateur sur un fichier"
-            #Write-Output ""
-            #Write-Output "" >> Documents/$nom_fichier_texte.txt
-            #Write-Output "--------------" >>  Documents/$nom_fichier_texte.txt
-            #Write-Output "- A afficher les droits/permissions de l'utilisateur sur un fichier" >> /Windows/Système32/log_evt.log
+            
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les droits/permissions de l'utilisateur sur un fichier"
             Read-Host -Prompt "appuyer sur entrée pour continuer "
             menu_information_utilisateur 
         }
@@ -53,40 +52,36 @@ function menu_information_utilisateur {
 
         3 {
             Write-Output "Date de derniere connexion d'un utilisateur"
-            #Write-Output ""
-            #Write-Output "" >> Documents/$nom_fichier_texte.txt
-            #Write-Output "--------------" >>  Documents/$nom_fichier_texte.txt
-            #Write-Output "- A afficher les informations de la dernière connexion de l'utilisateur" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la dernière connexion de l'utilisateur"
             Read-Host -Prompt "appuyer sur entrée pour continuer "
             menu_information_utilisateur
         }
 
         4 {
             Write-Output "Date de derniere modification du mot de passe de l'utilisateur"
-            #Write-Output ""
-            #Write-Output "" >> Documents/$nom_fichier_texte.txt
-            #Write-Output "--------------" >>  Documents/$nom_fichier_texte.txt
-            #Write-Output "- A afficher les informations de la dernière modification du mot de passe" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la dernière modification du mot de passe"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_utilisateur 
         }
 
         5 {
             Write-Output "Liste des sessions ouvertes par l'utilisateur"
-            #Write-Output ""
-            #Write-Output "" >> Documents/$nom_fichier_texte.txt
-            #Write-Output "--------------" >>  Documents/$nom_fichier_texte.txt
-            #Write-Output "- A lister les sessions ouvertes par l'utilisateur" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - $machineclient - A lister les sessions ouvertes par l'utilisateur"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_utilisateur 
         }
 
         6 {
             Write-Output "Liste des utilisateurs locaux"
-            #Write-Output ""
-            #Write-Output "" >> Documents/$nom_fichier_texte.txt
-            #Write-Output "--------------" >>  Documents/$nom_fichier_texte.txt
-            #Write-Output "- A lister les utilisateurs locaux" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A lister les utilisateurs locaux"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_utilisateur
         }
@@ -94,21 +89,21 @@ function menu_information_utilisateur {
 
         r {
             Write-Output "Retour au Menu Precedent"
-            # Write-Output "est Retourné au Menu Précédent" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Précédent"
             menu_information 
         }
 
         x {
             Write-Output "Retour au Menu Principal"
-            #Write-Output "est Retourné au Menu Principal" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Principal"
             menu_principal 
         }
            
         q {
             Write-Output "Vous quittez le script "
             Start-Sleep 3
-            #Write-Output "- ********EndScript********" >> /Windows/Système32/log_evt.log
-            #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
             sortie_script
         }
     
@@ -146,83 +141,76 @@ function menu_information_systeme {
 
         1 {    
             Write-Output "Informations du CPU ( type de processeur)"
-            Write-Output ""
-            # Write-Output "" >> Documents/$nom_fichier_texte.txt
-            # Write-Output "--------------" >>  Documents/$nom_fichier_texte.txt
-            # Write-Output "- A afficher les informations du CPU" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations du CPU"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_systeme
         }
 
         2 {  
             Write-Output "Mémoire RAM totale"
-            Write-Output ""
-            # Write-Output "" >> Documents/$nom_fichier_texte.txt
-            # Write-Output "--------------" >>  Documents/$nom_fichier_texte.txt
-            # Write-Output "- A afficher les informations de la mémoire RAM" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la mémoire RAM"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_systeme
         }
 
         3 {
             Write-Output "Utilisation de la RAM" 
-            Write-Output ""
-            # Write-Output "" >> Documents/$nom_fichier_texte.txt
-            # Write-Output "--------------" >>  Documents/$nom_fichier_texte.txt
-            # Write-Output "- A afficher les informations de l'utilisation de la RAM" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de l'utilisation de la RAM"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_systeme 
         }
 
         4 {
             Write-Output "Utilisation du processeur"
-            Write-Output ""
-            # Write-Output "" >> Documents/$nom_fichier_texte.txt
-            # Write-Output "--------------" >>  Documents/$nom_fichier_texte.txt
-            # Write-Output "- A afficher les informations de l'utilisation de processeur" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de l'utilisation de processeur"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_systeme
         }
 
         5 {  
             Write-Output "Utilisation du disque"
-            Write-Output ""
-            # Write-Output "" >> Documents/$nom_fichier_texte.txt
-            # Write-Output "--------------" >>  Documents/$nom_fichier_texte.txt
-            # Write-Output "- A afficher les informations de l'utilisation du disque" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de l'utilisation du disque"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_systeme 
         }
 
         6 {      
             Write-Output "Version de l'OS :"
-            Write-Output ""
-            # Write-Output "" >> Documents/$nom_fichier_texte.txt
-            # Write-Output "--------------" >>  Documents/$nom_fichier_texte.txt
-            # Write-Output "- A afficher les informations de la version du système d'exploitation" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la version du système d'exploitation"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_systeme
         }
 
         7 {   
             Write-Output "Liste des applications installees :"
-            # Write-Output ""
-            # Write-Output "" >> Documents/$nom_fichier_texte.txt
-            # Write-Output "--------------" >>  Documents/$nom_fichier_texte.txt
-            # Write-Output "A lister les applications installés" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - $nom_utilisateur - $machineclient - A lister les applications installés"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_systeme; ;
         }
 
         r {
             Write-Output "retour au menu precedent"
-            # Write-Output "est Retourné au Menu Précédent" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Précédent"
             menu_information 
         }
 
         x {
             Write-Output "Retour au Menu Principal"
-            #Write-Output "est Retourné au Menu Principal" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Principal"
             menu_principal 
         }
         
@@ -230,8 +218,8 @@ function menu_information_systeme {
         q {
             Write-Output "Vous quittez le script "
             Start-Sleep 3
-            # Write-Output "" >> /Windows/Système32/log_evt.log
-            # Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
             sortie_script
         }
 		
@@ -275,18 +263,16 @@ function menu_information_systeme {
             $passwd = Read-Host -Prompt "Mot de passe de l'utilisateur dont le compte doit être créé ? " -AsSecureString
             Write-Output " $nom_utlisateur à effectuer l'action création du compte utilisateur $user_account" >> /Windows/Système32/log_evt.log
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  New-Local User ( $user_account / $passwd ) }
-            #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action création du compte utilisateur $user_account"
             Start-Sleep 2
             menu_action_comptes_utilisateurs
         }
 
         2 {  
             Write-Output "Changement mot de passe utilisateur"
-            
             $user_passwd = Read-Host -Prompt "Nom de l'utilisateur dont le mot de passe doit être changé ? "
             $new_passwd = Read-Host -Prompt "Entrez le nouveau mot de passe" -AsSecureString
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Set-LocalUser -Name $user_passwd -Password $new_passwd }
-            #Write-Output "--------------" >> /Windows/Système32/log_evt.log
             Start-Sleep 2
             menu_action_comptes_utilisateurs
             
@@ -296,7 +282,7 @@ function menu_information_systeme {
             Write-Output "Suppression de compte utilisateur local"
             $del_user_local_account = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être supprimé ? "
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  remove-localuser -Name $del_user_local_account }
-            #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Suppression du compte de l'utilisateur local $del_user_local_account"
             Start-Sleep 2
             menu_action_comptes_utilisateurs
             
@@ -306,7 +292,7 @@ function menu_information_systeme {
             Write-Output "Ajout utilisateur au groupe administrateur"
             $add_user_to_admin = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être ajouté au groupe administrateur ? "
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Add-LocalGroupMember -Group administrateur -Member $add_user_to_admin }   
-            #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Ajout de l'utilisateur $add_user_to_admin au groupe administrateur"
             Start-Sleep 2
             menu_action_comptes_utilisateurs
         }
@@ -317,7 +303,7 @@ function menu_information_systeme {
             $add_user_to_grp = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être ajouté a un groupe ? "
             $grp = Read-Host -Prompt "Nom du groupe auquel l'utilisateur doit être ajouté ? "
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Add-LocalGroupMember -Group $grp -Member $add_user_to_grp }    
-            #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Ajout de l'utilisateur $add_user_to_local_users au groupe local"
             Start-Sleep 2
             menu_action_comptes_utilisateurs
         }
@@ -329,26 +315,28 @@ function menu_information_systeme {
             $del_user_to_grp = Read-Host -Prompt "nom de l'utilisateur dont le compte doit être ajoutésupprimé d'un groupe ? :"
             $del_grp = Read-Host -Prompt "Nom du groupe auquel l'utilisateur doit être supprimé ? :"
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Del-LocalGroupMember -Group $del_grp -Member $del_user_to_grp }
-            #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - sortie de l'utilisateur $del_user_to_local_users au groupe local"
             Start-Sleep 2
             menu_action_comptes_utilisateurs
         }
 
         r {  
-        Write-Output "Retour au menu précédent"
-        menu_action
+            Write-Output "Retour au menu précédent"
+	    Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Précédent"
+            menu_action
         }
 
         x {  
             Write-Output "Retour au menu principal"
+	    Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Principal"
             menu_principal
             }
 
         q {
         Write-Output "Vous quittez le script "
         Start-Sleep 3
-        Write-Output "" >> /Windows/Système32/log_evt.log
-        Write-Output "--------------" >> /Windows/Système32/log_evt.log
+        Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
+        Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
         sortie_script }
 
         default {  
@@ -390,9 +378,7 @@ function menu_information_systeme {
             Clear-host
 	    Write-Output "Création de repertoire"
             # $path_mkdir_name = Read-Host -Prompt "Chemin du repertoire à créer ? "
-            # $mkdir_name = Read-Host -Prompt "Nom du repertoire à créer ?  "
-            #Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$(get-date -Format yyyy/MM/dd-HH:mm:ss)-$env:USERNAME- Création du repertoire "$mkdir_name" "
-            # echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Création du répertoire $mkdir_name" >> /var/log/log_evt.log 
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Création du repertoire "$mkdir_name" "
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $path_mkdir_name = Read-Host -Prompt "Chemin du repertoire à créer ? "; 
 	    $mkdir_name = Read-Host -Prompt "Nom du repertoire à créer ?  " ;
      	    New-Item -Path "$path_mkdir_name\$mkdir_name" -ItemType Directory }
@@ -407,7 +393,7 @@ function menu_information_systeme {
             Write-Output "Suppression de repertoire"
             # $path_del_dir_name = Read-Host -Prompt "Chemin du repertoire à supprimer ? "
             # $del_dir_name = Read-Host -Prompt "Nom du repertoire à supprimer ? "
-            # echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Suppression du répertoire $del_dir_name" >> /var/log/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Suppression du répertoire $del_dir_name"
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $path_del_dir_name = Read-Host -Prompt "Chemin du repertoire à supprimer ? " ;
      	    $del_dir_name = Read-Host -Prompt "Nom du repertoire à supprimer ? " ;
 	    Remove-Item -Path "$path_del_dir_name\$del_dir_name" -Recurse -Force }
@@ -420,7 +406,7 @@ function menu_information_systeme {
         3 {
             Write-Output " Installation de logiciel"
             $install_soft = Read-Host -Prompt "Nom du package à installer ? " 
-            # echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Installation du package $install_soft" >> /var/log/log_evt.log 
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Installation du package $install_soft"  
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Get-PackageProvider $install_soft}
             write output  "Package $install_soft installé "
             Start-Sleep 2
@@ -431,7 +417,7 @@ function menu_information_systeme {
         4 {
             Write-Output " Desinstallation de logiciel"
             $desinstall_soft = Read-Host -Prompt "Nom du package à desinstaller ? " 
-    #       echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Installation du package $install_soft" >> /var/log/log_evt.log 
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Installation du package $install_soft"
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Uninstall-Package -Name $desinstall_soft}
             write output  "Package $desinstall_soft desinstallé "
             Start-Sleep 2
@@ -442,8 +428,8 @@ function menu_information_systeme {
         5 {
             Write-Output " Exécution de script sur une machine distante"
             $exec_script = Read-Host -Prompt "Nom du script a lancer ? "  
-    #       echo "$(date +%F-%X) - $nom_utilisateur - $machineclient - Installation du package $install_soft" >> /var/log/log_evt.log 
-            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $exec_script }
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Execution du script $exec_script"
+	    Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $exec_script }
             write output  "Package $exec_script lancé "
             Start-Sleep 2
             menu_action_systeme           
@@ -453,7 +439,7 @@ function menu_information_systeme {
             Write-Output "Verrouillage de la machine"
             Start-Sleep 2
             Invoke-commandInvoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { rundll32.exe user32.dll,LockWorkStation }
-            #Write-Output "--------------" >> /Windows/Système32/log_evt.log            
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"           
             menu_action_systeme        
         }
 
@@ -462,7 +448,7 @@ function menu_information_systeme {
             Write-Output " Redémarrage machine"
             Start-Sleep 2 
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { shutdown /r }
-            #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
             menu_action_systeme
         }
 
@@ -471,7 +457,7 @@ function menu_information_systeme {
             Write-Output " Arrêt machine"
             Start-Sleep 2
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { shutdown /s }
-            #Write-Output "--------------" >> /Windows/Système32/log_evt.log 
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
             menu_action_systeme
         }
 
@@ -479,28 +465,28 @@ function menu_information_systeme {
         9 {
             Write-Output " Mise à jour de la machine"
             Invoke-Command -ComputerName CLIWIN01 -Credential wilder -ScriptBlock {  Import-Module PSWindowsUpdate Get-WindowsUpdate -AcceptAll -Install -IgnoreReboot }
-            #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
             Start-Sleep 2 
             menu_action_systeme
         }
 
         r {
             Write-Output "Retour au Menu Precedent"
-            # Write-Output "est Retourné au Menu Precedent" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Precedent"
             menu_action 
         }
 
         x {
             Write-Output "Retour au Menu Principal"
-            #Write-Output "est Retourné au Menu Principal" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Principal"
             menu_principal 
         }
 
         q {
             Write-Output "Vous quittez le script "
             Start-Sleep 3
-            # Write-Output "" >> /Windows/Système32/log_evt.log
-            # Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
             sortie_script 
         }
 
@@ -535,9 +521,9 @@ function menu_information_pare_feu {
             Invoke-Command -ComputerName 172.16.10.30 -Credential wilder -ScriptBlock { Get-NetFirewallProfile | ft Name,Enabled }
             Write-Output "Statut du Parefeu : "
             Read-Host -Prompt "Appuyez sur entrée pour continuer"
-            # Write-Output "" >> Documents/$nom_fichier_texte.txt
-            # Write-Output "--------------" >>  Documents/$nom_fichier_texte.txt
-            # Write-Output "- a affiché le status du Pare-feu" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a affiché le status du Pare-feu"
             menu_information_pare_feu 
         }
 			
@@ -545,29 +531,29 @@ function menu_information_pare_feu {
             Invoke-Command -ComputerName 172.16.10.30 -Credential wilder -ScriptBlock { netstat -ano | findstr LISTENING}
             Write-Output "Liste des ports ouvert : "
             Read-Host -Prompt "Appuyez sur entrée pour continuer"
-            # Write-Output "" >> Documents/$nom_fichier_texte.txt
-            # Write-Output "--------------" >>  Documents/$nom_fichier_texte.txt
-            # Write-Output "- a effectué l'action Affichage liste ports ouvert" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a effectué l'action Affichage liste ports ouvert"
             menu_information_pare_feu 
         }
 
         r {
             Write-Output "Retour au Menu Precedent"
-            # Write-Output "est Retourné au Menu Precedent" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Precedent"
             menu_information 
         }
 
         x {
             Write-Output "Retour au Menu Principal"
-            #Write-Output "est Retourné au Menu Principal" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Principal"
             menu_principal 
         }
 
         q {
             Write-Output "Vous quittez le script "
             Start-Sleep 3
-            # Write-Output "" >> /Windows/Système32/log_evt.log
-            # Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
             sortie_script 
         }
 
@@ -599,9 +585,9 @@ function menu_journalisation {
             Clear-Host
             #$utilisateur = Read-Host -Prompt "Entrer le nom d'utilisateur : " 
             #Get-Content /Windows/Système32/log_evt.log | grep "$utilisateur"
-            #Write-Output "" >> Documents/$nom_fichier_texte.txt
-            #Write-Output "--------------" >>  Documents/$nom_fichier_texte.txt
-            #Write-Output "- à Rechercher des événements effectuer par $utilisateur" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt"--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à Rechercher des événements effectuer par $utilisateur"
             Read-Host "appuyer sur entrée pour continuer " 
             menu_journalisation 
         }
@@ -610,28 +596,28 @@ function menu_journalisation {
             Clear-Host
             # $ordinateur = Read-Host -Prompt "Entrer le nom de l'Ordinateur : " 
             # Get-Content /Windows/Système32/log_evt.log | grep "$ordinateur"
-            # Write-Output " à effectuer l'action Affichage des événement de l'Ordinateur" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage des événement de l'Ordinateur"
             Read-Host -Prompt "appuyer sur entree pour continuer " 
             menu_journalisation 
         }
     
         r {
             Write-Output "Retour au Menu Precedent"
-            # Write-Output "est Retourné au Menu Principal" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Principal"
             menu_information 
         }
 
         x {
             Write-Output "Retour au Menu Principal"
-            # Write-Output "est Retourné au Menu Principal" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Principal"
             menu_principal 
         }
     
         q {
             Write-Output "Vous quittez le script "
             Start-Sleep 3
-            # Write-Output "" >> /Windows/Système32/log_evt.log
-            # Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
             sortie_script 
         }
     
@@ -662,63 +648,62 @@ function menu_information_reseaux {
 
         1 {
             
-            # Write-Output "" >> Documents/$nom_fichier_texte.txt
-            # Write-Output "--------------" >> Documents/$nom_fichier_texte.txt
-            # Write-Output " - à effectuer l'action Affichage de l'adresse mac" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage de l'adresse mac"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_reseaux 
         }
 
         2 {
-            # Write-Output "" >> Documents/$nom_fichier_texte.txt
-            # Write-Output "--------------" >> Documents/$nom_fichier_texte.txt
-            # Write-Output "- à effectuer l'action Affichage du nombre d'interface réseaux" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage du nombre d'interface réseaux"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_reseaux 
         }
 
         3 {   
-            # Write-Output "" >> Documents/$nom_fichier_texte.txt
-            # Write-Output "--------------" >> Documents/$nom_fichier_texte.txt
-            # Write-Output "- à effectuer l'action Affichage adresse IP" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage adresse IP"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_reseaux 
         }
 
         4 {
             
-            # Write-Output "" >> Documents/$nom_fichier_texte.txt
-            # Write-Output "--------------" >> Documents/$nom_fichier_texte.txt
-            # Write-Output "- à effectuer l'action Affichage liste ports ouvert" >> /Windows/Système32/log_evt.log
-            Read-Host -Prompt "appuyer sur entree pour continuer " 
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage liste ports ouvert"
+	    Read-Host -Prompt "appuyer sur entree pour continuer " 
             menu_information_reseaux 
         }
 
         r {
             Write-Output "retour au Menu Precedent"
-            #Write-Output "est retourné au Menu Précédent" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Précédent"
             menu_information 
         } 
         
 
         x { 
             Write-Output "Retour au Menu Principal"
-            #Write-Output "st retourné au Menu Principal" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Principal"
             menu_principal 
         } 
 
         q {
             Write-Output "Vous quittez le script "
             Start-Sleep 3
-            # Write-Output "" >> /Windows/Système32/log_evt.log
-            # Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
             sortie_script 
         } 
 
 			
         default {
             Write-Output "mauvaise commande veuillez reessayer"
-            # Write-Output "- à Utilisé une mauvaise commande" >> /Windows/Système32/log_evt.log
             Start-Sleep 2
             menu_information_reseaux 
         }
@@ -757,21 +742,21 @@ q) Sortie Script
 
         r {
             Write-Output "Retour au menu Action sur les Pare-Feux"
-            # Write-Output "- est Retourné au Menu Précédent" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Précédent"
             menu_gestion_parefeu 
         }
 			
         x {
             Write-Output "Retour au menu Principal"
-            # Write-Output "- est Retourné au Menu Principal" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Principal"
             menu_principal
         }
 		
         q {
             Write-Output "Vous quittez le script "
             Start-Sleep 3
-            # Write-Output "" >> /Windows/Système32/log_evt.log
-            # Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
             sortie_script 
         }
 			
@@ -821,20 +806,20 @@ function menu_gestion_parefeu {
         1 { 
             Invoke-Command -ComputerName 172.16.10.30 -Credential wilder -ScriptBlock { Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled True }
             Write-Output "Le pare-feu est activé"
-            # Write-Output "- a activé le pare-feu" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a Activé le pare-feu"
             Read-Host -Prompt "Appuyez sur entrée pour continuer"
             menu_gestion_parefeu 
           }
         2 {
             Invoke-Command -ComputerName 172.16.10.30 -Credential wilder -ScriptBlock { Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False }
             Write-Output "Le pare-feu est desactive"
-            # Write-Output "- a désactivé le pare-feu" >> /Windows/Système32/log_evt.log
-            Read-Host -Prompt "Appuyez sur entrée pour continuer"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a désactivé le pare-feu"
+	    Read-Host -Prompt "Appuyez sur entrée pour continuer"
             menu_gestion_parefeu 
           }
         3 {
             Write-Output "Définition d'une nouvelle regle de pare-feu"
-            # Write-Output "- a choisi de définir une nouvelle regle de pare-feu" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a choisi de définir une nouvelle regle de pare-feu"
             Read-Host -Prompt "Appuyez sur entrée pour continuer"
             menu_regle_parefeu 
         }
