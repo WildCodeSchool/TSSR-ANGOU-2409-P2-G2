@@ -41,7 +41,6 @@ function menu_information_utilisateur {
 
         2 {
             Write-Output "Droits/Permissions de l'utilisateur sur un fichier"
-            
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les droits/permissions de l'utilisateur sur un fichier"
@@ -647,8 +646,8 @@ function menu_information_reseaux {
     switch ($choix_reseaux) { 
 
         1 {
-            
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-NetAdapter | fl Name, MacAddress }
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "Get-NetAdapter | fl Name, MacAddress"
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage de l'adresse mac"
             Read-Host -Prompt "appuyer sur entree pour continuer "
@@ -656,7 +655,8 @@ function menu_information_reseaux {
         }
 
         2 {
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+	    Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-NetAdapter | fl Name }
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "Get-NetAdapter | fl Name"
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage du nombre d'interface réseaux"
             Read-Host -Prompt "appuyer sur entree pour continuer "
@@ -664,7 +664,8 @@ function menu_information_reseaux {
         }
 
         3 {   
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { ((ipconfig | findstr [0-9].\.)[0]).Split()[-1] }
+	    Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage adresse IP"
             Read-Host -Prompt "appuyer sur entree pour continuer "
@@ -672,8 +673,8 @@ function menu_information_reseaux {
         }
 
         4 {
-            
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
+            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { netstat -ano | findstr LISTENING }
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "netstat -ano | findstr LISTENING"
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage liste ports ouvert"
 	    Read-Host -Prompt "appuyer sur entree pour continuer " 
@@ -825,21 +826,21 @@ function menu_gestion_parefeu {
         }
         r { 
             Write-Output "Retour au menu Action"
-            # Write-Output "- est Retourné au Menu Action" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Précédent"
             menu_action 
         }
 			
         x { 
             Write-Output "Retour au Menu Principal"
-            # Write-Output "- est Retourné au Menu Principal" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Principal"
             menu_principal 
         }
 			
         q {
             Write-Output "Vous quittez le script "
             Start-Sleep 3
-            Write-Output "" >> /Windows/Système32/log_evt.log
-            Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient ---------------"
             sortie_script 
         } 
 
@@ -869,7 +870,7 @@ function menu_information {
 
         1 {
             Write-Output "Ouverture Menu Information Compte / Utilisateurs"
-            # Write-Output " a Sélectionné le Menu Information Compte / Utilisateur" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a Sélectionné le Menu Information Compte / Utilisateur"
             Start-Sleep 2
             Clear-Host
             menu_information_utilisateur 
@@ -877,7 +878,7 @@ function menu_information {
 
         2 {
             Write-Output "Ouverture Menu Information Reseaux"
-            # Write-Output "- a Sélectionné le Menu Information Réseaux" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a Sélectionné le Menu Information Réseaux"
             Start-Sleep 2
             Clear-Host
             menu_information_reseaux 
@@ -885,7 +886,7 @@ function menu_information {
 
         3 {
             Write-Output "Ouverture Menu Information Systeme"
-            # Write-Output "- a Sélectionné le Menu Information Système" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a Sélectionné le Menu Information Système"
             Start-Sleep 2
             Clear-Host
             menu_information_systeme 
@@ -893,7 +894,7 @@ function menu_information {
 
         4 {
             Write-Output "Ouverture Menu securite"
-            # Write-Output "- a Sélectionné le Menu Information Sécurité" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a Sélectionné le Menu Information Sécurité"
             Start-Sleep 2
             Clear-Host
             menu_information_pare_feu 
@@ -901,7 +902,7 @@ function menu_information {
 
         5 {
             Write-Output "Ouverture Menu Journalisation"
-            # Write-Output "- a choisi de Consulter le journal des événements" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a choisi de Consulter le journal des événements"
             Start-Sleep 2
             Clear-Host
             menu_journalisation 
@@ -909,15 +910,15 @@ function menu_information {
 
         x {
             Write-Output "Retour au Menu Principal"
-            # Write-Output "- est Retourné au Menu Principal" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Principal"
             menu_principal 
         }
 			
         q {
             Write-Output "Vous quittez le script "
             Start-Sleep 3
-            # Write-Output "- ********EndScript********" >> /Windows/Système32/log_evt.log
-            # Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********" 
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient ---------------" 
             sortie_script 
         }
 			
@@ -946,33 +947,33 @@ function menu_action {
         
         1 {
             Clear-Host
-            # Write-Output "- a sélectionné le Menu Compte et Utilisateur" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a sélectionné le Menu Compte et Utilisateur" 
             menu_action_comptes_utilisateurs 
         }
         
         2 {
             Clear-Host
-            # Write-Output "- a sélectionné le Menu Action sur le Système" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a sélectionné le Menu Action sur le Système" 
             menu_action_systeme 
         }
 
         3 {
             Clear-Host
-            # Write-Output "- a sélectionne le Menu Gestion Du Pare-Feu" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a sélectionne le Menu Gestion Du Pare-Feu" 
             menu_gestion_parefeu 
         }
 
         x {
             Write-Output "Retour au menu principal "
-            # Write-Output "- est retourné au Menu Principal" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est retourné au Menu Principal" 
             menu_principal 
         }
 			
         q {
             Write-Output "Vous quittez le script "
             Start-Sleep 3
-            # Write-Output "- ********EndScript********" >> /Windows/Système32/log_evt.log
-            # Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********" 
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient ---------------" 
             sortie_script 
         }
 
@@ -1015,25 +1016,25 @@ function menu_principal {
     switch ($choix) {
 
         1 {
-            #Write-Output "- a Sélectionné le Menu Effectuer des actions" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a Sélectionné le Menu Effectuer des actions"
             menu_action 
         }
 
         2 {
-            #Write-Output " - a Sélectionné le Menu Rechercher des Informations" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a Sélectionné le Menu Rechercher des Informations"
             menu_information 
         }
 
         3 {
-            #Write-Output " a Sélectionné Prise de main à distance" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a Sélectionné Prise de main à distance"
             menu_connex_distance 
         }
 
         x {
             Write-Output "Vous quittez le script"
             Start-Sleep 3
-            # Write-Output "- ********EndScript********" >> /Windows/Système32/log_evt.log
-            #Write-Output "--------------" >> /Windows/Système32/log_evt.log
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********" 
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------" 
             sortie_script 
         }
     
@@ -1044,19 +1045,20 @@ function menu_principal {
         }
     }
 }
-# Donne les droits d'accès en écriture au fichier de journalisation et Début de la Journalisation dans le fichier log_evt.log
 
-
-#Write-Output "--------------" >> /var/log/log_evt.log
-#Write-Output " ********StartScript********" >> /var/log/log_evt.log
-
-Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$(get-date -Format yyyy/MM/dd-HH:mm:ss)-********StartScript********"
 # Connexion Identification à la machine cliente
 $adresse_ip = Read-Host -Prompt "A quel machine voulez-vous vous connecter ( adresse ip ) ?  " 
 $nom_utilisateur = Read-Host -Prompt "Veuillez renseigner le nom d'utilisateur pour ?  "
-#machineclient=$(ssh $nom_utilisateur@$adresse_ip "hostname")
+
+$Date_log = Get-Date -Format "yyyy/mm/dd HH:mm:ss"
+$Date = Get-Date -Format "yyyy/mm/dd"
+Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient ---------------" 
+Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient -********StartScript********"
+
+$machineclient = $env:computername
 # Nom du fichier qui contiendra les informations collectées sur la machine cliente
 #nom_fichier_texte=info\_$nom_utilisateur\_$(date)
 # Le script commence ici
+$nom_fichier_texte = "info-$nom_utilisateur-$Date"
 
 menu_principal
