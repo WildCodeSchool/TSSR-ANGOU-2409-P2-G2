@@ -750,6 +750,10 @@ function creer_regle_parefeu {
         	$port = $(Read-Host "Sur quel(s) port(s) voulez-vous appliquer votre nouvelle rêgle ?")
        		New-NetFirewallRule -DisplayName $nom_regle -Profile @('Domain', 'Private') -Direction $direction -Action $action -Protocol $protocol -LocalPort @($port)
 	}
+ 	Write-Output "La nouvelle règle sur le parefeu a été appliquée avec succès "
+  	Read-Host -Prompt "Appuyer sur entrée pour continuer"
+   	menu_regle_parefeu
+   	
 }
 #Supprimer une règle existante sur le parefeu
 function supprimer_regle_parefeu {
@@ -758,6 +762,9 @@ function supprimer_regle_parefeu {
 		$nom_regle = $(Read-Host "Quel règle de Pare-feu voulez-vous supprimer ?")
                 Remove-NetFirewallRule -DisplayName $nom_regle 
 	}
+ 	Write-Output "La règle parefeu $nom_regle a bien été supprimée "
+  	Read-Host -Prompt "Appuyer sur entrée pour continuer"
+   	menu_regle_parefeu
  }
 #Menu pour établir une nouvelle regle sur le parefeu
 function menu_regle_parefeu {
