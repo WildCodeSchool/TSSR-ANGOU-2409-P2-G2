@@ -761,13 +761,13 @@ function supprimer_regle_parefeu {
  }
 #Menu pour établir une nouvelle regle sur le parefeu
 function menu_regle_parefeu {
-
-	$choix_utilisateur = $(Read-Host "Quel est votre choix ?")
+	
 	Write-Output "A) Ajouter une nouvelle règle au Parer-Feu"
 	Write-Output "S) Supprimer une règle de Pare-Feu existante"
 	Write-Output "r) Revenir au menu precedent (Action sur les Pare-Feux)"
 	Write-Output "x) Revenir au menu Principal"
 	Write-Output "q) Sortie Script"
+ 	$choix_utilisateur = $(Read-Host "Quel est votre choix ?")
 				
     	switch ($choix_utilisateur) {
 		A { 
