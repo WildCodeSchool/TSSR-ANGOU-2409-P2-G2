@@ -161,7 +161,7 @@ Il permet aussi la gestion de la machine à distance avec le verrouillage de la 
 
 
 
-**Menu Action comptes et utilisateurs :**
+**Menu Action comptes et utilisateur :**
 
 
 ![Menu action](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_action_comptes_et_utilisateurs.png)
@@ -212,15 +212,26 @@ Il permet aussi d'afficher des information sur le système distant, comme l'espa
 ![Menu_journalisation](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/menujournalisation.png)
 
 
+## FAQ : solutions aux problèmes connus et communs liés à l’utilisation des scripts 
+
+
+## Y a t'il des prérequis avant de lancer ce script ? 
+Oui et c'est très important, vous devez avoir des autorisations suffisantes pour exécuter des commandes à distance sur la machine cible.
+
+
+ ## Quels sont les bonnes pratiques pour l'utilisation du script ? 
+ 
+ vérifier les autorisations avant d'exécuter des commandes système, vérifier deux fois les informations saisies pour éviter les erreurs
+ 
+ ##  Que faire si des erreurs apparaissent pendant l'exécution du script ? 
+ 
+ vérifiez en premier lieu que les conditions prérequisent sont remplies, telles que l'activation de PowerShell Remoting pour le script Powershell par exemple (voir documentation administrateur)
+
+ 
+
+ 
 
 
 
 
-
-________________________________________________________
-
-
-
-
-
-FAQ : solutions aux problèmes connus et communs liés à l’utilisation des scripts
+ 
