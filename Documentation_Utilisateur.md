@@ -215,15 +215,15 @@ Il permet aussi d'afficher des information sur le système distant, comme l'espa
 ## FAQ : solutions aux problèmes connus et communs liés à l’utilisation des scripts 
 
 
-## Y a t'il des prérequis avant de lancer ce script ? 
+1) Y a t'il des prérequis avant de lancer ce script ? 
 Oui et c'est très important, vous devez avoir des autorisations suffisantes pour exécuter des commandes à distance sur la machine cible.
 
 
- ## Quels sont les bonnes pratiques pour l'utilisation du script ? 
+ 2) Quels sont les bonnes pratiques pour l'utilisation du script ? 
  
  vérifier les autorisations avant d'exécuter des commandes système, vérifier deux fois les informations saisies pour éviter les erreurs
  
- ##  Que faire si des erreurs apparaissent pendant l'exécution du script ? 
+ 3) Que faire si des erreurs apparaissent pendant l'exécution du script ? 
  
  vérifiez en premier lieu que les conditions prérequisent sont remplies, telles que l'activation de PowerShell Remoting pour le script Powershell par exemple (voir documentation administrateur)
 
