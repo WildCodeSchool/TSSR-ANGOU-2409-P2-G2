@@ -203,7 +203,7 @@ function menu_information_systeme {
 
         7 {   
             Write-Output "Liste des applications installées :"
-	    Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { Get-WmiObject -Class Win32_Product }
+	    Invoke-Command -ComputerName $adresse_ip -Credential wilder -ScriptBlock { Get-WmiObject -Class Win32_Product }
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - $nom_utilisateur - $machineclient - A listé les applications installés"
@@ -555,7 +555,7 @@ function menu_information_pare_feu {
     switch ($choix_securite) {
 
         1 {
-            Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { Get-NetFirewallProfile | ft Name,Enabled }
+            Invoke-Command -ComputerName $adresse_ip -Credential wilder -ScriptBlock { Get-NetFirewallProfile | ft Name,Enabled }
             Write-Output "Statut du Parefeu : "
             Read-Host -Prompt "Appuyez sur entrée pour continuer"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
@@ -565,7 +565,7 @@ function menu_information_pare_feu {
         }
 			
         2 {
-            Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { netstat -ano | findstr LISTENING}
+            Invoke-Command -ComputerName $adresse_ip -Credential wilder -ScriptBlock { netstat -ano | findstr LISTENING}
             Write-Output "Liste des ports ouvert : "
             Read-Host -Prompt "Appuyez sur entrée pour continuer"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
@@ -575,14 +575,14 @@ function menu_information_pare_feu {
         }
 	      #Liste les règles activés sur le parefeu
         3 { 
-            Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { Get-NetFirewallRule | where {($_.enabled -eq $True) -and ($_.Direction -eq "Inbound")} | ft }
+            Invoke-Command -ComputerName $adresse_ip -Credential wilder -ScriptBlock { Get-NetFirewallRule | where {($_.enabled -eq $True) -and ($_.Direction -eq "Inbound")} | ft }
 	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la version du système d'exploitation"
         }
             #Liste les règles bloqués sur le parefeu
         4 {
-            Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { Get-NetFirewallRule -Action Block | ft }
+            Invoke-Command -ComputerName $adresse_ip -Credential wilder -ScriptBlock { Get-NetFirewallRule -Action Block | ft }
         }
 
         r {
@@ -765,7 +765,7 @@ function menu_information_reseaux {
 #Crée un nouvelle règle sur le parfeu
 function creer_regle_parefeu {
 
-	Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock {                             
+	Invoke-Command -ComputerName $adresse_ip -Credential wilder -ScriptBlock {                             
 		
   		$nom_regle = $(Read-Host "Quel sera le nom de votre nouvelle règle de Pare-feu ?")
 		$activer_bloquer = $(Read-Host "Votre nouvelle règle A) Active ou B) Bloque un traffic/port/programme ?")
@@ -798,7 +798,7 @@ function creer_regle_parefeu {
 }
 #Supprimer une règle existante sur le parefeu
 function supprimer_regle_parefeu {
-	Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { 
+	Invoke-Command -ComputerName $adresse_ip -Credential wilder -ScriptBlock { 
      		
 		$nom_regle = $(Read-Host "Quel règle de Pare-feu voulez-vous supprimer ?")
                 Remove-NetFirewallRule -DisplayName $nom_regle 
@@ -874,14 +874,14 @@ function menu_gestion_parefeu {
     switch ($choix) {
         
         1 { 
-            Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled True }
+            Invoke-Command -ComputerName $adresse_ip -Credential wilder -ScriptBlock { Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled True }
             Write-Output "Le pare-feu est activé"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a Activé le pare-feu"
             Read-Host -Prompt "Appuyez sur entrée pour continuer"
             menu_gestion_parefeu 
           }
         2 {
-            Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False }
+            Invoke-Command -ComputerName $adresse_ip -Credential wilder -ScriptBlock { Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False }
             Write-Output "Le pare-feu est desactive"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a désactivé le pare-feu"
 	    Read-Host -Prompt "Appuyez sur entrée pour continuer"
