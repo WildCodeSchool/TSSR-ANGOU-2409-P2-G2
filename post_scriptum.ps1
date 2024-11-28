@@ -138,7 +138,7 @@ function menu_information_systeme {
         1 {    
             Write-Output "Informations du CPU ( type de processeur)"
 	    $CPU = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_Processor }
-     	    Write-Output "$CPU"
+     	    $CPU
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "$CPU"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations du CPU"
@@ -194,9 +194,8 @@ function menu_information_systeme {
 
         6 {      
             Write-Output "Version de l'OS :"
-	    #Probléme Autorisation
-	    #$OS = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_OperatingSystem }
-            #Write-Output "$OS"
+	    $OS = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_OperatingSystem }
+            $OS
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "$OS"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la version du système d'exploitation"
@@ -206,9 +205,10 @@ function menu_information_systeme {
 
         7 {   
             Write-Output "Liste des applications installées :"
-	    $Logiciel = Invoke-Command -computername 172.16.10.20 -credential wilder -ScriptBlock { Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize }
-            $Application = Invoke-Command -computername 172.16.10.20 -credential wilder -ScriptBlock { Get-ItemProperty HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize }
-            Write-Output "$Logiciel $Application
+	    $Logiciel = Invoke-Command -computername $adresse_ip -credential wilder -ScriptBlock { Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize }
+            $Application = Invoke-Command -computername $adresse_ip -credential wilder -ScriptBlock { Get-ItemProperty HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize }
+            $Logiciel 
+	    $Application
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "$Logiciel $Application"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - $nom_utilisateur - $machineclient - A listé les applications installés"
