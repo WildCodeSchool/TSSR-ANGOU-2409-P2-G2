@@ -193,10 +193,11 @@ function menu_information_systeme {
         }
 
         7 {   
-            Write-Output "Liste des applications installees :"
+            Write-Output "Liste des applications installées :"
+	    Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { Get-WmiObject -Class Win32_Product }
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
-            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - $nom_utilisateur - $machineclient - A lister les applications installés"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - $nom_utilisateur - $machineclient - A listé les applications installés"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_systeme; ;
         }
@@ -510,6 +511,8 @@ function menu_information_pare_feu {
     Write-Output "Menu Information Pare-Feu"
     Write-Output "1) Statut du Pare-Feu"
     Write-Output "2) Liste des Ports Ouverts"
+    Write-Output "3) Liste des Règles activés sur le Pare-feu"
+    Write-Output "4) Liste des Règles bloqués sur le Pare-feu"
     Write-Output "r) Retour au Menu Precedent"
     Write-Output "x) Retour au Menu Principal"
     Write-Output "q) Sortie Script"
@@ -534,6 +537,14 @@ function menu_information_pare_feu {
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a effectué l'action Affichage liste ports ouvert"
             menu_information_pare_feu 
+        }
+	      #Liste les règles activés sur le parefeu
+        3 { 
+            Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { Get-NetFirewallRule | where {($_.enabled -eq $True) -and ($_.Direction -eq "Inbound")} | ft }
+        }
+            #Liste les règles bloqués sur le parefeu
+        4 {
+            Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { Get-NetFirewallRule -Action Block | ft }
         }
 
         r {
@@ -710,36 +721,65 @@ function menu_information_reseaux {
         }
     }
 }
+		 
+#Crée un nouvelle règle sur le parfeu
+function creer_regle_parefeu {
 
-# Permet d'établir de nouvelles règles sur le pare-feu
+	Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock {                             
+		
+  		$nom_regle = $(Read-Host "Quel sera le nom de votre nouvelle règle de Pare-feu ?")
+		$activer_bloquer = $(Read-Host "Votre nouvelle règle A) Active ou B) Bloque un traffic/port/programme ?")
+		switch ($activer_bloquer) {
+			A { $script:action = 'Allow' }
+               		B { $script:action = 'Block' }
+        		default { Write-Output "mauvaise commande veuillez reessayer"
+                	Start-Sleep 2
+                	creer_regle_parefeu 
+			}
+        	}
+		$entrant_sortant = $(Read-Host "Appliquer la règle sur le traffic E) Entrant ou S) Sortant ?")
+		switch ($entrant_sortant) {
+        		E { $script:direction = 'Inbound' }
+			S { $script:direction = 'Outbound' }
+        		default { Write-Output "mauvaise commande veuillez reessayer"
+			Start-Sleep 2
+			creer_regle_parefeu 
+			}
+ 		}
+		$protocol = $(Read-Host "Quel protocole voulez-vous utiliser ?")
+        	$port = $(Read-Host "Sur quel(s) port(s) voulez-vous appliquer votre nouvelle rêgle ?")
+       		New-NetFirewallRule -DisplayName $nom_regle -Profile @('Domain', 'Private') -Direction $direction -Action $action -Protocol $protocol -LocalPort @($port)
+	}
+}
+#Supprimer une règle existante sur le parefeu
+function supprimer_regle_parefeu {
+	Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { 
+     		
+		$nom_regle = $(Read-Host "Quel règle de Pare-feu voulez-vous supprimer ?")
+                Remove-NetFirewallRule -DisplayName $nom_regle 
+	}
+ }
+#Menu pour établir une nouvelle regle sur le parefeu
 function menu_regle_parefeu {
 
-    $action_parefeu = Read-Host -Prompt "Vous desirez :
-A) Autoriser/Ouvrir un protocole ou un port
-I) Interdire/Fermer un protocole ou un port
-r) Revenir au menu precedent (Action sur les Pare-Feux)
-x) Revenir au menu Principal
-q) Sortie Script
-" 
+				$choix_utilisateur = $(Read-Host "Quel est votre choix ?")
+				Write-Output "A) Ajouter une nouvelle règle au Parer-Feu"
+				Write-Output "S) Supprimer une règle de Pare-Feu existante"
+				Write-Output "r) Revenir au menu precedent (Action sur les Pare-Feux)"
+				Write-Output "x) Revenir au menu Principal"
+				Write-Output "q) Sortie Script"
+				
+    				switch ($choix_utilisateur) {
+								A { creer_regle_parefeu }
+								S { supprimer_regle_parefeu }
+                            					default { 
+			   							Write-Output "mauvaise commande veuillez reessayer"
+                            							Start-Sleep 2
+                            							menu_regle_parefeu 
+			    						}
+	     						     }
+		 	   }
 
-
-    switch ($action_parefeu) {
-
-        A {
-            Clear-Host
-            # $action=allow
-            Write-Output "Autorisation/Ouverture : "
-            # $port = Read-Host -Prompt "De quel port ? (entrez le numéro du port ou laissez vide et appuyez sur entrée) " 
-            # $protocole = Read-Host -Prompt "De quel protocole ? (entrez le nom du protocole ou laissez vide et appuyez sur entrée) " 
-        }
-        
-        I {
-            Clear-Host
-            # $action=deny
-            Write-Output "Interdiction/Fermeture : "
-            # $port = Read-Host -Prompt "De quel port ? (entrez le numéro du port ou laissez vide et appuyez sur entrée) " 
-            # $protocole = Read-Host -Prompt "De quel protocole ? (entrez le nom du protocole ou laissez vide et appuyez sur entrée) " 
-        }
 
         r {
             Write-Output "Retour au menu Action sur les Pare-Feux"
@@ -769,25 +809,7 @@ q) Sortie Script
     }
 
 
-    # Vérifie que l'utilisateur a bien sélectionné un port ou un protocole à modifier pour établir une nouvelle règle sur le pare-feu. N'applique pas de nouvelles règles sur le pare-feu si rien a été sélectionné.
-    #     if ($protocole -z ) && ( $port -z )
-    #     {
-    #         Write-Output "Aucun port où protocole n'a été sélectionné "
-    #         Start-Sleep 3
-    #         Clear-Host
-    #         Write-Output "- n'a défini aucune nouvelle règle de pare-feu" >> /Windows/Système32/log_evt.log
-    #         menu_gestion_parefeu
-    #     }
-    # Applique la nouvelle règle de pare-feu
-    #     else
-    #     {
-    #         Write-Output "Nouvelle règle de pare feu établie : $port $protocole $action"
-    #         Start-Sleep 3
-    #         Clear-Host
-    #         Write-Output "- a défini $action $protocole $port comme nouvelle règle de pare-feu" >> /Windows/Système32/log_evt.log
-    #         menu_regle_parefeu
-
-    #     }
+   
 }
 # Menu de gestion basic du pare-feu. Permet d'accéder à la gestion avancé du pare-feu (établir de nouvelles règles)
 function menu_gestion_parefeu {
