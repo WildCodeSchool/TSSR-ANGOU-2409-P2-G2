@@ -72,7 +72,9 @@ function menu_information_utilisateur {
 
         6 {
             Write-Output "Liste des utilisateurs locaux"
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value ""
+	    $utilisateur_locaux = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_OperatingSystem | Select-Object -ExpandProperty RegisteredUser }
+            $utilisateur_locaux
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$utilisateur_locaux"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A lister les utilisateurs locaux"
             Read-Host -Prompt "appuyer sur entree pour continuer "
