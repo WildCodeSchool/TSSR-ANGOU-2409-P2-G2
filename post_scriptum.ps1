@@ -137,8 +137,9 @@ function menu_information_systeme {
 
         1 {    
             Write-Output "Informations du CPU ( type de processeur)"
-	    Invoke-Command -computername $addressip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_Processor }
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "Get-CimInstance -ClassName Win32_Processor"
+	    $CPU = Invoke-Command -computername $addressip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_Processor }
+     	    Write-Output "$CPU"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "$CPU"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations du CPU"
             Read-Host -Prompt "appuyer sur entree pour continuer "
@@ -149,8 +150,8 @@ function menu_information_systeme {
             Write-Output "Mémoire RAM totale"
 	    $MémoireTotal = Invoke-Command -computername $addressip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_ComputerSystem | Select-Object -ExpandProperty TotalPhysicalMemory }
             $MémoireTotalMB = [Math]::Round($totalMemory / 1MB)
-	    Write-Output "La Mémoire Ram Tolale $MémoireTotalMb" 
-	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "$MémoireTotalMb"
+	    Write-Output "La Mémoire Ram Tolale $MémoireTotalMb Mb" 
+	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "La Mémoire Ram Tolale $MémoireTotalMb Mb"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la mémoire RAM"
             Read-Host -Prompt "appuyer sur entree pour continuer "
@@ -164,7 +165,8 @@ function menu_information_systeme {
 	    $MemoireDisponibleMb = Invoke-Command -computername $addressip -credential $nom_utilisateur -ScriptBlock { (New-Object System.Diagnostics.PerformanceCounter("Memory", "Available MBytes")).NextValue() }
 	    $MemoireUtiliseMB = $MémoireTotalMB - MemoireDisponibleMb
      	    $MemoireUtilisePourcent = [Math]::Round(($MemoireUtiliseMB / $totalMemoryMB) * 100, 2)
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+	    Write-Output "La Mémoire Ram et Utilisé à $MemoireUtilisePourcent%"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "La Mémoire Ram et Utilisé à $MemoireUtilisePourcent%"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de l'utilisation de la RAM"
             Read-Host -Prompt "appuyer sur entree pour continuer "
@@ -173,6 +175,7 @@ function menu_information_systeme {
 
         4 {
             Write-Output "Utilisation du processeur"
+	    $CPU_Utilisation = Invoke-Command -computername $addressip -credential $nom_utilisateur -ScriptBlock { 
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de l'utilisation de processeur"
@@ -629,9 +632,9 @@ function menu_journalisation {
 
         1 {
             Clear-Host
-            #$utilisateur = Read-Host -Prompt "Entrer le nom d'utilisateur : " 
-            #Get-Content /Windows/Système32/log_evt.log | grep "$utilisateur"
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt""
+            $utilisateur = Read-Host -Prompt "Entrer le nom d'utilisateur : " 
+            Get-Content C:\Windows\System32\LogFiles\log_evt.log.txt | findstr $utilisateur
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt"Get-Content C:\Windows\System32\LogFiles\log_evt.log.txt | findstr $utilisateur
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt"--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à Rechercher des événements effectuer par $utilisateur"
             Read-Host "Appuyer sur entrée pour continuer " 
@@ -640,8 +643,9 @@ function menu_journalisation {
 
         2 {
             Clear-Host
-            # $ordinateur = Read-Host -Prompt "Entrer le nom de l'Ordinateur : " 
-            # Get-Content /Windows/Système32/log_evt.log | grep "$ordinateur"
+            $ordinateur = Read-Host -Prompt "Entrer le nom de l'Ordinateur : " 
+            Get-Content C:\Windows\System32\LogFiles\log_evt.log.txt | findstr $ordinateur
+	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt"Get-Content C:\Windows\System32\LogFiles\log_evt.log.txt | findstr $ordinateur
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage des événement de l'Ordinateur"
             Read-Host -Prompt "Appuyer sur entree pour continuer " 
             menu_journalisation 
