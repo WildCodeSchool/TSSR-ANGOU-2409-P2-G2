@@ -31,10 +31,10 @@ Afin de faciliter l'intégration et la désintégration des utilisateurs et leur
 
 | Rôles du groupe | SPRINT 1 | SPRINT 2 | SPRINT 3 | SPRINT 4 | SPRINT 5 | 
 |:--------| :------: | :-----------: | :-----------: | :--------: | :--------: |
-| Scrum Master  | Mathieu  | Thomas | Frederic | Tristan |
-| Product Owner |  Thomas | Frederic |  Tristan | Mathieu |
-| Technicien 1  |  Frederic |  Tristan | Thomas | Frederic |
-| Technicien 2 |  Tristan | Mathieu | Mathieu | Thomas |
+| Scrum Master  | Mathieu  | Thomas | Frederic | Tristan | Mathieu | Tristan |
+| Product Owner |  Thomas | Frederic |  Tristan | Mathieu | Thomas | Frederic |
+| Technicien 1  |  Frederic |  Tristan | Thomas | Frederic | Tristan | Mathieu |
+| Technicien 2 |  Tristan | Mathieu | Mathieu | Thomas | Frederic |   | Thomas |
 
 
 Objectifs Semaine 1 : 
@@ -67,19 +67,67 @@ Objectifs Semaine 4 :
 
 ## 4) Choix techniques : quel OS, quelle version, etc.
 
-Server Debian 12
-Client Linux Ubuntu 22.04/24.04 LTS 
+Pour le choix des serveurs, nous avons :
 
-Windows Server 2022 
-Client Windows 10
+    Serveur 1
+        DEBIAN 12
+        -Nom : SRVLX01
+        -Compte : root
+        -Mot de passe : Azerty1*
+        -Adresse IP : 172.16.10.10/24
+
+    Serveur 2
+        WINDOWS SERVER 2022
+        -Nom : SRVWIN01
+        -Compte : Administrator
+        -Mot de passe : Azerty1*
+        -Adresse IP : 172.16.10.5/24
+
+Pour le choix des postes clients, nous avons :
+
+    Poste 1
+        UBUNTU 22.04 LTS
+        -Nom : CLILIN01
+        -Compte : wilder
+        -Mot de passe : Azerty1*
+        -Adresse IP : 172.16.10.30/24
+
+    Poste 2
+        WINDOWS 10 PRO
+        -Nom : CLIWIN01
+        -Compte wilder
+        -Mot de passe : Azerty1*
+        -Adresse IP : 172.16.10.20/24
+
+
 
 ## 5) Difficultés rencontrées : problèmes techniques rencontrés
 
+1) Durant le projet ,des problèmes ont été rencontrés liés à la configuration réseau pouvant gêner la communication à distance entre les machines, notamment à cause du pare-feux, la configurations des services ( open ssh et winrm) pour pouvoir réaliser les actions et obtenir les informations sur des postes à distance.
+
+2) Des difficultés pour faire évoluer les scripts en travaillant sur différentes parties séparément. Le travail en séquentiel (Chacun prenait le script à tour de rôle) à poser des problèmes de performance et de fiabilité.
+
+3) Les tests pour valider les commandes Bash ont été faites en local sur une machine et lorsque ils ont été testé à la fin du travail sur le script bash, certaines commande ont posé problème.
+
+4) Des difficultés sont apparu dans les scripts concernant la portée des variables
+
 ## 6) Solutions trouvées : Solutions et alternatives trouvées
+
+
+1) Sous windows, avec le service WinRM, pour s'affranchir de certains problèmes de pare-feu, il a fallu modifier de paramètres réseaux dans Virtualbox. Sous Linux, avec le protocole SSH, il a fallu configurer le pare-feu pour laisser ouvert le port 22.
+
+2) Pour améliorer la productivité lors de la construction et l'évolution des scripts, il à été testé l'utilisation de push et get avec Github. Des progrès sont encore à réaliser...
+
+3) Pour éviter les problèmes de test des commandes pour le script bash, pour le script Powershell, les commandes ont été testés directement dans l'architecture réseaux et client/serveur Windows.
+
+4) Concernant le problème de portée des variables, les investigations sont toujours en cours
+
+
 
 ## 7) Améliorations possibles : suggestions d’améliorations futures
 
 - Utiliser le script autrement qu'en connexion SSH
 - Affiner les règles à du Firewall (rejeter certains trafic, autoriser/refuser une plage d'adresse) pour une gestion du traffic plus souple et précise qu'avec le script actuelle (autorisation ou refus uniquement sur les ports ou protocoles)
-- Gestion des erreurs (utilisateur déjà existant, fichier ou dossier déjà présent ou inexistant...)
+- Améliorer la gestion des erreurs (utilisateur déjà existant, fichier ou dossier déjà présent ou inexistant...)
+- Améliorer les scripts après avoir trouvé comment mieux gérer la portée des variables
 
