@@ -28,8 +28,8 @@ function menu_information_utilisateur {
 
         1 {
             Write-Output "Droits/Permissions de l'utilisateur sur un dossier" 
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les droits/permissions de l'utilisateur sur un dossier" 
             Read-Host -Prompt "appuyer sur entrée pour continuer "
             menu_information_utilisateur 
@@ -38,8 +38,8 @@ function menu_information_utilisateur {
 
         2 {
             Write-Output "Droits/Permissions de l'utilisateur sur un fichier"
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les droits/permissions de l'utilisateur sur un fichier"
             Read-Host -Prompt "appuyer sur entrée pour continuer "
             menu_information_utilisateur 
@@ -48,8 +48,8 @@ function menu_information_utilisateur {
 
         3 {
             Write-Output "Date de derniere connexion d'un utilisateur"
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la dernière connexion de l'utilisateur"
             Read-Host -Prompt "appuyer sur entrée pour continuer "
             menu_information_utilisateur
@@ -57,8 +57,8 @@ function menu_information_utilisateur {
 
         4 {
             Write-Output "Date de derniere modification du mot de passe de l'utilisateur"
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la dernière modification du mot de passe"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_utilisateur 
@@ -66,8 +66,8 @@ function menu_information_utilisateur {
 
         5 {
             Write-Output "Liste des sessions ouvertes par l'utilisateur"
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - $machineclient - A lister les sessions ouvertes par l'utilisateur"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_utilisateur 
@@ -75,8 +75,8 @@ function menu_information_utilisateur {
 
         6 {
             Write-Output "Liste des utilisateurs locaux"
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A lister les utilisateurs locaux"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_utilisateur
@@ -137,8 +137,8 @@ function menu_information_systeme {
 
         1 {    
             Write-Output "Informations du CPU ( type de processeur)"
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations du CPU"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_systeme
@@ -146,8 +146,8 @@ function menu_information_systeme {
 
         2 {  
             Write-Output "Mémoire RAM totale"
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la mémoire RAM"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_systeme
@@ -155,8 +155,8 @@ function menu_information_systeme {
 
         3 {
             Write-Output "Utilisation de la RAM" 
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de l'utilisation de la RAM"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_systeme 
@@ -164,8 +164,8 @@ function menu_information_systeme {
 
         4 {
             Write-Output "Utilisation du processeur"
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de l'utilisation de processeur"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_systeme
@@ -173,8 +173,8 @@ function menu_information_systeme {
 
         5 {  
             Write-Output "Utilisation du disque"
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de l'utilisation du disque"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_systeme 
@@ -182,8 +182,8 @@ function menu_information_systeme {
 
         6 {      
             Write-Output "Version de l'OS :"
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la version du système d'exploitation"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_systeme
@@ -192,8 +192,8 @@ function menu_information_systeme {
         7 {   
             Write-Output "Liste des applications installées :"
 	    Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { Get-WmiObject -Class Win32_Product }
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - $nom_utilisateur - $machineclient - A listé les applications installés"
             Read-Host -Prompt "appuyer sur entree pour continuer "
             menu_information_systeme; ;
@@ -546,8 +546,8 @@ function menu_information_pare_feu {
             Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { Get-NetFirewallProfile | ft Name,Enabled }
             Write-Output "Statut du Parefeu : "
             Read-Host -Prompt "Appuyez sur entrée pour continuer"
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a affiché le status du Pare-feu"
             menu_information_pare_feu 
         }
@@ -556,14 +556,17 @@ function menu_information_pare_feu {
             Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { netstat -ano | findstr LISTENING}
             Write-Output "Liste des ports ouvert : "
             Read-Host -Prompt "Appuyez sur entrée pour continuer"
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a effectué l'action Affichage liste ports ouvert"
             menu_information_pare_feu 
         }
 	      #Liste les règles activés sur le parefeu
         3 { 
             Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { Get-NetFirewallRule | where {($_.enabled -eq $True) -and ($_.Direction -eq "Inbound")} | ft }
+	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la version du système d'exploitation"
         }
             #Liste les règles bloqués sur le parefeu
         4 {
@@ -619,8 +622,8 @@ function menu_journalisation {
             Clear-Host
             #$utilisateur = Read-Host -Prompt "Entrer le nom d'utilisateur : " 
             #Get-Content /Windows/Système32/log_evt.log | grep "$utilisateur"
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt"--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt"--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à Rechercher des événements effectuer par $utilisateur"
             Read-Host "Appuyer sur entrée pour continuer " 
             menu_journalisation 
@@ -682,8 +685,8 @@ function menu_information_reseaux {
 
         1 {
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-NetAdapter | fl Name, MacAddress }
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "Get-NetAdapter | fl Name, MacAddress"
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "Get-NetAdapter | fl Name, MacAddress"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage de l'adresse mac"
             Read-Host -Prompt "appuyer sur entrée pour continuer "
             menu_information_reseaux 
@@ -691,8 +694,8 @@ function menu_information_reseaux {
 
         2 {
 	    Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-NetAdapter | fl Name }
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "Get-NetAdapter | fl Name"
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "Get-NetAdapter | fl Name"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage du nombre d'interface réseaux"
             Read-Host -Prompt "appuyer sur entrée pour continuer "
             menu_information_reseaux 
@@ -700,8 +703,8 @@ function menu_information_reseaux {
 
         3 {   
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { ((ipconfig | findstr [0-9].\.)[0]).Split()[-1] }
-	    Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage adresse IP"
             Read-Host -Prompt "appuyer sur entrée pour continuer "
             menu_information_reseaux 
@@ -709,8 +712,8 @@ function menu_information_reseaux {
 
         4 {
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { netstat -ano | findstr LISTENING }
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "netstat -ano | findstr LISTENING"
-            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "netstat -ano | findstr LISTENING"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage liste ports ouvert"
 	    Read-Host -Prompt "appuyer sur entrée pour continuer " 
             menu_information_reseaux 
@@ -1105,8 +1108,8 @@ function menu_principal {
 $adresse_ip = Read-Host -Prompt "A quelle machine voulez-vous vous connecter ( Nom de la machine / adresse IP ) ?  " 
 $nom_utilisateur = Read-Host -Prompt "Veuillez renseigner le nom d'utilisateur pour la connexion à distance ?  "
 
-$Date_log = Get-Date -Format "yyyy/mm/dd HH:mm:ss"
-$Date = Get-Date -Format "yyyy/mm/dd"
+$Date_log = Get-Date -Format "yyyy/MM/dd HH:mm:ss"
+$Date = Get-Date -Format "yyyy_MM_dd"
 Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient ---------------" 
 Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient -********StartScript********"
 
