@@ -153,11 +153,11 @@ ________________________________________________________
 
 **Menu Action :**
 
+Ce menu et ses sous-menu, permet, la gestion des dossier, créer ou supprimer un dossier en indiquant son emplacement.      
+Il permet aussi la gestion de la machine à distance avec le verrouillage de la machine, le Redémarrage de la machine / l'arrêt de la machine  /  la mise à jour du système de la machine
+
+
 ![Menu action](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_action.png)
-
-
-Gestion des dossier, créer ou supprimer un dossier en indiquant son emplacment :         
-Gestion de la machine à distance : `6 - verrouillage_machine` / `7 - Redemarrage de la machine`/ `8 - arret de la machine` / `9 -mise à jour du système de la machine`:   
 
 
 
@@ -173,13 +173,47 @@ Gestion de la machine à distance : `6 - verrouillage_machine` / `7 - Redemarrag
 
 ________________________________________________________
 
-**Menu Information :**   
+**Menu Information :**  
 
-![image](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_information.png)
+Ce menu et ses sous-menu, permet d'afficher les différents droits et permissions, connexions et date de modification de mot de passe, lister des utilisateurs locaux ou encore consulter le journal des événements (log)
+Il permet aussi d'afficher des information sur le système distant, comme l'espace disque disponible, la RAM de libre, etc...
+
+![Menu_information](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_information.png)
 
 
-Permet d'afficher les différents droits et permissions, connexions et date de modification de mot de passe, ou encore, 
-lister des utilisateurs locaux
+
+**Menu Information utilisateurs :** 
+
+![Menu_information_utilisateur](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_information_utilisateur.png)
+
+
+
+**Menu Information système :** 
+
+
+
+![Menu_information_systeme](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_information_systeme.png)
+
+
+**Menu Information réseaux :**
+
+![Menu_information_réseaux](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_information_reseaux.png)
+
+
+**Menu Information pare-feu :**
+
+![Menu_information_pare-feu](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_information_pare-feu.png)
+
+
+
+
+**Menu consulter le journal des événements :**
+
+![Menu_journalisation](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/menujournalisation.png)
+
+
+
+
 
 
 
@@ -189,4 +223,4 @@ ________________________________________________________
 
 
 
-## FAQ : solutions aux problèmes connus et communs liés à l’utilisation
+FAQ : solutions aux problèmes connus et communs liés à l’utilisation des scripts
