@@ -205,8 +205,8 @@ function menu_information_systeme {
 
         7 {   
             Write-Output "Liste des applications installées :"
-	    $Logiciel = Invoke-Command -computername $adresse_ip -credential wilder -ScriptBlock { Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize }
-            $Application = Invoke-Command -computername $adresse_ip -credential wilder -ScriptBlock { Get-ItemProperty HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize }
+	    $Logiciel = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize }
+            $Application = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-ItemProperty HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize }
             $Logiciel 
 	    $Application
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "$Logiciel $Application"
