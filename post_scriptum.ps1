@@ -134,7 +134,7 @@ function menu_information_systeme {
 
         1 {    
             Write-Output "Informations du CPU ( type de processeur)"
-	        $CPU = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_Processor }
+	    $CPU = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_Processor }
      	    $CPU
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$CPU"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
@@ -145,10 +145,10 @@ function menu_information_systeme {
 
         2 {  
             Write-Output "Mémoire RAM totale"
-	        $MémoireTotal = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_ComputerSystem | Select-Object -ExpandProperty TotalPhysicalMemory }
+	    $MémoireTotal = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_ComputerSystem | Select-Object -ExpandProperty TotalPhysicalMemory }
             $MémoireTotalMB = [Math]::Round($MémoireTotal / 1MB)
-	        Write-Output "La Mémoire Ram Tolale $MémoireTotalMb Mb" 
-	        Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "La Mémoire Ram Tolale $MémoireTotalMb Mb"
+	    Write-Output "La Mémoire Ram Tolale $MémoireTotalMb Mb" 
+	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "La Mémoire Ram Tolale $MémoireTotalMb Mb"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la mémoire RAM"
             Read-Host -Prompt "appuyer sur entree pour continuer "
@@ -157,12 +157,12 @@ function menu_information_systeme {
 
         3 {
             Write-Output "Utilisation de la RAM" 
-	        $MémoireTotal = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_ComputerSystem | Select-Object -ExpandProperty TotalPhysicalMemory }
+	    $MémoireTotal = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_ComputerSystem | Select-Object -ExpandProperty TotalPhysicalMemory }
             $MémoireTotalMB = [Math]::Round($MémoireTotal / 1MB)
-	        $MemoireDisponibleMb = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { (New-Object System.Diagnostics.PerformanceCounter("Memory", "Available MBytes")).NextValue() }
-	        $MemoireUtiliseMB = $MémoireTotalMB - $MemoireDisponibleMb
+	    $MemoireDisponibleMb = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { (New-Object System.Diagnostics.PerformanceCounter("Memory", "Available MBytes")).NextValue() }
+	    $MemoireUtiliseMB = $MémoireTotalMB - $MemoireDisponibleMb
      	    $MemoireUtilisePourcent = [Math]::Round(($MemoireUtiliseMB / $MémoireTotalMB) * 100, 2)
-	        Write-Output "La Mémoire Ram et Utilisé à $MemoireUtilisePourcent%"
+	    Write-Output "La Mémoire Ram et Utilisé à $MemoireUtilisePourcent%"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "La Mémoire Ram et Utilisé à $MemoireUtilisePourcent%"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de l'utilisation de la RAM"
@@ -172,7 +172,7 @@ function menu_information_systeme {
 
         4 {
             Write-Output "Utilisation du processeur"
-	        $CPU_Utilisation = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { [string](Get-WmiObject -Class win32_processor).LoadPercentage }
+	    $CPU_Utilisation = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { [string](Get-WmiObject -Class win32_processor).LoadPercentage }
             Write-Output "Le Processeur et utilisé à $CPU_Utilisation%"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$CPU_Utilisation"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
@@ -183,7 +183,7 @@ function menu_information_systeme {
 
         5 {  
             Write-Output "Utilisation du disque"
-	        $TailleTotaldisk = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3" | Measure-Object -Property Size -Sum | Select-Object -ExpandProperty Sum }
+	    $TailleTotaldisk = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3" | Measure-Object -Property Size -Sum | Select-Object -ExpandProperty Sum }
             $espacelibre = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3" | Measure-Object -Property Freespace -Sum | Select-Object -ExpandProperty Sum }
             $utilisationdisk = $TailleTotaldisk - $espacelibre
             $utilisationdiskMb = [Math]::Round($utilisationdisk / 1GB)
@@ -197,7 +197,7 @@ function menu_information_systeme {
 
         6 {      
             Write-Output "Version de l'OS :"
-	        $OS = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_OperatingSystem }
+	    $OS = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_OperatingSystem }
             $OS
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt -Value "$OS"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
@@ -208,10 +208,10 @@ function menu_information_systeme {
 
         7 {   
             Write-Output "Liste des applications installées :"
-	        $Logiciel = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize }
+	    $Logiciel = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize }
             $Application = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-ItemProperty HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize }
             $Logiciel 
-	        $Application
+	    $Application
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$Logiciel $Application"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - $nom_utilisateur - $machineclient - A listé les applications installés"
@@ -472,7 +472,7 @@ function menu_information_systeme {
             $exec_script = Read-Host -Prompt "Nom du script a lancer ? "  
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Execution du script $exec_script"
 	    Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $exec_script }
-            write output  "Package $exec_script lancé "
+            Write output  "Package $exec_script lancé "
             Read-host -Prompt "Appuyez sur entrée pour continuer"
             menu_action_systeme           
         }
@@ -481,7 +481,7 @@ function menu_information_systeme {
             Write-Output "Verrouillage de la machine"
             Start-Sleep 2
             Invoke-commandInvoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { rundll32.exe user32.dll,LockWorkStation }
-            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"           
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A Verrouillé la Machine"           
             menu_action_systeme        
         }
 
@@ -490,7 +490,7 @@ function menu_information_systeme {
             Write-Output " Redémarrage machine"
             Start-Sleep 2 
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { shutdown /r }
-            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A Redémarré la Machine"
             Read-host -Prompt "Appuyez sur entrée pour continuer"
 	    menu_action_systeme
         }
@@ -500,7 +500,7 @@ function menu_information_systeme {
             Write-Output " Arrêt machine"
             Start-Sleep 2
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { shutdown /s }
-            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A Arrêter la Machine"
             Read-host -Prompt "Appuyez sur entrée pour continuer"
 	    menu_action_systeme
         }
@@ -508,8 +508,8 @@ function menu_information_systeme {
 
         9 {
             Write-Output " Mise à jour de la machine"
-            Invoke-Command -ComputerName CLIWIN01 -Credential wilder -ScriptBlock {  Import-Module PSWindowsUpdate Get-WindowsUpdate -AcceptAll -Install -IgnoreReboot }
-            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
+            Invoke-Command -ComputerName CLIWIN01 -Credential $nom_utilisateur -ScriptBlock {  Import-Module PSWindowsUpdate Get-WindowsUpdate -AcceptAll -Install -IgnoreReboot }
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A mis à jour la Machine"
             Read-host -Prompt "Appuyez sur entrée pour continuer" 
             menu_action_systeme
         }
@@ -563,35 +563,41 @@ function menu_information_pare_feu {
     switch ($choix_securite) {
 
         1 {
-            Invoke-Command -ComputerName $adresse_ip -Credential $nom_utilisateur -ScriptBlock { Get-NetFirewallProfile | ft Name,Enabled }
             Write-Output "Statut du Parefeu : "
-            Read-Host -Prompt "Appuyez sur entrée pour continuer"
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value ""
+	    $Statut_Pare_feu = Invoke-Command -ComputerName $adresse_ip -Credential $nom_utilisateur -ScriptBlock { Get-NetFirewallProfile | ft Name,Enabled }
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$statut_Pare_feu"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a affiché le status du Pare-feu"
-            menu_information_pare_feu 
+            Read-Host -Prompt "Appuyez sur entrée pour continuer"
+	    menu_information_pare_feu 
         }
 			
         2 {
-            Invoke-Command -ComputerName $adresse_ip -Credential $nom_utilisateur -ScriptBlock { netstat -ano | findstr LISTENING}
             Write-Output "Liste des ports ouvert : "
-            Read-Host -Prompt "Appuyez sur entrée pour continuer"
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value ""
+	    $Port_ouvert = Invoke-Command -ComputerName $adresse_ip -Credential $nom_utilisateur -ScriptBlock { netstat -ano | findstr LISTENING }
+            $Port_ouvert
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$Port_ouvert"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a effectué l'action Affichage liste ports ouvert"
-            menu_information_pare_feu 
+            Read-Host -Prompt "Appuyez sur entrée pour continuer"
+	    menu_information_pare_feu 
         }
 	      #Liste les règles activés sur le parefeu
         3 { 
-            Invoke-Command -ComputerName $adresse_ip -Credential $nom_utilisateur -ScriptBlock { Get-NetFirewallRule | where {($_.enabled -eq $True) -and ($_.Direction -eq "Inbound")} | ft }
-	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value ""
+            $Regle_Active = Invoke-Command -ComputerName $adresse_ip -Credential $nom_utilisateur -ScriptBlock { Get-NetFirewallRule | where {($_.enabled -eq $True) -and ($_.Direction -eq "Inbound")} | ft }
+	    $Regle_Active
+     	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$Regle_Active"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la version du système d'exploitation"
         }
             #Liste les règles bloqués sur le parefeu
         4 {
-            Invoke-Command -ComputerName $adresse_ip -Credential $nom_utilisateur -ScriptBlock { Get-NetFirewallRule -Action Block | ft }
-        }
+            $Regle_Bloque = Invoke-Command -ComputerName $adresse_ip -Credential $nom_utilisateur -ScriptBlock { Get-NetFirewallRule -Action Block | ft }
+            $Regle_Bloque
+	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$Regle_Bloque"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les Régles Bloqués sur le Pare Feu"
+	}
 
         r {
             Write-Output "Retour au Menu Precedent"
@@ -653,7 +659,7 @@ function menu_journalisation {
             Clear-Host
             $ordinateur = Read-Host -Prompt "Entrer le nom de l'Ordinateur : " 
             Get-Content C:\Windows\System32\LogFiles\log_evt.log.txt | findstr $ordinateur
-	        Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "Get-Content C:\Windows\System32\LogFiles\log_evt.log.txt | findstr $ordinateur"
+	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "Get-Content C:\Windows\System32\LogFiles\log_evt.log.txt | findstr $ordinateur"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage des événement de l'Ordinateur"
             Read-Host -Prompt "Appuyer sur entree pour continuer " 
@@ -706,8 +712,9 @@ function menu_information_reseaux {
     switch ($choix_reseaux) { 
 
         1 {
-            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-NetAdapter | fl Name, MacAddress }
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "Get-NetAdapter | fl Name, MacAddress"
+            $MacAdresse = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-NetAdapter | fl Name, MacAddress }
+            $MacAdresse
+	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$MacAdresse"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage de l'adresse mac"
             Read-Host -Prompt "appuyer sur entrée pour continuer "
@@ -715,8 +722,9 @@ function menu_information_reseaux {
         }
 
         2 {
-	        Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-NetAdapter | fl Name }
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "Get-NetAdapter | fl Name"
+	    $InterfaceReseaux = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-NetAdapter | fl Name }
+            $InterfaceReseaux
+	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$InterfaceReseaux"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage du nombre d'interface réseaux"
             Read-Host -Prompt "appuyer sur entrée pour continuer "
@@ -724,8 +732,9 @@ function menu_information_reseaux {
         }
 
         3 {   
-            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { ((ipconfig | findstr [0-9].\.)[0]).Split()[-1] }
-	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value ""
+            $AdresseIp = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { ((ipconfig | findstr [0-9].\.)[0]).Split()[-1] }
+	    $AdresseIp
+     	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$AdresseIp"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage adresse IP"
             Read-Host -Prompt "appuyer sur entrée pour continuer "
@@ -733,8 +742,9 @@ function menu_information_reseaux {
         }
 
         4 {
-            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { netstat -ano | findstr LISTENING }
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "netstat -ano | findstr LISTENING"
+            $Port_ouvert = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { netstat -ano | findstr LISTENING }
+            $Port_ouvert
+	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$Port_ouvert"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage liste ports ouvert"
 	    Read-Host -Prompt "appuyer sur entrée pour continuer " 
