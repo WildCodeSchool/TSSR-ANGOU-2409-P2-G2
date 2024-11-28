@@ -520,7 +520,7 @@ function menu_information_pare_feu {
     switch ($choix_securite) {
 
         1 {
-            Invoke-Command -ComputerName 172.16.10.30 -Credential wilder -ScriptBlock { Get-NetFirewallProfile | ft Name,Enabled }
+            Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { Get-NetFirewallProfile | ft Name,Enabled }
             Write-Output "Statut du Parefeu : "
             Read-Host -Prompt "Appuyez sur entrée pour continuer"
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
@@ -530,7 +530,7 @@ function menu_information_pare_feu {
         }
 			
         2 {
-            Invoke-Command -ComputerName 172.16.10.30 -Credential wilder -ScriptBlock { netstat -ano | findstr LISTENING}
+            Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { netstat -ano | findstr LISTENING}
             Write-Output "Liste des ports ouvert : "
             Read-Host -Prompt "Appuyez sur entrée pour continuer"
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
@@ -831,14 +831,14 @@ function menu_gestion_parefeu {
     switch ($choix) {
         
         1 { 
-            Invoke-Command -ComputerName 172.16.10.30 -Credential wilder -ScriptBlock { Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled True }
+            Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled True }
             Write-Output "Le pare-feu est activé"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a Activé le pare-feu"
             Read-Host -Prompt "Appuyez sur entrée pour continuer"
             menu_gestion_parefeu 
           }
         2 {
-            Invoke-Command -ComputerName 172.16.10.30 -Credential wilder -ScriptBlock { Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False }
+            Invoke-Command -ComputerName 172.16.10.20 -Credential wilder -ScriptBlock { Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False }
             Write-Output "Le pare-feu est desactive"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - a désactivé le pare-feu"
 	    Read-Host -Prompt "Appuyez sur entrée pour continuer"
