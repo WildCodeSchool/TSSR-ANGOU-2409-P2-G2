@@ -175,8 +175,9 @@ function menu_information_systeme {
 
         4 {
             Write-Output "Utilisation du processeur"
-	    $CPU_Utilisation = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { 
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+	    $CPU_Utilisation = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { [string](Get-WmiObject -Class win32_processor).LoadPercentage }
+            Write-Output "Le Processeur et utilisé à $CPU_Utilisation%"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "$CPU_Utilisation"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de l'utilisation de processeur"
             Read-Host -Prompt "appuyer sur entree pour continuer "
