@@ -1,16 +1,13 @@
-﻿#Les lignes dans chaque fonctions correspondant à :
-# echo $(<commande>) >> $nom_fichier_texte.txt
-# permettent d'inscrire les informations recueillis sur la machine client dans un fichier portant le nom de l'utilisateur dans ~/Documents
-#
-#Menu information utilisateur 
-
-
-# Fonction de fin du script : Restreint les droits d'accès en écriture au fichier de journalisation du fichier log_evt.log et son chemin à leur statut d'origine et quitte le script
+﻿# Début du script "post_scriptum.ps1"
+ 
+ 
 function sortie_script {
 
 
     exit 0
 }
+
+#Menu information utilisateur 
 
 function menu_information_utilisateur {
 
@@ -344,23 +341,26 @@ function menu_information_systeme {
         }
 
         r {  
-            Write-Output "Retour au menu précédent"
+            Write-Output ""
+	    Write-Output "Retour au menu précédent"
 	    Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Précédent"
             menu_action
         }
 
         x {  
-            Write-Output "Retour au menu principal"
+            Write-Output ""
+	    Write-Output "Retour au menu principal"
 	    Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Principal"
             menu_principal
             }
 
         q {
-        Write-Output "Vous quittez le script "
-        Start-Sleep 3
-        Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
-        Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
-        sortie_script }
+	   Write-Output ""
+           Write-Output "Vous quittez le script "
+           Start-Sleep 3
+           Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
+           Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
+           sortie_script }
 
         default {  
         echo "Erreur choix non valide merci de modifier votre choix"
@@ -401,10 +401,10 @@ function menu_information_systeme {
             Clear-host
 	    Write-Output "Création de repertoire"
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $path_mkdir_name = Read-Host -Prompt "Chemin du repertoire à créer ? "; 
-	    $mkdir_name = Read-Host -Prompt "Nom du repertoire à créer ?  " ;
+	    $script:mkdir_name = Read-Host -Prompt "Nom du repertoire à créer ?  " ;
      	    New-Item -Path "$path_mkdir_name\$mkdir_name" -ItemType Directory }
             write output "Repertoire $path_mkdir_name\$mkdir_name créé "
-	    Read-host -Prompt "appuyez sur entrée pour continuer"
+	    Read-host -Prompt "Appuyez sur entrée pour continuer"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Création du repertoire "$mkdir_name" "
             menu_action_systeme
         }
@@ -417,40 +417,43 @@ function menu_information_systeme {
      	    $del_dir_name = Read-Host -Prompt "Nom du repertoire à supprimer ? " ;
 	    Remove-Item -Path "$path_del_dir_name\$del_dir_name" -Recurse -Force }
             write output "Repertoire $del_dir_name supprimé "
-            Read-host -Prompt "appuyez sur entrée pour continuer"
+            Read-host -Prompt "Appuyez sur entrée pour continuer"
 	    Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Suppression du répertoire $del_dir_name"
             menu_action_systeme
 
         }
 
         3 {
-            Write-Output " Installation de logiciel"
+	    Clear-host
+            Write-Output "Installation de logiciel"
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $install_soft = Read-Host -Prompt "Nom du package à installer ? " ; Get-PackageProvider $install_soft}
             write output  "Package $install_soft installé "
-            Read-host -Prompt "appuyez sur entrée pour continuer"
+            Read-host -Prompt "Appuyez sur entrée pour continuer"
 	    Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Installation du package $install_soft"
             menu_action_systeme
 
         }
 
         4 {
-            Write-Output " Desinstallation de logiciel"
+	    Clear-host
+            Write-Output "Desinstallation de logiciel"
             $desinstall_soft = Read-Host -Prompt "Nom du package à desinstaller ? " 
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Installation du package $install_soft"
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Uninstall-Package -Name $desinstall_soft}
             write output  "Package $desinstall_soft desinstallé "
-            Read-host -Prompt "appuyez sur entrée pour continuer"
+            Read-host -Prompt "Appuyez sur entrée pour continuer"
             menu_action_systeme
         }
 
 
         5 {
-            Write-Output " Exécution de script sur une machine distante"
+            Clear-host
+            Write-Output "Exécution de script sur une machine distante"
             $exec_script = Read-Host -Prompt "Nom du script a lancer ? "  
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Execution du script $exec_script"
 	    Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $exec_script }
             write output  "Package $exec_script lancé "
-            Read-host -Prompt "appuyez sur entrée pour continuer"
+            Read-host -Prompt "Appuyez sur entrée pour continuer"
             menu_action_systeme           
         }
 
@@ -468,7 +471,8 @@ function menu_information_systeme {
             Start-Sleep 2 
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { shutdown /r }
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
-            menu_action_systeme
+            Read-host -Prompt "Appuyez sur entrée pour continuer"
+	    menu_action_systeme
         }
 
 
@@ -477,7 +481,8 @@ function menu_information_systeme {
             Start-Sleep 2
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { shutdown /s }
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
-            menu_action_systeme
+            Read-host -Prompt "Appuyez sur entrée pour continuer"
+	    menu_action_systeme
         }
 
 
@@ -485,7 +490,7 @@ function menu_information_systeme {
             Write-Output " Mise à jour de la machine"
             Invoke-Command -ComputerName CLIWIN01 -Credential wilder -ScriptBlock {  Import-Module PSWindowsUpdate Get-WindowsUpdate -AcceptAll -Install -IgnoreReboot }
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
-            Start-Sleep 2 
+            Read-host -Prompt "Appuyez sur entrée pour continuer" 
             menu_action_systeme
         }
 
@@ -510,13 +515,11 @@ function menu_information_systeme {
         }
 
 			
-
         default {
-            Write-Output "mauvaise commande veuillez reessayer"
+            Write-Output "Mauvaise commande veuillez reessayer"
             Start-Sleep 2
             menu_action_systeme 
         }
-
 
     }
 }
@@ -528,6 +531,7 @@ function menu_information_pare_feu {
 
     Clear-Host
     Write-Output "Menu Information Pare-Feu"
+    write-output "-------------------------"
     Write-Output "1) Statut du Pare-Feu"
     Write-Output "2) Liste des Ports Ouverts"
     Write-Output "3) Liste des Règles activés sur le Pare-feu"
@@ -589,7 +593,7 @@ function menu_information_pare_feu {
 			
 
         default {
-            Write-Output "mauvaise commande veuillez reessayer"
+            Write-Output "Mauvaise commande veuillez réessayer"
             Start-Sleep 2
             menu_information_pare_feu 
         }
@@ -601,12 +605,13 @@ function menu_journalisation {
 
     Clear-Host
     Write-Output "Menu Journalisation"
+    write-output "-------------------"
     Write-Output "1) Recherche des evenements dans le fichier log_evt.log par utilisateur"
     Write-Output "2) Recherche des evenements dans le fichier log_evt.log pour un Ordinateur"
     Write-Output "r) Retour au Menu Precedent"
     Write-Output "x) Retour au Menu Principal"
     Write-Output "q) Sortie Script"
-    $choix_journalisation = Read-Host -Prompt "faites votre choix "
+    $choix_journalisation = Read-Host -Prompt "Faites votre choix "
 
     switch ($choix_journalisation) {
 
@@ -617,7 +622,7 @@ function menu_journalisation {
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt""
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt"--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à Rechercher des événements effectuer par $utilisateur"
-            Read-Host "appuyer sur entrée pour continuer " 
+            Read-Host "Appuyer sur entrée pour continuer " 
             menu_journalisation 
         }
 
@@ -626,7 +631,7 @@ function menu_journalisation {
             # $ordinateur = Read-Host -Prompt "Entrer le nom de l'Ordinateur : " 
             # Get-Content /Windows/Système32/log_evt.log | grep "$ordinateur"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage des événement de l'Ordinateur"
-            Read-Host -Prompt "appuyer sur entree pour continuer " 
+            Read-Host -Prompt "Appuyer sur entree pour continuer " 
             menu_journalisation 
         }
     
@@ -651,7 +656,7 @@ function menu_journalisation {
         }
     
         default {
-            Write-Output "mauvaise commande veuillez reessayer"
+            Write-Output "Mauvaise commande veuillez reessayer"
             Start-Sleep 2
             menu_journalisation 
         }
@@ -662,8 +667,8 @@ function menu_journalisation {
 function menu_information_reseaux {
 
     Clear-Host
-    Write-Output "Menu Information Reseaux"
-
+    Write-Output "Menu Information Réseaux"
+    Write-Output "------------------------"
     Write-Output "1) Affichage adresse MAC"
     Write-Output "2) Nombre d'interface reseaux"
     Write-Output "3) Affichage adresse IP"
@@ -680,7 +685,7 @@ function menu_information_reseaux {
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "Get-NetAdapter | fl Name, MacAddress"
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage de l'adresse mac"
-            Read-Host -Prompt "appuyer sur entree pour continuer "
+            Read-Host -Prompt "appuyer sur entrée pour continuer "
             menu_information_reseaux 
         }
 
@@ -689,7 +694,7 @@ function menu_information_reseaux {
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "Get-NetAdapter | fl Name"
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage du nombre d'interface réseaux"
-            Read-Host -Prompt "appuyer sur entree pour continuer "
+            Read-Host -Prompt "appuyer sur entrée pour continuer "
             menu_information_reseaux 
         }
 
@@ -698,7 +703,7 @@ function menu_information_reseaux {
 	    Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt ""
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage adresse IP"
-            Read-Host -Prompt "appuyer sur entree pour continuer "
+            Read-Host -Prompt "appuyer sur entrée pour continuer "
             menu_information_reseaux 
         }
 
@@ -707,7 +712,7 @@ function menu_information_reseaux {
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "netstat -ano | findstr LISTENING"
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action Affichage liste ports ouvert"
-	    Read-Host -Prompt "appuyer sur entree pour continuer " 
+	    Read-Host -Prompt "appuyer sur entrée pour continuer " 
             menu_information_reseaux 
         }
 
@@ -734,7 +739,7 @@ function menu_information_reseaux {
 
 			
         default {
-            Write-Output "mauvaise commande veuillez reessayer"
+            Write-Output "Mauvaise commande veuillez réessayer"
             Start-Sleep 2
             menu_information_reseaux 
         }
@@ -751,7 +756,7 @@ function creer_regle_parefeu {
 		switch ($activer_bloquer) {
 			A { $script:action = 'Allow' }
                		B { $script:action = 'Block' }
-        		default { Write-Output "mauvaise commande veuillez reessayer"
+        		default { Write-Output "Mauvaise commande veuillez réessayer"
                 	Start-Sleep 2
                 	creer_regle_parefeu 
 			}
@@ -760,7 +765,7 @@ function creer_regle_parefeu {
 		switch ($entrant_sortant) {
         		E { $script:direction = 'Inbound' }
 			S { $script:direction = 'Outbound' }
-        		default { Write-Output "mauvaise commande veuillez reessayer"
+        		default { Write-Output "Mauvaise commande veuillez réessayer"
 			Start-Sleep 2
 			creer_regle_parefeu 
 			}
@@ -769,7 +774,7 @@ function creer_regle_parefeu {
         	$port = $(Read-Host "Sur quel(s) port(s) voulez-vous appliquer votre nouvelle rêgle ?")
        		New-NetFirewallRule -DisplayName $nom_regle -Profile @('Domain', 'Private') -Direction $direction -Action $action -Protocol $protocol -LocalPort @($port)
 	}
- 	Write-Output "La nouvelle règle sur le parefeu a été appliquée avec succès "
+ 	Write-Output "La nouvelle règle sur le pare-feu a été appliquée avec succès "
   	Read-Host -Prompt "Appuyer sur entrée pour continuer"
    	menu_regle_parefeu
    	
@@ -981,6 +986,7 @@ function menu_action {
 
     Clear-Host
     Write-Output "Menu Action
+    Write-Output "-----------"
     1) Menu Comptes et Utilisateurs
     2) Menu Action Système
     3) Menu Gestion du Pare-Feu 
