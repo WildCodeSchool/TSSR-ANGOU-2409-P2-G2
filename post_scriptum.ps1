@@ -185,7 +185,12 @@ function menu_information_systeme {
 
         5 {  
             Write-Output "Utilisation du disque"
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+	    $TailleTotaldisk = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3" | Measure-Object -Property Size -Sum | Select-Object -ExpandProperty Sum }
+            $espacelibre = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3" | Measure-Object -Property Freespace -Sum | Select-Object -ExpandProperty Sum }
+            $utilisationdisk = $TailleTotaldisk - $espacelibre
+            $utilisationdiskMb = [Math]::Round($utilisationdisk / 1GB)
+            Write-Output "$utilisationdiskMb Gb Utilisé par le disque"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "$utilisationdiskMb Gb Utilisé par le disque"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de l'utilisation du disque"
             Read-Host -Prompt "appuyer sur entree pour continuer "
