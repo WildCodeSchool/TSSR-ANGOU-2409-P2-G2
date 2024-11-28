@@ -127,25 +127,52 @@ Le script nous renvois __"Nouvelle règle de pare feu établie : `80 http allow`
 
 Au lancement du script, il est d'abord demandé sur quel machine distante l'administrateur souhaite se connecter et avec quel compte.
 
-![Paramètres de connexion distante ](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/regle_etablie.png)
+![Paramètres de connexion distante ](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/connexion_machine_utilisateur.png)
 
-puis, le menu principal s'affiche :
-puis vous avez plusieurs choix possibles soit réaliser des actions ou rechercher des informations sur la machine client, ou encore lancer le bureau à distance sur l'hôte avec les paramètres renseigner pour la connexion à distance
+puis, le menu principal s'affiche. Vous avez alors plusieurs choix possibles soit réaliser des actions ou rechercher des informations sur la machine client, ou encore lancer le bureau à distance sur l'hôte avec les paramètres renseigner pour la connexion à distance
+
+
 
 ### Navigation dans les menus
 
+
+________________________________________________________
+
 **Menu Principal**   
 
-Vous permet de choisir entre les menus _Action_ ou _Informations_
+Vous permet de choisir entre les menus _Action_ ou _Informations_ ou bien lancer un bureau à distance.
 
-![Menu principal](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/regle_etablie.png)
-
-
+![Menu principal](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_principal.png)
 
 
 
 
+A partir du menu suivant, quel que soit le menu, il sera possible de revenir au menu principal, au menu précédent ou de sortir du script ( toujours avec le même choix, les lettres q / r / x ).
 
+________________________________________________________
+
+**Menu Actions :**
+
+![image](https://github.com/user-attachments/assets/70359be3-1a70-4ae7-bd67-d25e65aca8f2)
+
+
+Gestion des dossier, créer ou supprimer un dossier en indiquant son emplacment :         
+Gestion de la machine à distance : `6 - verrouillage_machine` / `7 - Redemarrage de la machine`/ `8 - arret de la machine` / `9 -mise à jour du système de la machine`:   
+
+
+________________________________________________________
+
+**Menu Informations :**   
+
+![image](https://github.com/user-attachments/assets/70359be3-1a70-4ae7-bd67-d25e65aca8f2)
+
+
+Permet d'afficher les différents droits et permissions, connexions et date de modification de mot de passe, ou encore, 
+lister des utilisateurs locaux
+
+
+
+________________________________________________________
 
 
 
