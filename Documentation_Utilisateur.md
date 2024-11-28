@@ -127,7 +127,7 @@ Le script nous renvois __"Nouvelle règle de pare feu établie : `80 http allow`
 
 Au lancement du script, il est d'abord demandé sur quel machine distante l'administrateur souhaite se connecter et avec quel compte.
 
-![Paramètres de connexion distante ](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/connexion_machine_utilisateur.png)
+![Paramètres de connexion distante ](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/connexion_machine_utilisateur2.png)
 
 puis, le menu principal s'affiche. Vous avez alors plusieurs choix possibles soit réaliser des actions ou rechercher des informations sur la machine client, ou encore lancer le bureau à distance sur l'hôte avec les paramètres renseigner pour la connexion à distance
 
@@ -142,7 +142,7 @@ ________________________________________________________
 
 Vous permet de choisir entre les menus _Action_ ou _Informations_ ou bien lancer un bureau à distance.
 
-![Menu principal](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_principal.png)
+![Menu principal](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_principal2.png)
 
 
 
@@ -151,20 +151,31 @@ A partir du menu suivant, quel que soit le menu, il sera possible de revenir au 
 
 ________________________________________________________
 
-**Menu Actions :**
+**Menu Action :**
 
-![image](https://github.com/user-attachments/assets/70359be3-1a70-4ae7-bd67-d25e65aca8f2)
+![Menu action](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_action.png)
 
 
 Gestion des dossier, créer ou supprimer un dossier en indiquant son emplacment :         
 Gestion de la machine à distance : `6 - verrouillage_machine` / `7 - Redemarrage de la machine`/ `8 - arret de la machine` / `9 -mise à jour du système de la machine`:   
 
 
+
+**Menu Action comptes et utilisateurs :**
+
+
+![Menu action](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_action_comptes_et_utilisateurs.png)
+
+
+**Menu Action système :**
+
+![Menu action](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_action_systeme.png)
+
 ________________________________________________________
 
-**Menu Informations :**   
+**Menu Information :**   
 
-![image](https://github.com/user-attachments/assets/70359be3-1a70-4ae7-bd67-d25e65aca8f2)
+![image](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/Menu_information.png)
 
 
 Permet d'afficher les différents droits et permissions, connexions et date de modification de mot de passe, ou encore, 
