@@ -137,7 +137,8 @@ function menu_information_systeme {
 
         1 {    
             Write-Output "Informations du CPU ( type de processeur)"
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+	    Invoke-Command -computername $addressip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_Processor }
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "Get-CimInstance -ClassName Win32_Processor"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations du CPU"
             Read-Host -Prompt "appuyer sur entree pour continuer "
@@ -146,7 +147,12 @@ function menu_information_systeme {
 
         2 {  
             Write-Output "Mémoire RAM totale"
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+	    $MémoireTotal = Invoke-Command -computername $addressip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_ComputerSystem | Select-Object -ExpandProperty TotalPhysicalMemory }
+            $MémoireTotalMB = [Math]::Round($totalMemory / 1MB)
+	    $MemoireDisponibleMb = Invoke-Command -computername $addressip -credential $nom_utilisateur -ScriptBlock { (New-Object System.Diagnostics.PerformanceCounter("Memory", "Available MBytes")).NextValue() }
+	    $MemoireUtiliseMB = $MémoireTotalMB - MemoireDisponibleMb
+     	    $MemoireUtilisePourcent = [Math]::Round(($MemoireUtiliseMB / $totalMemoryMB) * 100, 2)
+     	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la mémoire RAM"
             Read-Host -Prompt "appuyer sur entree pour continuer "
