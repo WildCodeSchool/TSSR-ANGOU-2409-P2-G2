@@ -137,7 +137,7 @@ function menu_information_systeme {
 
         1 {    
             Write-Output "Informations du CPU ( type de processeur)"
-	    $CPU = Invoke-Command -computername $addressip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_Processor }
+	    $CPU = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_Processor }
      	    Write-Output "$CPU"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "$CPU"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
@@ -148,7 +148,7 @@ function menu_information_systeme {
 
         2 {  
             Write-Output "Mémoire RAM totale"
-	    $MémoireTotal = Invoke-Command -computername $addressip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_ComputerSystem | Select-Object -ExpandProperty TotalPhysicalMemory }
+	    $MémoireTotal = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_ComputerSystem | Select-Object -ExpandProperty TotalPhysicalMemory }
             $MémoireTotalMB = [Math]::Round($totalMemory / 1MB)
 	    Write-Output "La Mémoire Ram Tolale $MémoireTotalMb Mb" 
 	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "La Mémoire Ram Tolale $MémoireTotalMb Mb"
@@ -160,7 +160,7 @@ function menu_information_systeme {
 
         3 {
             Write-Output "Utilisation de la RAM" 
-	    $MémoireTotal = Invoke-Command -computername $addressip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_ComputerSystem | Select-Object -ExpandProperty TotalPhysicalMemory }
+	    $MémoireTotal = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_ComputerSystem | Select-Object -ExpandProperty TotalPhysicalMemory }
             $MémoireTotalMB = [Math]::Round($totalMemory / 1MB)
 	    $MemoireDisponibleMb = Invoke-Command -computername $addressip -credential $nom_utilisateur -ScriptBlock { (New-Object System.Diagnostics.PerformanceCounter("Memory", "Available MBytes")).NextValue() }
 	    $MemoireUtiliseMB = $MémoireTotalMB - MemoireDisponibleMb
@@ -175,7 +175,7 @@ function menu_information_systeme {
 
         4 {
             Write-Output "Utilisation du processeur"
-	    $CPU_Utilisation = Invoke-Command -computername $addressip -credential $nom_utilisateur -ScriptBlock { 
+	    $CPU_Utilisation = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { 
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de l'utilisation de processeur"
@@ -194,8 +194,9 @@ function menu_information_systeme {
 
         6 {      
             Write-Output "Version de l'OS :"
-	    $OS = Invoke-Command -computername 172.16.10.20 -credential wilder -ScriptBlock { Get-WmiObject Win32_OperatingSystem }
-            Write-Output "$OS"
+	    #Probléme Autorisation
+	    #$OS = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_OperatingSystem }
+            #Write-Output "$OS"
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "$OS"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la version du système d'exploitation"
@@ -559,7 +560,7 @@ function menu_information_pare_feu {
     switch ($choix_securite) {
 
         1 {
-            Invoke-Command -ComputerName $adresse_ip -Credential wilder -ScriptBlock { Get-NetFirewallProfile | ft Name,Enabled }
+            Invoke-Command -ComputerName $adresse_ip -Credential $nom_utilisateur -ScriptBlock { Get-NetFirewallProfile | ft Name,Enabled }
             Write-Output "Statut du Parefeu : "
             Read-Host -Prompt "Appuyez sur entrée pour continuer"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
@@ -569,7 +570,7 @@ function menu_information_pare_feu {
         }
 			
         2 {
-            Invoke-Command -ComputerName $adresse_ip -Credential wilder -ScriptBlock { netstat -ano | findstr LISTENING}
+            Invoke-Command -ComputerName $adresse_ip -Credential $nom_utilisateur -ScriptBlock { netstat -ano | findstr LISTENING}
             Write-Output "Liste des ports ouvert : "
             Read-Host -Prompt "Appuyez sur entrée pour continuer"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
@@ -579,14 +580,14 @@ function menu_information_pare_feu {
         }
 	      #Liste les règles activés sur le parefeu
         3 { 
-            Invoke-Command -ComputerName $adresse_ip -Credential wilder -ScriptBlock { Get-NetFirewallRule | where {($_.enabled -eq $True) -and ($_.Direction -eq "Inbound")} | ft }
+            Invoke-Command -ComputerName $adresse_ip -Credential $nom_utilisateur -ScriptBlock { Get-NetFirewallRule | where {($_.enabled -eq $True) -and ($_.Direction -eq "Inbound")} | ft }
 	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la version du système d'exploitation"
         }
             #Liste les règles bloqués sur le parefeu
         4 {
-            Invoke-Command -ComputerName $adresse_ip -Credential wilder -ScriptBlock { Get-NetFirewallRule -Action Block | ft }
+            Invoke-Command -ComputerName $adresse_ip -Credential $nom_utilisateur -ScriptBlock { Get-NetFirewallRule -Action Block | ft }
         }
 
         r {
