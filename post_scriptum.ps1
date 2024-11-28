@@ -25,7 +25,10 @@ function menu_information_utilisateur {
 
         1 {
             Write-Output "Droits/Permissions de l'utilisateur sur un dossier" 
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value ""
+	    $dossier = Read-Host "Quel dossier vous sélectionner ( chemin complet ) ? "
+            $DroitDossier = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { (Get-Acl -Path $dossier ).Access } 
+            $DroitDossier
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$DroitDossier"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les droits/permissions de l'utilisateur sur un dossier" 
             Read-Host -Prompt "appuyer sur entrée pour continuer "
@@ -35,7 +38,10 @@ function menu_information_utilisateur {
 
         2 {
             Write-Output "Droits/Permissions de l'utilisateur sur un fichier"
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value ""
+            $fichier = Read-Host "Quel dossier vous sélectionner ( chemin complet ) ? "
+            $DroitFichier = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { (Get-Acl -Path $fichier ).Access }
+            $DroitFichier
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$DroitFichier"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les droits/permissions de l'utilisateur sur un fichier"
             Read-Host -Prompt "appuyer sur entrée pour continuer "
