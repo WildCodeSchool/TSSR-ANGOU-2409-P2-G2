@@ -234,7 +234,6 @@ function menu_information_systeme {
 
 
 #    Menu action comptes et utilisateurs
-
     function menu_action_comptes_utilisateurs {
 
 
@@ -244,79 +243,103 @@ function menu_information_systeme {
       write-output "1- Création de compte utilisateur local"
       write-output "2- Changement de mot de passe utilisateur"
       write-output "3- Suppression de compte utilisateur local"
-      write-output "4- Ajout utilisateur à un groupe administrateur"
-      write-output "5- Ajout utilisateur à un groupe local"
-      write-output "6- Sortie utilisateur de groupe local"
+      write-output "4- Desactivation de compte utilisateur local"
+      write-output "5- Ajout utilisateur à un groupe administrateur"
+      write-output "6- Ajout utilisateur à un groupe local"
+      write-output "7- Sortie utilisateur de groupe local"
       write-output "r- Retour au menu précédent"
       write-output "x- Retour au menu principal"
       write-output "q) Sortie Script"
 
        $repcmu = Read-Host -Prompt "Votre choix ?"
 
- 
-
+    # Actions effectuées en fonction du choix de l'utilisateur dans le menu ci-dessus
     switch ($repcmu) {
 
         1 {
+            Clear-host
             Write-Output "Création d'un compte utilisateur"
-            $user_account = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être créé ? "
-            $passwd = Read-Host -Prompt "Mot de passe de l'utilisateur dont le compte doit être créé ? " -AsSecureString
-            Write-Output " $nom_utlisateur à effectuer l'action création du compte utilisateur $user_account" >> /Windows/Système32/log_evt.log
-            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  New-Local User ( $user_account / $passwd ) }
-            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action création du compte utilisateur $user_account"
-            Start-Sleep 2
+            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $user_account = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être créé ? " ;
+	    $passwd = Read-Host -Prompt "Mot de passe de l'utilisateur dont le compte doit être créé ? " -AsSecureString ;
+	    New-LocalUser -Name $user_account -Password $passwd }
+	    Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action création du compte utilisateur $user_account"            
             menu_action_comptes_utilisateurs
         }
 
         2 {  
-            Write-Output "Changement mot de passe utilisateur"
-            $user_passwd = Read-Host -Prompt "Nom de l'utilisateur dont le mot de passe doit être changé ? "
-            $new_passwd = Read-Host -Prompt "Entrez le nouveau mot de passe" -AsSecureString
-            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Set-LocalUser -Name $user_passwd -Password $new_passwd }
-            Start-Sleep 2
+            Clear-host
+            Write-Output "Changement mot de passe utilisateur"           
+            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $user_passwd = Read-Host -Prompt "Nom de l'utilisateur dont le mot de passe doit être changé ? " ;
+	    $new_passwd = Read-Host -Prompt "Entrez le nouveau mot de passe" -AsSecureString ;
+	    Set-LocalUser -Name $user_passwd -Password $new_passwd }
+            Read-Host -Prompt "Appuyer sur entrée pour continuer "
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action changement du mot de passe utilisateur $user_passwd"
             menu_action_comptes_utilisateurs
             
         }
 
         3 {  
-            Write-Output "Suppression de compte utilisateur local"
-            $del_user_local_account = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être supprimé ? "
-            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  remove-localuser -Name $del_user_local_account }
+	    Clear-host
+	    Write-Output "Suppression de compte utilisateur local"
+            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $del_user_local_account = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être supprimé ? " ;
+            Remove-Localuser -Name $del_user_local_account }
+	    Write-Output "Le compte utilisateur local $del_user_local_account à été supprimé "
+            Read-Host -Prompt "Appuyer sur entrée pour continuer "
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Suppression du compte de l'utilisateur local $del_user_local_account"
-            Start-Sleep 2
             menu_action_comptes_utilisateurs
             
         }
-            
-        4 {  
-            Write-Output "Ajout utilisateur au groupe administrateur"
-            $add_user_to_admin = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être ajouté au groupe administrateur ? "
-            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Add-LocalGroupMember -Group administrateur -Member $add_user_to_admin }   
-            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Ajout de l'utilisateur $add_user_to_admin au groupe administrateur"
-            Start-Sleep 2
+
+
+	4 {  
+	    Clear-host
+            Write-Output "Désactivation de compte utilisateur local"
+            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $deactivate_user = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être désactivé ? " ; 
+	    Disable-LocalUser -Name $deactivate_user }   
+            Write-Output "Le compte utilisateur local $deactivate_user à été désactivé "
+	    Read-Host -Prompt "Appuyer sur entrée pour continuer "
             menu_action_comptes_utilisateurs
         }
 
 
+
+     
         5 {  
-            Write-Output "Ajout utilisateur a un groupe local"
-            $add_user_to_grp = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être ajouté a un groupe ? "
-            $grp = Read-Host -Prompt "Nom du groupe auquel l'utilisateur doit être ajouté ? "
-            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Add-LocalGroupMember -Group $grp -Member $add_user_to_grp }    
-            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Ajout de l'utilisateur $add_user_to_local_users au groupe local"
-            Start-Sleep 2
+
+	    Clear-host
+            Write-Output "Ajout utilisateur au groupe administrateur"
+            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $add_user_to_admin = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être ajouté au groupe administrateur ? " ; 
+	    Add-LocalGroupMember -Group Administrateurs -Member $add_user_to_admin }   
+            Write-Output "Le compte utilisateur local $add_user_to_admin à été ajouté au groupe Administrateurs "
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Ajout de l'utilisateur $add_user_to_admin au groupe administrateur"
+            Read-Host -Prompt "Appuyer sur entrée pour continuer "
             menu_action_comptes_utilisateurs
         }
-
 
 
         6 {  
-            Write-Output "sortie utilisateur d'un groupe local"
-            $del_user_to_grp = Read-Host -Prompt "nom de l'utilisateur dont le compte doit être ajoutésupprimé d'un groupe ? :"
-            $del_grp = Read-Host -Prompt "Nom du groupe auquel l'utilisateur doit être supprimé ? :"
-            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Del-LocalGroupMember -Group $del_grp -Member $del_user_to_grp }
+            Clear-host
+            Write-Output "Ajout utilisateur a un groupe local"
+            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $add_user_to_grp = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être ajouté à un groupe local ? " ;
+	    $grp = Read-Host -Prompt "Nom du groupe  auquel l'utilisateur doit être ajouté ? " ;
+	    Add-LocalGroupMember -Group $grp -Member $add_user_to_grp }
+	    Write-Output "Le compte utilisateur local $add_user_to_admin à été ajouté au groupe $add_user_to_grp"   
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Ajout de l'utilisateur $add_user_to_local_users au groupe local"
+            Read-Host -Prompt "Appuyer sur entrée pour continuer "
+            menu_action_comptes_utilisateurs
+        }
+
+
+
+        7 {  
+            Clear-host
+            Write-Output "Sortie utilisateur d'un groupe local"
+            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $del_user_to_grp = Read-Host -Prompt "Nom de l'utilisateur dont le compte doit être enlevé d'un groupe local ? " ;
+	    $del_grp = Read-Host -Prompt "Nom du groupe local duquel l'utilisateur doit être enlevé ? " ;
+	    Remove-LocalGroupMember -Group $del_grp -Member $del_user_to_grp }
+	    Write-Output "Le compte utilisateur local $del_user_to_grp à été enlevé au groupe $del_user_to_grp"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - sortie de l'utilisateur $del_user_to_local_users au groupe local"
-            Start-Sleep 2
+            Read-Host -Prompt "Appuyer sur entrée pour continuer "
             menu_action_comptes_utilisateurs
         }
 
@@ -371,19 +394,18 @@ function menu_information_systeme {
       write-output "q) Sortie Script"
       $reps = Read-Host -Prompt "Votre choix ?"
 
-
+   # Actions effectuées en fonction du choix de l'utilisateur dans le menu ci-dessus
     switch ($reps) {
 
         1 {
             Clear-host
 	    Write-Output "Création de repertoire"
-            # $path_mkdir_name = Read-Host -Prompt "Chemin du repertoire à créer ? "
-            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Création du repertoire "$mkdir_name" "
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $path_mkdir_name = Read-Host -Prompt "Chemin du repertoire à créer ? "; 
 	    $mkdir_name = Read-Host -Prompt "Nom du repertoire à créer ?  " ;
      	    New-Item -Path "$path_mkdir_name\$mkdir_name" -ItemType Directory }
             write output "Repertoire $path_mkdir_name\$mkdir_name créé "
 	    Read-host -Prompt "appuyez sur entrée pour continuer"
+            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Création du repertoire "$mkdir_name" "
             menu_action_systeme
         }
 
@@ -391,25 +413,22 @@ function menu_information_systeme {
         2 {
 	    Clear-host
             Write-Output "Suppression de repertoire"
-            # $path_del_dir_name = Read-Host -Prompt "Chemin du repertoire à supprimer ? "
-            # $del_dir_name = Read-Host -Prompt "Nom du repertoire à supprimer ? "
-            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Suppression du répertoire $del_dir_name"
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $path_del_dir_name = Read-Host -Prompt "Chemin du repertoire à supprimer ? " ;
      	    $del_dir_name = Read-Host -Prompt "Nom du repertoire à supprimer ? " ;
 	    Remove-Item -Path "$path_del_dir_name\$del_dir_name" -Recurse -Force }
             write output "Repertoire $del_dir_name supprimé "
             Read-host -Prompt "appuyez sur entrée pour continuer"
+	    Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Suppression du répertoire $del_dir_name"
             menu_action_systeme
 
         }
 
         3 {
             Write-Output " Installation de logiciel"
-            $install_soft = Read-Host -Prompt "Nom du package à installer ? " 
-            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Installation du package $install_soft"  
-            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Get-PackageProvider $install_soft}
+            Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $install_soft = Read-Host -Prompt "Nom du package à installer ? " ; Get-PackageProvider $install_soft}
             write output  "Package $install_soft installé "
-            Start-Sleep 2
+            Read-host -Prompt "appuyez sur entrée pour continuer"
+	    Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Installation du package $install_soft"
             menu_action_systeme
 
         }
@@ -420,7 +439,7 @@ function menu_information_systeme {
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Installation du package $install_soft"
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock {  Uninstall-Package -Name $desinstall_soft}
             write output  "Package $desinstall_soft desinstallé "
-            Start-Sleep 2
+            Read-host -Prompt "appuyez sur entrée pour continuer"
             menu_action_systeme
         }
 
@@ -431,7 +450,7 @@ function menu_information_systeme {
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Execution du script $exec_script"
 	    Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $exec_script }
             write output  "Package $exec_script lancé "
-            Start-Sleep 2
+            Read-host -Prompt "appuyez sur entrée pour continuer"
             menu_action_systeme           
         }
 
@@ -1012,9 +1031,13 @@ function menu_action {
 }
 
 
+# Fonction pour la connexion à distance en mode graphique (Bureau a distance / RDP)
 function menu_connex_distance {
 
-    Enter-PSSession -ComputerName $adresse_ip -Credential $nom_utilisateur
+    Clear-host
+    Write-Output "Lancement du bureau à distance, veuillez renseigner les informations nécessaires dans la fenêtre graphique"
+    Start-Process "mstsc.exe" /v:"$adresse_ip"
+    Read-host -Prompt "Appuyez sur entrée pour continuer et revenir au menu principal"
     menu_principal
 
 }
@@ -1066,15 +1089,15 @@ function menu_principal {
     
         default {
             Write-Output "Mauvaise commande veuillez reessayer"
-            Start-Sleep 2
+            Start-Sleep 3
             menu_principal
         }
     }
 }
 
 # Connexion Identification à la machine cliente
-$adresse_ip = Read-Host -Prompt "A quel machine voulez-vous vous connecter ( adresse ip ) ?  " 
-$nom_utilisateur = Read-Host -Prompt "Veuillez renseigner le nom d'utilisateur pour ?  "
+$adresse_ip = Read-Host -Prompt "A quelle machine voulez-vous vous connecter ( Nom de la machine / adresse IP ) ?  " 
+$nom_utilisateur = Read-Host -Prompt "Veuillez renseigner le nom d'utilisateur pour la connexion à distance ?  "
 
 $Date_log = Get-Date -Format "yyyy/mm/dd HH:mm:ss"
 $Date = Get-Date -Format "yyyy/mm/dd"
