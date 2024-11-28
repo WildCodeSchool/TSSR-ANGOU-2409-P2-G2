@@ -762,54 +762,51 @@ function supprimer_regle_parefeu {
 #Menu pour établir une nouvelle regle sur le parefeu
 function menu_regle_parefeu {
 
-				$choix_utilisateur = $(Read-Host "Quel est votre choix ?")
-				Write-Output "A) Ajouter une nouvelle règle au Parer-Feu"
-				Write-Output "S) Supprimer une règle de Pare-Feu existante"
-				Write-Output "r) Revenir au menu precedent (Action sur les Pare-Feux)"
-				Write-Output "x) Revenir au menu Principal"
-				Write-Output "q) Sortie Script"
+	$choix_utilisateur = $(Read-Host "Quel est votre choix ?")
+	Write-Output "A) Ajouter une nouvelle règle au Parer-Feu"
+	Write-Output "S) Supprimer une règle de Pare-Feu existante"
+	Write-Output "r) Revenir au menu precedent (Action sur les Pare-Feux)"
+	Write-Output "x) Revenir au menu Principal"
+	Write-Output "q) Sortie Script"
 				
-    				switch ($choix_utilisateur) {
-								A { creer_regle_parefeu }
-								S { supprimer_regle_parefeu }
-                            					default { 
-			   							Write-Output "mauvaise commande veuillez reessayer"
-                            							Start-Sleep 2
-                            							menu_regle_parefeu 
-			    						}
-	     						     }
-		 	   }
+    	switch ($choix_utilisateur) {
+		A { 
+  
+  		creer_regle_parefeu 
+    
+     		}
+       
+		S { 
+  
+  		supprimer_regle_parefeu 
+  		}		
 
-
-        r {
-            Write-Output "Retour au menu Action sur les Pare-Feux"
-            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Précédent"
-            menu_gestion_parefeu 
-        }
+		r {
+            	Write-Output "Retour au menu Action sur les Pare-Feux"
+            	Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Précédent"
+            	menu_gestion_parefeu 
+        	}
 			
-        x {
-            Write-Output "Retour au menu Principal"
-            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Principal"
-            menu_principal
-        }
+      	  	x {
+           	Write-Output "Retour au menu Principal"
+            	Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - est Retourné au Menu Principal"
+            	menu_principal
+        	}
 		
-        q {
-            Write-Output "Vous quittez le script "
-            Start-Sleep 3
-            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
-            Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
-            sortie_script 
-        }
+        	q {
+            	Write-Output "Vous quittez le script "
+            	Start-Sleep 3
+            	Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
+           	Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
+            	sortie_script 
+        	}
 			
-        default {
-            Write-Output "Mauvaise commande veuillez réessayer"
-            Start-Sleep 2
-            menu_regle_parefeu
+       		default {
+            	Write-Output "Mauvaise commande veuillez réessayer"
+            	Start-Sleep 2
+            	menu_regle_parefeu
         }
-    }
-
-
-   
+    }  
 }
 # Menu de gestion basic du pare-feu. Permet d'accéder à la gestion avancé du pare-feu (établir de nouvelles règles)
 function menu_gestion_parefeu {
