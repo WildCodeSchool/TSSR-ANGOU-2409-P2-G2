@@ -1,6 +1,11 @@
 # Documentation Utilisateur
 
 
+# 1 ) SCRIPT BASH
+
+
+
+
 ## Utilisation de base : comment utiliser les fonctionnalités clés
 
 Au lancement du script, le menu principal s'affiche :
@@ -111,6 +116,38 @@ Le script nous renvois __"Nouvelle règle de pare feu établie : `80 http allow`
 
 
 - Journalisation, rechercher des évenements avec les fichiers logs : 
+
+
+
+
+# 2 ) SCRIPT POWERSHELL
+
+
+## Utilisation de base : comment utiliser les fonctionnalités clés
+
+Au lancement du script, il est d'abord demandé sur quel machine distante l'administrateur souhaite se connecter et avec quel compte.
+
+![Paramètres de connexion distante ](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/regle_etablie.png)
+
+puis, le menu principal s'affiche :
+puis vous avez plusieurs choix possibles soit réaliser des actions ou rechercher des informations sur la machine client, ou encore lancer le bureau à distance sur l'hôte avec les paramètres renseigner pour la connexion à distance
+
+### Navigation dans les menus
+
+**Menu Principal**   
+
+Vous permet de choisir entre les menus _Action_ ou _Informations_
+
+![Menu principal](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/Images/regle_etablie.png)
+
+
+
+
+
+
+
+
+
 
 
 
