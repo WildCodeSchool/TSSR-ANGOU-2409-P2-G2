@@ -194,7 +194,9 @@ function menu_information_systeme {
 
         6 {      
             Write-Output "Version de l'OS :"
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+	    $OS = Invoke-Command -computername 172.16.10.20 -credential wilder -ScriptBlock { Get-WmiObject Win32_OperatingSystem }
+            Write-Output "$OS"
+            Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt "$OS"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la version du système d'exploitation"
             Read-Host -Prompt "appuyer sur entree pour continuer "
@@ -203,8 +205,10 @@ function menu_information_systeme {
 
         7 {   
             Write-Output "Liste des applications installées :"
-	    Invoke-Command -ComputerName $adresse_ip -Credential wilder -ScriptBlock { Get-WmiObject -Class Win32_Product }
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt ""
+	    $Logiciel = Invoke-Command -computername 172.16.10.20 -credential wilder -ScriptBlock { Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize }
+            $Application = Invoke-Command -computername 172.16.10.20 -credential wilder -ScriptBlock { Get-ItemProperty HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize }
+            Write-Output "$Logiciel $Application
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "$Logiciel $Application"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - $nom_utilisateur - $machineclient - A listé les applications installés"
             Read-Host -Prompt "appuyer sur entree pour continuer "
