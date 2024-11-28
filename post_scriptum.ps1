@@ -787,6 +787,7 @@ function creer_regle_parefeu {
        		New-NetFirewallRule -DisplayName $nom_regle -Profile @('Domain', 'Private') -Direction $direction -Action $action -Protocol $protocol -LocalPort @($port)
 	}
  	Write-Output "La nouvelle règle sur le pare-feu a été appliquée avec succès "
+  	Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A crée un nouvelle règle sur le pare-feu"
   	Read-Host -Prompt "Appuyer sur entrée pour continuer"
    	menu_regle_parefeu
    	
@@ -799,6 +800,7 @@ function supprimer_regle_parefeu {
                 Remove-NetFirewallRule -DisplayName $nom_regle 
 	}
  	Write-Output "La règle parefeu $nom_regle a bien été supprimée "
+ 	Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A supprimé une règle sur le pare-feu"
   	Read-Host -Prompt "Appuyer sur entrée pour continuer"
    	menu_regle_parefeu
  }
@@ -822,7 +824,8 @@ function menu_regle_parefeu {
 		S { 
   
   		supprimer_regle_parefeu 
-  		}		
+  		
+    		}		
 
 		r {
             	Write-Output "Retour au menu Action sur les Pare-Feux"
@@ -905,8 +908,7 @@ function menu_gestion_parefeu {
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient ---------------"
             sortie_script 
         } 
-
-			
+		
         default {
             Write-Output "Mauvaise commande veuillez reessayer"
             Start-Sleep 2
