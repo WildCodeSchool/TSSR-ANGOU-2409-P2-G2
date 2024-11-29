@@ -28,7 +28,7 @@ function menu_information_utilisateur {
 
         1 {
             Write-Output "Droits/Permissions de l'utilisateur sur un dossier" 
-	        $DroitDossier = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $dossier = Read-Host "Quel dossier vous sélectionner ( chemin complet ) ? "
+	    $DroitDossier = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $dossier = Read-Host "Quel dossier vous sélectionner ( chemin complet ) ? "
             (Get-Acl -Path $dossier ).Access | Select-Object -Property FileSystemRights, AccessControlType } 
             $DroitDossier
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$DroitDossier"
@@ -41,8 +41,8 @@ function menu_information_utilisateur {
 
         2 {
             Write-Output "Droits/Permissions de l'utilisateur sur un fichier"
-            $DroitFichier = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $fichier = Read-Host "Quel dossier vous sélectionner ( chemin complet ) ? "
-            (Get-Acl -Path '$fichier' ).Access | Select-Object -Property FileSystemRights, AccessControlType }
+            $DroitFichier = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $fichier = Read-Host "Quel dossier vous sélectionner ( chemin complet entre guillemet ' ) ? "
+            (Get-Acl -Path $fichier ).Access | Select-Object -Property FileSystemRights, AccessControlType }
             $DroitFichier
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$DroitFichier"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
