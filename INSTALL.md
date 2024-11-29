@@ -59,7 +59,6 @@ _________________________________________________
 ### Étapes d'installation et de configuration :
 
 
-
 #### Configuration du service WinRM afin de pouvoir lancer des commandes Powershell en remote
 
   La configuration est à faire sur le client ET le serveur dans une fenetre Powershell en administrateur
@@ -132,15 +131,16 @@ Il faut le créer et mettre le compte "wilder" dans ce nouveau groupe"
 
 
 
-### FAQ : Points de blocages / Modifications à venir
+### FAQ :
 
-- XXXXXXXXXXXXXXX
+__Comment puis-je utiliser le script sur mon serveur debian connécté en réseau sans accès à internet ?__
+- la commande __scp__ peut être utilisée pour récupérer un fichier, et donc le scrip sur un ordinateur connecté sur le même réseau que le serveur. Pour l'utiliser, vous pouvez vous référer à [l'installation et la configuration](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/INSTALL.md#installation-et-configuration) de la documentation.
 
+__Les ordinateurs et serveur de mon réseau ne sont pas relié par un active directory. Puis-je quand même utiliser le script ?__
+- Il est possible d'utiliser le script sans être dans un active directory, en configurant le service de windows __Winrm__ sur votre serveur et vos ordinateurs clients. Suivez les [Étapes d'installation et de configuration](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/INSTALL.md#%C3%A9tapes-dinstallation-et-de-configuration--1) de la documentation pour configurer vos postes.
 
-### FAQ : solutions aux problèmes connus et communs liés à l’installation et à la configuration
-
-- XXXXXXXXXXXXXXX
-
+__Par quel moyen le script bash se connecte et effectuer des tâches sur une machine distante du réseau ?__
+- Le script Bash utilise le __protocole SSH__ pour réaliser des tâches sur poste client à distance. SSH doit être installé et configuré sur le serveur ainsi que sur les postes du réseau sur lesquel vous voulez effectuer des tâches. Une fois le protocole SSH installé, au démarrage de votre serveur, configuez le en suivant [le lancement du serveur SSH](https://github.com/WildCodeSchool/TSSR-ANGOU-2409-P2-G2/blob/main/INSTALL.md#lancer-le-serveur-ssh) de la documentation. Assurez-vous que le port 22 sur vos postes clients soient ouvert pour que le serveur puisse s'y connecter en SSH. 
 
 
 
