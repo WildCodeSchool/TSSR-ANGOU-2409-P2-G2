@@ -196,7 +196,7 @@ function menu_information_systeme {
             $utilisationdisk = $TailleTotaldisk - $espacelibre
             [Math]::Round($utilisationdisk / 1GB) }
             Write-Output "$utilisationdiskGb Gb Utilisé par le disque"
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$utilisationdiskMb Gb Utilisé par le disque"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$utilisationdiskGb Gb Utilisé par le disque"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de l'utilisation du disque"
             Read-Host -Prompt "appuyer sur entree pour continuer "
