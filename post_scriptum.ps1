@@ -54,7 +54,8 @@ function menu_information_utilisateur {
 
         3 {
             Write-Output "Date de derniere connexion d'un utilisateur"
-	    $utilisateur_connexion = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-LocalUser -Name wilder | Select-Object -ExpandProperty LastLogon }
+	    $utilisateur_connexion = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $utilisateur = Read-Host -Prompt "Entrer le nom d'utilisateur : "
+     	    Get-LocalUser -Name $utilisateur | Select-Object -ExpandProperty LastLogon }
             $utilisateur_connexion
 	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$utilisateur_connexion"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
@@ -65,7 +66,8 @@ function menu_information_utilisateur {
 
         4 {
             Write-Output "Date de derniere modification du mot de passe de l'utilisateur"
-	    $Modification_MDP = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-LocalUser -Name wilder | Select-Object -ExpandProperty PasswordLastSet }
+	    $Modification_MDP = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $utilisateur = Read-Host -Prompt "Entrer le nom d'utilisateur : "
+     	    Get-LocalUser -Name $utilisateur | Select-Object -ExpandProperty PasswordLastSet }
             $Modification_MDP
 	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$Modification_MDP"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
