@@ -25,8 +25,8 @@ function menu_information_utilisateur {
 
         1 {
             Write-Output "Droits/Permissions de l'utilisateur sur un dossier" 
-	    $dossier = Read-Host "Quel dossier vous sélectionner ( chemin complet ) ? "
-            $DroitDossier = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { (Get-Acl -Path $dossier ).Access } 
+	    $DroitDossier = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $dossier = Read-Host "Quel dossier vous sélectionner ( chemin complet ) ? "
+            (Get-Acl -Path $dossier ).Access } 
             $DroitDossier
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$DroitDossier"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
@@ -38,8 +38,8 @@ function menu_information_utilisateur {
 
         2 {
             Write-Output "Droits/Permissions de l'utilisateur sur un fichier"
-            $fichier = Read-Host "Quel dossier vous sélectionner ( chemin complet ) ? "
-            $DroitFichier = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { (Get-Acl -Path $fichier ).Access }
+            $DroitFichier = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $fichier = Read-Host "Quel dossier vous sélectionner ( chemin complet ) ? "
+            (Get-Acl -Path $fichier ).Access }
             $DroitFichier
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$DroitFichier"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
@@ -165,11 +165,11 @@ function menu_information_systeme {
 
         3 {
             Write-Output "Utilisation de la RAM" 
-	    $MémoireTotal = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_ComputerSystem | Select-Object -ExpandProperty TotalPhysicalMemory }
+	    $MemoireUtilisePourcent = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $MémoireTotal =  Get-WmiObject Win32_ComputerSystem | Select-Object -ExpandProperty TotalPhysicalMemory 
             $MémoireTotalMB = [Math]::Round($MémoireTotal / 1MB)
-	    $MemoireDisponibleMb = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { (New-Object System.Diagnostics.PerformanceCounter("Memory", "Available MBytes")).NextValue() }
+	    $MemoireDisponibleMb = (New-Object System.Diagnostics.PerformanceCounter("Memory", "Available MBytes")).NextValue() 
 	    $MemoireUtiliseMB = $MémoireTotalMB - $MemoireDisponibleMb
-     	    $MemoireUtilisePourcent = [Math]::Round(($MemoireUtiliseMB / $MémoireTotalMB) * 100, 2)
+     	    [Math]::Round(($MemoireUtiliseMB / $MémoireTotalMB) * 100, 2) }
 	    Write-Output "La Mémoire Ram et Utilisé à $MemoireUtilisePourcent%"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "La Mémoire Ram et Utilisé à $MemoireUtilisePourcent%"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
@@ -191,11 +191,11 @@ function menu_information_systeme {
 
         5 {  
             Write-Output "Utilisation du disque"
-	    $TailleTotaldisk = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3" | Measure-Object -Property Size -Sum | Select-Object -ExpandProperty Sum }
-            $espacelibre = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3" | Measure-Object -Property Freespace -Sum | Select-Object -ExpandProperty Sum }
+	    $utilisationdiskGb = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $TailleTotaldisk = Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3" | Measure-Object -Property Size -Sum | Select-Object -ExpandProperty Sum 
+            $espacelibre = Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3" | Measure-Object -Property Freespace -Sum | Select-Object -ExpandProperty Sum 
             $utilisationdisk = $TailleTotaldisk - $espacelibre
-            $utilisationdiskMb = [Math]::Round($utilisationdisk / 1GB)
-            Write-Output "$utilisationdiskMb Gb Utilisé par le disque"
+            [Math]::Round($utilisationdisk / 1GB) }
+            Write-Output "$utilisationdiskGb Gb Utilisé par le disque"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$utilisationdiskMb Gb Utilisé par le disque"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de l'utilisation du disque"
@@ -216,11 +216,10 @@ function menu_information_systeme {
 
         7 {   
             Write-Output "Liste des applications installées :"
-	    $Logiciel = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize }
-            $Application = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-ItemProperty HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize }
-            $Logiciel 
+	    $Application = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize 
+            Get-ItemProperty HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* |  Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | sort-object -property DisplayName | Format-Table –AutoSize }
 	    $Application
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$Logiciel $Application"
+            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$Application"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - $nom_utilisateur - $machineclient - A listé les applications installés"
             Read-Host -Prompt "appuyer sur entree pour continuer "
