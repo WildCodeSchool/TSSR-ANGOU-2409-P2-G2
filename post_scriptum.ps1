@@ -42,7 +42,7 @@ function menu_information_utilisateur {
         2 {
             Write-Output "Droits/Permissions de l'utilisateur sur un fichier"
             $DroitFichier = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $fichier = Read-Host "Quel dossier vous sélectionner ( chemin complet ) ? "
-            (Get-Acl -Path $fichier ).Access | Select-Object -Property FileSystemRights, AccessControlType }
+            (Get-Acl -Path '$fichier' ).Access | Select-Object -Property FileSystemRights, AccessControlType }
             $DroitFichier
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$DroitFichier"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
