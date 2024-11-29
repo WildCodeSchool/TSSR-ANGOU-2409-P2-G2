@@ -65,7 +65,9 @@ function menu_information_utilisateur {
 
         4 {
             Write-Output "Date de derniere modification du mot de passe de l'utilisateur"
-            Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value ""
+	    $Modification_MDP = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-LocalUser -Name wilder | Select-Object -ExpandProperty PasswordLastSet }
+            $Modification_MDP
+	    Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$Modification_MDP"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A afficher les informations de la dernière modification du mot de passe"
             Read-Host -Prompt "appuyer sur entree pour continuer "
