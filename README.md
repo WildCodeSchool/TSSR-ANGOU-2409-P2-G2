@@ -126,7 +126,7 @@ Pour le choix des postes clients, nous avons :
 
 ## 7) Améliorations possibles : suggestions d’améliorations futures
 
-- Utiliser le script autrement qu'en connexion SSH
+- S'affrenchir du Mots de passe en connection SSH et en connection winrm
 - Affiner les règles à du Firewall (rejeter certains trafic, autoriser/refuser une plage d'adresse) pour une gestion du traffic plus souple et précise qu'avec le script actuelle (autorisation ou refus uniquement sur les ports ou protocoles)
 - Améliorer la gestion des erreurs (utilisateur déjà existant, fichier ou dossier déjà présent ou inexistant...)
 - Améliorer les scripts après avoir trouvé comment mieux gérer la portée des variables
