@@ -1029,7 +1029,7 @@ function menu_information {
 function menu_action {
 
     Clear-Host
-    Write-Output "Menu Action
+    Write-Output "Menu Action"
     Write-Output "-----------"
     1) Menu Comptes et Utilisateurs
     2) Menu Action Système
@@ -1097,10 +1097,10 @@ function menu_connex_distance {
 function menu_principal {
     Clear-Host
     Write-Output "			__________________________________________________"
-    Write-Output "			|:						                        :|"
-    Write-Output "			|:						                        :|"
-    Write-Output "			|:	    	  MENU PRINCIPAL 		            :|"
-    Write-Output "			|:						                        :|"
+    Write-Output "			|:			                        :|"
+    Write-Output "			|:			                        :|"
+    Write-Output "			|:	    	  MENU PRINCIPAL 		:|"
+    Write-Output "			|:			                        :|"
     Write-Output "			|:______________________________________________:|
 	
 	1) Effectuer des actions (exemple : creer un dossier, activer un par-feu...)
@@ -1109,7 +1109,6 @@ function menu_principal {
 	x) Quitter le script"
 	
 
-    Write-Output ""
     $choix = Read-Host -Prompt "	Que souhaitez-vous realiser ? 	" 
 	
     switch ($choix) {
