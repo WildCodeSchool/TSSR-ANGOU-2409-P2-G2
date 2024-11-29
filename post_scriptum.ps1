@@ -87,7 +87,7 @@ function menu_information_utilisateur {
 
         6 {
             Write-Output "Liste des utilisateurs locaux"
-	        $utilisateur_locaux = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_OperatingSystem | Select-Object -ExpandProperty RegisteredUser }
+	    $utilisateur_locaux = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-CimInstance -ClassName Win32_OperatingSystem | Select-Object -ExpandProperty RegisteredUser }
             $utilisateur_locaux
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "$utilisateur_locaux"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
@@ -217,7 +217,7 @@ function menu_information_systeme {
 
         6 {      
             Write-Output "Version de l'OS :"
-	    $OS = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_OperatingSystem }
+	    $OS = Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { Get-WmiObject Win32_OperatingSystem | Select-Object -Property version }
             $OS
             Add-Content -Path C:\Users\Administrateur\Documents\$nom_fichier_texte.txt -Value "$OS"
             Add-Content -Path C:\Users\Administrator\Documents\$nom_fichier_texte.txt -Value "--------------"
