@@ -424,8 +424,8 @@ function menu_information_systeme {
       "
       write-output "1- Création de répertoire"
       Write-Output "2- Suppression de répertoire"
-      write-output "3- Installation de logiciel (distribution Linux Ubuntu)"
-      write-output "4- Désinstallation de logiciel (distribution Linux Ubuntu)"
+      write-output "3- Installation de logiciel"
+      write-output "4- Désinstallation de logiciel"
       write-output "5- Exécution de script sur une machine distante"
       write-output "6- Verrouillage de la machine"
       write-output "7- Redémarrage de la machine"
@@ -459,7 +459,7 @@ function menu_information_systeme {
             Invoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { $path_del_dir_name = Read-Host -Prompt "Chemin du repertoire à supprimer ? " ;
      	    $del_dir_name = Read-Host -Prompt "Nom du repertoire à supprimer ? " ;
 	    Remove-Item -Path "$path_del_dir_name\$del_dir_name" -Recurse -Force }
-            write output "Repertoire $del_dir_name supprimé "
+            write-output "Repertoire $del_dir_name supprimé "
             Read-host -Prompt "Appuyez sur entrée pour continuer"
 	    Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - Suppression du répertoire $del_dir_name"
             menu_action_systeme
@@ -1126,11 +1126,11 @@ function menu_connex_distance {
 function menu_principal {
     Clear-Host
     Write-Output "			__________________________________________________"
-    Write-Output "			|:			                                    :|"
-    Write-Output "			|:			                                    :|"
-    Write-Output "			|:	    	  MENU PRINCIPAL 		            :|"
-    Write-Output "			|:			                                    :|"
-    Write-Output "			|:______________________________________________:|
+    Write-Output "			|:			                         :|"
+    Write-Output "			|:			                         :|"
+    Write-Output "			|:	    	  MENU PRINCIPAL 		 :|"
+    Write-Output "			|:			                         :|"
+    Write-Output "			|:_______________________________________________:|
 	
 	1) Effectuer des actions (exemple : creer un dossier, activer un par-feu...)
 	2) Rechercher des informations (exemple : liste des utilisateurs, utilisation de la RAM....)
@@ -1138,7 +1138,7 @@ function menu_principal {
 	x) Quitter le script"
 	
      Write-Output ""
-    $choix = Read-Host -Prompt "	Que souhaitez-vous realiser ? 	" 
+    $choix = Read-Host -Prompt "	Que souhaitez-vous réaliser ? 	" 
 	
     switch ($choix) {
 
@@ -1174,6 +1174,11 @@ function menu_principal {
 }
 
 # Connexion Identification à la machine cliente
+Write-Output " ______  _____  __    _ __   _ _______ _     _ _____  _____  __   _ "
+Write-Output " |       |     | | \  | | \  | |______  \___/    |   |     | | \  | "
+Write-Output " |_____  |_____| |  \_| |  \_| |______ _/   \_ __|__ |_____| |  \_| "
+
+Write-Output ""
 $adresse_ip = Read-Host -Prompt "A quelle machine voulez-vous vous connecter ( Nom de la machine / adresse IP ) ?  " 
 $nom_utilisateur = Read-Host -Prompt "Veuillez renseigner le nom d'utilisateur pour la connexion à distance ?  "
 
@@ -1184,7 +1189,6 @@ Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log
 
 $machineclient = Invoke-Command -ComputerName $adresse_ip -Credential wilder -ScriptBlock { $env:computername }
 # Nom du fichier qui contiendra les informations collectées sur la machine cliente
-$nom_fichier_texte = info-$nom_utilisateur-$Date
 # Le script commence ici
 $nom_fichier_texte = "info-$nom_utilisateur-$Date"
 
