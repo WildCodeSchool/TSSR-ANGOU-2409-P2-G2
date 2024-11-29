@@ -298,7 +298,8 @@ function menu_information_systeme {
 	    $passwd = Read-Host -Prompt "Mot de passe de l'utilisateur dont le compte doit être créé ? " -AsSecureString ;
 	    New-LocalUser -Name $user_account -Password $passwd }
 	    Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action création du compte utilisateur $user_account"            
-            menu_action_comptes_utilisateurs
+            Read-Host -Prompt "appuyer sur entree pour continuer "
+	    menu_action_comptes_utilisateurs
         }
 
         2 {  
@@ -309,7 +310,7 @@ function menu_information_systeme {
 	    Set-LocalUser -Name $user_passwd -Password $new_passwd }
             Read-Host -Prompt "Appuyer sur entrée pour continuer "
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - à effectuer l'action changement du mot de passe utilisateur $user_passwd"
-            menu_action_comptes_utilisateurs
+	    menu_action_comptes_utilisateurs
             
         }
 
@@ -502,7 +503,8 @@ function menu_information_systeme {
             Start-Sleep 2
             Invoke-commandInvoke-Command -computername $adresse_ip -credential $nom_utilisateur -ScriptBlock { rundll32.exe user32.dll,LockWorkStation }
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - A Verrouillé la Machine"           
-            menu_action_systeme        
+            Read-Host -Prompt "appuyer sur entree pour continuer "
+	    menu_action_systeme        
         }
 
 
