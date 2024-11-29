@@ -1,5 +1,8 @@
-function sortie_script {
+# Début du script Powershell : post_scrptum.ps1
 
+# Déclaration de la fonction de sortie du script
+
+function sortie_script {
 
     exit 0
 }
@@ -110,7 +113,8 @@ function menu_information_utilisateur {
         }
            
         q {
-            Write-Output "Vous quittez le script "
+            Write-Output ""
+	    Write-Output "Vous quittez le script "
             Start-Sleep 3
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
@@ -252,7 +256,8 @@ function menu_information_systeme {
         
 	
         q {
-            Write-Output "Vous quittez le script "
+            Write-Output ""
+	    Write-Output "Vous quittez le script "
             Start-Sleep 3
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
@@ -551,7 +556,8 @@ function menu_information_systeme {
         }
 
         q {
-            Write-Output "Vous quittez le script "
+            Write-Output ""
+	    Write-Output "Vous quittez le script "
             Start-Sleep 3
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
@@ -638,7 +644,8 @@ function menu_information_pare_feu {
         }
 
         q {
-            Write-Output "Vous quittez le script "
+            Write-Output ""
+	    Write-Output "Vous quittez le script "
             Start-Sleep 3
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
@@ -707,7 +714,8 @@ function menu_journalisation {
         }
     
         q {
-            Write-Output "Vous quittez le script "
+            Write-Output ""
+	    Write-Output "Vous quittez le script "
             Start-Sleep 3
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
@@ -795,7 +803,8 @@ function menu_information_reseaux {
         } 
 
         q {
-            Write-Output "Vous quittez le script "
+            Write-Output ""
+	    Write-Output "Vous quittez le script "
             Start-Sleep 3
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
@@ -894,7 +903,8 @@ function menu_regle_parefeu {
         	}
 		
         	q {
-            	Write-Output "Vous quittez le script "
+            	Write-Output ""
+	        Write-Output "Vous quittez le script "
             	Start-Sleep 3
             	Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
            	Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------"
@@ -958,7 +968,8 @@ function menu_gestion_parefeu {
         }
 			
         q {
-            Write-Output "Vous quittez le script "
+            Write-Output ""
+	    Write-Output "Vous quittez le script "
             Start-Sleep 3
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********"
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient ---------------"
@@ -1038,7 +1049,8 @@ function menu_information {
         }
 			
         q {
-            Write-Output "Vous quittez le script "
+            Write-Output ""
+	    Write-Output "Vous quittez le script "
             Start-Sleep 3
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********" 
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient ---------------" 
@@ -1094,7 +1106,8 @@ function menu_action {
         }
 			
         q {
-            Write-Output "Vous quittez le script "
+            Write-Output ""
+	    Write-Output "Vous quittez le script "
             Start-Sleep 3
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********" 
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient ---------------" 
@@ -1134,7 +1147,7 @@ function menu_principal {
 	
 	1) Effectuer des actions (exemple : creer un dossier, activer un par-feu...)
 	2) Rechercher des informations (exemple : liste des utilisateurs, utilisation de la RAM....)
- 	3) Connexion a un hote
+ 	3) Connexion a un hôte (GUI)
 	x) Quitter le script"
 	
      Write-Output ""
@@ -1158,7 +1171,8 @@ function menu_principal {
         }
 
         x {
-            Write-Output "Vous quittez le script"
+            Write-Output ""
+	    Write-Output "Vous quittez le script, au revoir !"
             Start-Sleep 3
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient - ********EndScript********" 
             Add-Content -Path C:\Windows\System32\LogFiles\log_evt.log.txt -Value "$Date_log - $nom_utilisateur - $machineclient --------------" 
@@ -1166,7 +1180,7 @@ function menu_principal {
         }
     
         default {
-            Write-Output "Mauvaise commande veuillez reessayer"
+            Write-Output "Mauvaise commande veuillez réessayer"
             Start-Sleep 3
             menu_principal
         }
